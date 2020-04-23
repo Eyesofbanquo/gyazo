@@ -15,6 +15,7 @@
 		D50E9D1B24501FF9006F0E9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1924501FF9006F0E9A /* LaunchScreen.storyboard */; };
 		D50E9D2624501FF9006F0E9A /* GyazoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D2524501FF9006F0E9A /* GyazoTests.swift */; };
 		D50E9D312450203D006F0E9A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D302450203D006F0E9A /* API.swift */; };
+		D50E9D33245024E9006F0E9A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D32245024E9006F0E9A /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		D50E9D2524501FF9006F0E9A /* GyazoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyazoTests.swift; sourceTree = "<group>"; };
 		D50E9D2724501FF9006F0E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D50E9D302450203D006F0E9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D50E9D32245024E9006F0E9A /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				D50E9D1C24501FF9006F0E9A /* Info.plist */,
 				D50E9D1624501FF9006F0E9A /* Preview Content */,
 				D50E9D302450203D006F0E9A /* API.swift */,
+				D50E9D32245024E9006F0E9A /* Network.swift */,
 			);
 			path = Gyazo;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50E9D33245024E9006F0E9A /* Network.swift in Sources */,
 				D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */,
 				D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */,
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
@@ -377,7 +381,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.donderapps.Gyazo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -396,7 +400,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.donderapps.Gyazo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
