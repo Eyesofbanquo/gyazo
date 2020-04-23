@@ -7,15 +7,39 @@
 //
 
 import SwiftUI
+import Combine
+
+struct Post: Hashable, Decodable {
+  var title: String
+}
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
+  
+  @State var cancellable: AnyCancellable?
+  @State var text: String = ""
+  @State var posts: [Post] = []
+  @ObservedObject var network: Network = Network()
+  
+  var body: some View {
+    
+//    network.request { publisher in
+//      publisher.assign(to: \.posts, on: self)
+//    }
+      
+    return List {
+      ForEach(posts, id: \.self) { post in
+        Text("\(post.title)")
+      }.onReceive(network.requestPublisher()) { p in
+        self.posts = p
+      }
     }
+  }
+  
+  
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }
