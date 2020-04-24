@@ -29,8 +29,8 @@ class OAuth: ObservableObject {
   
   let controller = UIViewController()
   
-  func authorize(in scene: UIScene?) -> Future<[Post], Never> {
-    guard let scene = scene, let sceneDelegate = (scene.delegate as? SceneDelegate), let window = sceneDelegate.window else {
+  func authorize(in controller: UIViewController?) -> Future<[Post], Never> {
+    guard let controller = controller else {
       return Future<[Post], Never> { seal in
         seal(.success([]))
       }
@@ -39,8 +39,8 @@ class OAuth: ObservableObject {
     let url = URL(string: "https://api.gyazo.com/api/images")!
     let request = URLRequest(url: url)
 //    print(oauth2)
-//    oauth2.authConfig.authorizeEmbedded = true
-//    oauth2.authConfig.authorizeContext = window.rootViewController!
+    oauth2.authConfig.authorizeEmbedded = true
+    oauth2.authConfig.authorizeContext = controller
     
     self.loader = OAuth2DataLoader(oauth2: oauth2)
     

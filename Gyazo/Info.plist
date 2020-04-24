@@ -25,7 +25,7 @@
 			<string>Gyazo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.donderapps.Gyazo</string>
+				<string>com.donderapps.gyazo</string>
 			</array>
 		</dict>
 	</array>

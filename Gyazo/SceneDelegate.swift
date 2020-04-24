@@ -6,13 +6,21 @@
 //  Copyright © 2020 Markim Shaw. All rights reserved.
 //
 
+import Combine
 import UIKit
 import SwiftUI
+
+extension Notification.Name {
+  static var returnFromAuth: Notification.Name = Notification.Name("returnFromAuth")
+}
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
-
+  
+  var oauth: OAuth = OAuth()
+  
+  var publisher: PassthroughSubject<URL, Never> = PassthroughSubject<URL, Never>()
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -32,8 +40,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
   
   func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-    print(URLContexts)
-    print("haha?")
+    guard let url = URLContexts.first?.url else {
+      return
+    }
+    
+    NotificationCenter.default.post(name: .returnFromAuth, object: nil, userInfo: ["url": url])
+    
+//    oauth.oauth2.handleRedirectURL(url)
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {
