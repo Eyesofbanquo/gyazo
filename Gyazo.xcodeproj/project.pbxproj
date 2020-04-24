@@ -20,6 +20,8 @@
 		D50E9D3824521B58006F0E9A /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D3724521B58006F0E9A /* OAuth.swift */; };
 		D50E9D3C245278E4006F0E9A /* LoginInterceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D3B245278E4006F0E9A /* LoginInterceptViewController.swift */; };
 		D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D3D245278F1006F0E9A /* LoginIntercept.swift */; };
+		D50E9D41245358E7006F0E9A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D50E9D40245358E7006F0E9A /* KeychainAccess */; };
+		D50E9D4324535901006F0E9A /* Secure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D4224535901006F0E9A /* Secure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,7 @@
 		D50E9D3724521B58006F0E9A /* OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		D50E9D3B245278E4006F0E9A /* LoginInterceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInterceptViewController.swift; sourceTree = "<group>"; };
 		D50E9D3D245278F1006F0E9A /* LoginIntercept.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginIntercept.swift; sourceTree = "<group>"; };
+		D50E9D4224535901006F0E9A /* Secure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50E9D41245358E7006F0E9A /* KeychainAccess in Frameworks */,
 				D50E9D362451D4F0006F0E9A /* OAuth2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +106,7 @@
 				D50E9D302450203D006F0E9A /* API.swift */,
 				D50E9D32245024E9006F0E9A /* Network.swift */,
 				D50E9D3724521B58006F0E9A /* OAuth.swift */,
+				D50E9D4224535901006F0E9A /* Secure.swift */,
 			);
 			path = Gyazo;
 			sourceTree = "<group>";
@@ -158,6 +163,7 @@
 			name = Gyazo;
 			packageProductDependencies = (
 				D50E9D352451D4F0006F0E9A /* OAuth2 */,
+				D50E9D40245358E7006F0E9A /* KeychainAccess */,
 			);
 			productName = Gyazo;
 			productReference = D50E9D0B24501FF6006F0E9A /* Gyazo.app */;
@@ -211,6 +217,7 @@
 			mainGroup = D50E9D0224501FF6006F0E9A;
 			packageReferences = (
 				D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */,
+				D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = D50E9D0C24501FF6006F0E9A /* Products */;
 			projectDirPath = "";
@@ -252,6 +259,7 @@
 				D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */,
 				D50E9D3824521B58006F0E9A /* OAuth.swift in Sources */,
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
+				D50E9D4324535901006F0E9A /* Secure.swift in Sources */,
 				D50E9D3C245278E4006F0E9A /* LoginInterceptViewController.swift in Sources */,
 				D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */,
 				D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */,
@@ -525,6 +533,14 @@
 				minimumVersion = 5.2.0;
 			};
 		};
+		D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -532,6 +548,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */;
 			productName = OAuth2;
+		};
+		D50E9D40245358E7006F0E9A /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

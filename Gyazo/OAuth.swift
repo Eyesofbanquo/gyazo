@@ -11,6 +11,18 @@ import Foundation
 import OAuth2
 import UIKit
 
+struct AuthResponse: Decodable {
+  var accessToken: String
+  var tokenType: String
+  var scope: String
+  
+  enum CodingKeys: String, CodingKey {
+    case accessToken = "access_token"
+    case tokenType = "token_type"
+    case scope
+  }
+}
+
 class OAuth: ObservableObject {
   
   @Published var posts: [Post] = []
@@ -23,42 +35,52 @@ class OAuth: ObservableObject {
     "redirect_uris": [API.callbackURL],
     "secret_in_body": true,
     "keychain": false
-  ] as OAuth2JSON)
+    ] as OAuth2JSON)
   
   var loader: OAuth2DataLoader?
   
   let controller = UIViewController()
   
-  func authorize(in controller: UIViewController?) -> Future<[Post], Never> {
+  func authorize(in controller: UIViewController?) -> Future<Bool, Never> {
     guard let controller = controller else {
-      return Future<[Post], Never> { seal in
-        seal(.success([]))
+      return Future<Bool, Never> { seal in
+        seal(.success(false))
       }
     }
     
     let url = URL(string: "https://api.gyazo.com/api/images")!
     let request = URLRequest(url: url)
-//    print(oauth2)
+    
     oauth2.authConfig.authorizeEmbedded = true
     oauth2.authConfig.authorizeContext = controller
     
     self.loader = OAuth2DataLoader(oauth2: oauth2)
     
-    return Future<[Post], Never> { seal in
+    return Future<Bool, Never> { seal in
       
-      self.loader?.perform(request: request, callback: { response in
-        do {
-          let data = try response.responseData()
-          let posts = try JSONDecoder().decode([Post].self, from: data)
-          DispatchQueue.main.async {
-            self.posts = posts
-            seal(.success(posts))
+      DispatchQueue.main.async {
+        self.oauth2.authorize() { params, error in
+          if let params = params, let accessToken = params["access_token"] as? String {
+            print(params)
+            seal(.success(true))
           }
-          
-        } catch let error {
-          print(error)
         }
-      })
+        
+      }
+      
+      //      self.loader?.perform(request: request, callback: { response in
+      //        do {
+      //          let data = try response.responseData()
+      //          let posts = try JSONDecoder().decode([Post].self, from: data)
+      //          DispatchQueue.main.async {
+      //            self.posts = posts
+      //            seal(.success(posts))
+      //          }
+      //
+      //        } catch let error {
+      //          print(error)
+      //        }
+      //      })
     }
   }
 }
