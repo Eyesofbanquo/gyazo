@@ -13,23 +13,40 @@ struct Post: Hashable, Decodable {
   var title: String
 }
 
+struct UIWindowKey: EnvironmentKey {
+  static var defaultValue: UIWindow?
+  
+  typealias Value = UIWindow?
+}
+
+extension EnvironmentValues {
+  
+  var window: UIWindow? {
+    get {
+      return self[UIWindowKey.self]
+    }
+    
+    set {
+      self[UIWindowKey.self] = newValue
+    }
+  }
+}
+
 struct ContentView: View {
   
+  @Environment(\.calendar) var keyboard: Calendar
   @State var cancellable: AnyCancellable?
   @State var text: String = ""
   @State var posts: [Post] = []
   @ObservedObject var network: Network = Network()
+  @ObservedObject var oauth: OAuth = OAuth()
   
   var body: some View {
-    
-//    network.request { publisher in
-//      publisher.assign(to: \.posts, on: self)
-//    }
-      
+    let scene = UIApplication.shared.connectedScenes.first
     return List {
       ForEach(posts, id: \.self) { post in
         Text("\(post.title)")
-      }.onReceive(network.requestPublisher()) { p in
+      }.onReceive(oauth.authorize(in: scene)) { p in
         self.posts = p
       }
     }
