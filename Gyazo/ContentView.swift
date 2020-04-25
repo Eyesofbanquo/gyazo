@@ -9,30 +9,24 @@
 import SwiftUI
 import Combine
 
-struct Post: Hashable, Decodable {
-  var title: String
-}
-
 struct ContentView: View {
   
-  @State var cancellable: AnyCancellable?
-  @State var text: String = ""
-  @State var posts: [Post] = []
-  @ObservedObject var network: Network = Network()
+  @ObservedObject var request: NetworkRequest<[Drop]> = NetworkRequest<[Drop]>()
+  
+  @State var posts: [Drop] = []
   
   var body: some View {
     
-//    network.request { publisher in
-//      publisher.assign(to: \.posts, on: self)
-//    }
-      
-    return List {
+    List {
       ForEach(posts, id: \.self) { post in
-        Text("\(post.title)")
-      }.onReceive(network.requestPublisher()) { p in
-        self.posts = p
+        Text(post.urlString)
+      }.onReceive(request.request(endpoint: "images")) { posts in
+        if let posts = posts {
+          self.posts = posts
+        }
       }
     }
+
   }
   
   

@@ -9,39 +9,61 @@
 import Foundation
 import Combine
 
-class Network: ObservableObject {
+struct Post: Hashable, Decodable {
+  var title: String
+}
+
+class NetworkRequest<T: Decodable>: ObservableObject {
   
-  @Published var posts: [Post] = []
+  typealias RequestType = T
   
   var cancellableSet: Set<AnyCancellable> = []
+
+//  func request(_ completion: ((AnyPublisher<[Post], Never>) -> AnyCancellable?)? = nil) {
+//    let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
+//    let cancellable = URLSession.shared.dataTaskPublisher(for: url)
+//      .map { $0.data}
+//      .decode(type: [Post].self, decoder: JSONDecoder())
+//      .replaceError(with: [])
+//      .eraseToAnyPublisher()
+//
+//    let c = completion?(cancellable)
+//
+//    self.add(c)
+//  }
+
+  func request(endpoint: String) -> AnyPublisher<RequestType?, Never> {
+//    let url = URL(string: "https://api.gyazo.com/api/\(endpoint)")!
     
-  func request(_ completion: ((AnyPublisher<[Post], Never>) -> AnyCancellable?)? = nil) {
-    let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
-    let cancellable = URLSession.shared.dataTaskPublisher(for: url)
-      .map { $0.data}
-      .decode(type: [Post].self, decoder: JSONDecoder())
-      .replaceError(with: [])
-      .eraseToAnyPublisher()
+    var components = URLComponents()
+    components.scheme = "https"
+    components.host = "api.gyazo.com"
+    components.path = "/api/\(endpoint)"
     
-    let c = completion?(cancellable)
+    guard let url = components.url, let accessToken = Secure.keychain["access_token"] else {
+      return PassthroughSubject<RequestType?, Never>().eraseToAnyPublisher()
+    }
     
-    self.add(c)
-  }
-  
-  func requestPublisher() -> AnyPublisher<[Post], Never> {
-    let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
-    let cancellable = URLSession.shared.dataTaskPublisher(for: url)
-      .map { $0.data}
-      .decode(type: [Post].self, decoder: JSONDecoder())
-      .replaceError(with: [])
+    var request = URLRequest(url: url)
+    
+    request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+    request.httpMethod = "GET"
+//    let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
+//    let request = URLRequest(url: url)
+
+    let cancellable = URLSession.shared.dataTaskPublisher(for: request)
+      .map { $0.data }
+      .decode(type: RequestType?.self, decoder: JSONDecoder())
+      .replaceError(with: nil)
       .receive(on: DispatchQueue.main)
       .eraseToAnyPublisher()
+
     return cancellable
   }
-  
+
   func add(_ cancellable: AnyCancellable?) {
     guard let c = cancellable else { return }
-    
+
     cancellableSet.insert(c)
   }
 }
