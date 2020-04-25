@@ -12,7 +12,7 @@ import OAuth2
 import UIKit
 import SwiftUI
 
-final class LoginInterceptViewController: UIViewController {
+final class LoginInterceptViewController: UIViewController, ObservableObject {
   
   // MARK: - Properties -
   
@@ -21,9 +21,7 @@ final class LoginInterceptViewController: UIViewController {
   var returnFromAuthCancellable: AnyCancellable?
   
   var cancellable: AnyCancellable?
-  
-  var successfulLogin: Bool = false
-  
+    
   init() {
     super.init(nibName: nil, bundle: nil)
   }
@@ -40,17 +38,36 @@ final class LoginInterceptViewController: UIViewController {
     
     self.view.backgroundColor = .systemPink
     
-    authorizeIfNeeded()
+    hostLoginViewComponent()
+    
   }
   
-  private func authorizeIfNeeded() {
+  /// This function will look to authorize the user if they don't currently have an `accessToken` stored inside of the `Keychain`
+  func authorizeIfNeeded() {
     if Secure.keychain["accessToken"] == nil {
       self.cancellable = oauth.authorize(in: self).receive(on: DispatchQueue.main).sink(receiveValue: { success in
-        self.successfulLogin = success
+        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate, success {
+          mySceneDelegate.window?.rootViewController = UIHostingController(rootView: ContentView())
+        } else {
+          // Present an alert?
+        }
       })
+    } else {
+      if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+        mySceneDelegate.window?.rootViewController = UIHostingController(rootView: ContentView())
+      }
     }
   }
   
+  private func hostLoginViewComponent() {
+    let childView = UIHostingController(rootView: LoginView(loginController: self))
+    addChild(childView)
+    childView.view.frame = view.frame
+    view.addSubview(childView.view)
+    childView.didMove(toParent: self)
+  }
+  
+  /// This function is the `callback` from the `SceneDelegate` once the user finishes logging in/cancelling from the safari view presented for logging in.
   private func setupCallbackFromOAuth() {
     self.returnFromAuthCancellable = NotificationCenter.default.publisher(for: .returnFromAuth).sink { notification in
       guard let url = notification.userInfo?["url"] as? URL else { return } // needs error handling

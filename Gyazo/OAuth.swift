@@ -25,8 +25,6 @@ struct AuthResponse: Decodable {
 
 class OAuth: ObservableObject {
   
-  @Published var posts: [Post] = []
-  
   let oauth2 = OAuth2CodeGrant(settings: [
     "client_id": API.clientID,
     "client_secret": API.clientSecret,
@@ -48,9 +46,6 @@ class OAuth: ObservableObject {
       }
     }
     
-    let url = URL(string: "https://api.gyazo.com/api/images")!
-    let request = URLRequest(url: url)
-    
     oauth2.authConfig.authorizeEmbedded = true
     oauth2.authConfig.authorizeContext = controller
     
@@ -61,26 +56,12 @@ class OAuth: ObservableObject {
       DispatchQueue.main.async {
         self.oauth2.authorize() { params, error in
           if let params = params, let accessToken = params["access_token"] as? String {
+            Secure.keychain["access_token"] = accessToken
             print(params)
             seal(.success(true))
           }
         }
-        
       }
-      
-      //      self.loader?.perform(request: request, callback: { response in
-      //        do {
-      //          let data = try response.responseData()
-      //          let posts = try JSONDecoder().decode([Post].self, from: data)
-      //          DispatchQueue.main.async {
-      //            self.posts = posts
-      //            seal(.success(posts))
-      //          }
-      //
-      //        } catch let error {
-      //          print(error)
-      //        }
-      //      })
     }
   }
 }

@@ -22,6 +22,11 @@
 		D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D3D245278F1006F0E9A /* LoginIntercept.swift */; };
 		D50E9D41245358E7006F0E9A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D50E9D40245358E7006F0E9A /* KeychainAccess */; };
 		D50E9D4324535901006F0E9A /* Secure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D4224535901006F0E9A /* Secure.swift */; };
+		D50E9D4524535DFA006F0E9A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D4424535DFA006F0E9A /* LoginView.swift */; };
+		D50E9D47245364B8006F0E9A /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D46245364B8006F0E9A /* UserSettings.swift */; };
+		D50E9D4C2453AC10006F0E9A /* image.json in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D4B2453AC10006F0E9A /* image.json */; };
+		D50E9D4E2453AC1F006F0E9A /* images.json in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D4D2453AC1F006F0E9A /* images.json */; };
+		D50E9D512453AC9A006F0E9A /* Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D502453AC9A006F0E9A /* Drop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +57,11 @@
 		D50E9D3B245278E4006F0E9A /* LoginInterceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInterceptViewController.swift; sourceTree = "<group>"; };
 		D50E9D3D245278F1006F0E9A /* LoginIntercept.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginIntercept.swift; sourceTree = "<group>"; };
 		D50E9D4224535901006F0E9A /* Secure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure.swift; sourceTree = "<group>"; };
+		D50E9D4424535DFA006F0E9A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		D50E9D46245364B8006F0E9A /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		D50E9D4B2453AC10006F0E9A /* image.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = image.json; sourceTree = "<group>"; };
+		D50E9D4D2453AC1F006F0E9A /* images.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = images.json; sourceTree = "<group>"; };
+		D50E9D502453AC9A006F0E9A /* Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +105,9 @@
 		D50E9D0D24501FF6006F0E9A /* Gyazo */ = {
 			isa = PBXGroup;
 			children = (
+				D50E9D4F2453AC81006F0E9A /* Model */,
+				D50E9D4A2453AC01006F0E9A /* Stubs */,
+				D50E9D4824536777006F0E9A /* SwiftUI */,
 				D50E9D39245278C3006F0E9A /* UIKit */,
 				D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */,
 				D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */,
@@ -107,6 +120,7 @@
 				D50E9D32245024E9006F0E9A /* Network.swift */,
 				D50E9D3724521B58006F0E9A /* OAuth.swift */,
 				D50E9D4224535901006F0E9A /* Secure.swift */,
+				D50E9D46245364B8006F0E9A /* UserSettings.swift */,
 			);
 			path = Gyazo;
 			sourceTree = "<group>";
@@ -143,6 +157,39 @@
 				D50E9D3B245278E4006F0E9A /* LoginInterceptViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D50E9D4824536777006F0E9A /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				D50E9D492453677D006F0E9A /* Login */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		D50E9D492453677D006F0E9A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D50E9D4424535DFA006F0E9A /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D50E9D4A2453AC01006F0E9A /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				D50E9D4B2453AC10006F0E9A /* image.json */,
+				D50E9D4D2453AC1F006F0E9A /* images.json */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		D50E9D4F2453AC81006F0E9A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D50E9D502453AC9A006F0E9A /* Drop.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +282,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D50E9D1B24501FF9006F0E9A /* LaunchScreen.storyboard in Resources */,
+				D50E9D4C2453AC10006F0E9A /* image.json in Resources */,
+				D50E9D4E2453AC1F006F0E9A /* images.json in Resources */,
 				D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */,
 				D50E9D1524501FF9006F0E9A /* Assets.xcassets in Resources */,
 			);
@@ -256,13 +305,16 @@
 			files = (
 				D50E9D33245024E9006F0E9A /* Network.swift in Sources */,
 				D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */,
+				D50E9D512453AC9A006F0E9A /* Drop.swift in Sources */,
 				D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */,
 				D50E9D3824521B58006F0E9A /* OAuth.swift in Sources */,
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
 				D50E9D4324535901006F0E9A /* Secure.swift in Sources */,
 				D50E9D3C245278E4006F0E9A /* LoginInterceptViewController.swift in Sources */,
 				D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */,
+				D50E9D4524535DFA006F0E9A /* LoginView.swift in Sources */,
 				D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */,
+				D50E9D47245364B8006F0E9A /* UserSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,58 +9,24 @@
 import SwiftUI
 import Combine
 
-struct Post: Hashable, Decodable {
-  var title: String
-}
-
-struct UIWindowKey: EnvironmentKey {
-  static var defaultValue: UIWindow?
-  
-  typealias Value = UIWindow?
-}
-
-extension EnvironmentValues {
-  
-  var window: UIWindow? {
-    get {
-      return self[UIWindowKey.self]
-    }
-    
-    set {
-      self[UIWindowKey.self] = newValue
-    }
-  }
-}
-
 struct ContentView: View {
   
-  @Environment(\.calendar) var keyboard: Calendar
-  @State var cancellable: AnyCancellable?
-  @State var text: String = ""
-  @State var posts: [Post] = []
-  @ObservedObject var network: Network = Network()
-  @ObservedObject var oauth: OAuth = OAuth()
-  @State var presentLogin = false
+  @ObservedObject var request: NetworkRequest<[Drop]> = NetworkRequest<[Drop]>()
+  
+  @State var posts: [Drop] = []
   
   var body: some View {
-//    let scene = UIApplication.shared.connectedScenes.first
-//    return List {
-//      ForEach(posts, id: \.self) { post in
-//        Text("\(post.title)")
-//      }.onReceive(oauth.authorize(in: scene)) { p in
-//        self.posts = p
-//      }
-//    }
-    VStack {
-      Text("Present the login view")
-      Button(action: {
-        self.presentLogin.toggle()
-      }) {
-        Text("Press me!")
-      }.sheet(isPresented: $presentLogin) {
-        LoginIntercept()
+    
+    List {
+      ForEach(posts, id: \.self) { post in
+        Text(post.urlString)
+      }.onReceive(request.request(endpoint: "images")) { posts in
+        if let posts = posts {
+          self.posts = posts
+        }
       }
     }
+
   }
   
   
