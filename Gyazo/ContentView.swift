@@ -20,31 +20,31 @@ struct ContentView: View {
   
   var body: some View {
     
-    List {
-      ForEach(posts, id: \.self) { post in
-        Group {
-          if post.urlString.isEmpty == false {
-            AsyncImage(url: URL(string: post.urlString)!, placeholder: Text(post.urlString), cache: self.cache, configuration: { $0.resizable()
-            })
-              .aspectRatio(contentMode: .fit)
+    NavigationView {
+      List {
+        ForEach(posts, id: \.self) { post in
+          Group {
+            if post.urlString.isEmpty == false {
+              DashboardCell(post: post, placeholder: Text("Loading"))
+            }
+          }
+        }.onReceive(request.request(endpoint: "images")) { posts in
+          if let posts = posts {
+            self.posts = posts
           }
         }
-        
-        
-      }.onReceive(request.request(endpoint: "images")) { posts in
-        if let posts = posts {
-          self.posts = posts
-        }
       }
-    }.listSeparatorStyleNone()
-
+      .navigationBarTitle(Text("unGyazo"))
+      .listSeparatorStyleNone()
+    }
   }
   
   
 }
 
 struct ContentView_Previews: PreviewProvider {
+  static let stub: [Drop] = Drop.stub
   static var previews: some View {
-    ContentView()
+    ContentView(posts: stub)
   }
 }
