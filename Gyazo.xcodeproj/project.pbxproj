@@ -585,8 +585,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Eyesofbanquo/AsyncImage";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */ = {

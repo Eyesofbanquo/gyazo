@@ -46,6 +46,9 @@ class OAuth: ObservableObject {
       }
     }
     
+    let storage = HTTPCookieStorage.shared
+    storage.cookies?.forEach() { storage.deleteCookie($0) }
+    oauth2.forgetTokens()
     oauth2.authConfig.authorizeEmbedded = true
     oauth2.authConfig.authorizeContext = controller
     

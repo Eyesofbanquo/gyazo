@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import AsyncImage
 
 struct ContentView: View {
   
@@ -15,11 +16,23 @@ struct ContentView: View {
   
   @State var posts: [Drop] = []
   
+  @Environment(\.imageCache) var cache: ImageCacheable
+  
   var body: some View {
     
     List {
       ForEach(posts, id: \.self) { post in
-        Text(post.urlString)
+        Group {
+          if post.urlString.isEmpty == false {
+            AsyncImage(url: URL(string: post.urlString)!, placeholder: Text(post.urlString), cache: self.cache, configuration: { $0.resizable()
+            })
+              .frame(width: 100, height: 100)
+              .aspectRatio(contentMode: .fit)
+
+          }
+        }
+        
+        
       }.onReceive(request.request(endpoint: "images")) { posts in
         if let posts = posts {
           self.posts = posts
