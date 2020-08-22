@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "AsyncImage",
+        "repositoryURL": "https://github.com/Eyesofbanquo/AsyncImage",
+        "state": {
+          "branch": "master",
+          "revision": "163a7a4d53f32152f574717f9d8b4b40adef0b9a",
+          "version": null
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess",
         "state": {
