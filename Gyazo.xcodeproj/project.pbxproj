@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 330B520E24F11ABA000D8BAA /* AsyncImage */; };
+		330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */; };
 		D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */; };
 		D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
@@ -40,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorStyleNoneModifier.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 			files = (
 				D50E9D41245358E7006F0E9A /* KeychainAccess in Frameworks */,
 				D50E9D362451D4F0006F0E9A /* OAuth2 in Frameworks */,
+				330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				D50E9D492453677D006F0E9A /* Login */,
+				330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 			packageProductDependencies = (
 				D50E9D352451D4F0006F0E9A /* OAuth2 */,
 				D50E9D40245358E7006F0E9A /* KeychainAccess */,
+				330B520E24F11ABA000D8BAA /* AsyncImage */,
 			);
 			productName = Gyazo;
 			productReference = D50E9D0B24501FF6006F0E9A /* Gyazo.app */;
@@ -265,6 +271,7 @@
 			packageReferences = (
 				D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */,
 				D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */,
 			);
 			productRefGroup = D50E9D0C24501FF6006F0E9A /* Products */;
 			projectDirPath = "";
@@ -304,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D50E9D33245024E9006F0E9A /* Network.swift in Sources */,
+				330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */,
 				D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */,
 				D50E9D512453AC9A006F0E9A /* Drop.swift in Sources */,
 				D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */,
@@ -577,6 +585,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Eyesofbanquo/AsyncImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/p2/Oauth2";
@@ -596,6 +612,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		330B520E24F11ABA000D8BAA /* AsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */;
+			productName = AsyncImage;
+		};
 		D50E9D352451D4F0006F0E9A /* OAuth2 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */;
