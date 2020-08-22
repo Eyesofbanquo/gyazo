@@ -26,9 +26,7 @@ struct ContentView: View {
           if post.urlString.isEmpty == false {
             AsyncImage(url: URL(string: post.urlString)!, placeholder: Text(post.urlString), cache: self.cache, configuration: { $0.resizable()
             })
-              .frame(width: 100, height: 100)
               .aspectRatio(contentMode: .fit)
-
           }
         }
         
@@ -38,7 +36,7 @@ struct ContentView: View {
           self.posts = posts
         }
       }
-    }
+    }.listSeparatorStyleNone()
 
   }
   

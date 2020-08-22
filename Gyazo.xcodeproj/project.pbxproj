@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 330B520E24F11ABA000D8BAA /* AsyncImage */; };
+		330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */; };
 		D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */; };
 		D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorStyleNoneModifier.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				D50E9D492453677D006F0E9A /* Login */,
+				330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D50E9D33245024E9006F0E9A /* Network.swift in Sources */,
+				330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */,
 				D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */,
 				D50E9D512453AC9A006F0E9A /* Drop.swift in Sources */,
 				D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */,
