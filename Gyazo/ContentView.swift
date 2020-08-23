@@ -23,52 +23,52 @@ struct ContentView: View {
   var body: some View {
     
     
-    NavigationView {
       VStack {
-        Image("gyazo-image").resizable().aspectRatio(contentMode: .fit)
-        List {
-          Section(header: Text("Your images")) {
-            ForEach(posts.filter { post in
-              if (searchText.isEmpty) {
-                return true
-              } else {
-                return post.metadata?.app?.contains(self.searchText) == true}
-            }, id: \.self) { post in
-              Group {
-                if post.urlString.isEmpty == false {
-                  DashboardCell(post: post, placeholder: Text("Loading"))
-                }
-              }
-            }.onReceive(request.request(endpoint: "images")) { posts in
-              if let posts = posts {
-                self.posts = posts
+        ScrollView {
+          GeometryReader { geo in
+            Image("gyazo-image")
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+              .offset(y: geo.frame(in: .global).minY > 0 ? -geo.frame(in: .global).minY : 0)
+              .frame(width: UIScreen.main.bounds.width,
+                     height: geo.frame(in: .global).minY > 0 ? geo.frame(in: .global).minY + 300 : 300)
+          }
+          .frame(height: 300)
+          
+          ForEach(posts.filter { post in
+            if (searchText.isEmpty) {
+              return true
+            } else {
+              return post.metadata?.app?.contains(self.searchText) == true}
+          }, id: \.self) { post in
+            Group {
+              if post.urlString.isEmpty == false {
+                DashboardCell(post: post, placeholder: Text("Loading"))
+                  .padding(.horizontal, 8.0)
               }
             }
-              
-            .navigationBarTitle(Text("Gyazo"))
-            .navigationBarItems(
-              leading:
-              Button(action: {
-                // - Launch Search
-              }){
-                Image(systemName: "magnifyingglass")}
-              ,
-              trailing: Button(action: {
-                // - Launch Profile Modal
-              }){
-                Image(systemName: "person.circle")
-            })
-              .listSeparatorStyleNone()
+          }.onReceive(request.request(endpoint: "images")) { posts in
+            if let posts = posts {
+              self.posts = posts
+            }
           }
-          
-          Section(header: Text("Search")) {
-            TextField("Son", text: $searchText)
-          }
+            
+          .navigationBarTitle(Text("Gyazo"))
+          .navigationBarItems(
+            leading:
+            Button(action: {
+              // - Launch Search
+            }){
+              Image(systemName: "magnifyingglass")}
+            ,
+            trailing: Button(action: {
+              // - Launch Profile Modal
+            }){
+              Image(systemName: "person.circle")
+          })
+            .listSeparatorStyleNone()
         }
       }
-      
-      
-    }
   }
   
   
