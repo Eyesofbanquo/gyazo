@@ -23,18 +23,20 @@ struct ContentView: View {
   var body: some View {
     
     
+    NavigationView {
       VStack {
         ScrollView {
-          GeometryReader { geo in
-            Image("gyazo-image")
-              .resizable()
-              .aspectRatio(contentMode: .fill)
-              .offset(y: geo.frame(in: .global).minY > 0 ? -geo.frame(in: .global).minY : 0)
-              .frame(width: UIScreen.main.bounds.width,
-                     height: geo.frame(in: .global).minY > 0 ? geo.frame(in: .global).minY + 300 : 300)
-          }
-          .frame(height: 300)
+          //          GeometryReader { geo in
+          //            Image("gyazo-image")
+          //              .resizable()
+          //              .aspectRatio(contentMode: .fill)
+          //              .offset(y: geo.frame(in: .global).minY > 0 ? -geo.frame(in: .global).minY : 0)
+          //              .frame(width: UIScreen.main.bounds.width,
+          //                     height: geo.frame(in: .global).minY > 0 ? geo.frame(in: .global).minY + 300 : 300)
+          //          }
+          //          .frame(height: 300)
           
+          SearchBar(text: $searchText)
           ForEach(posts.filter { post in
             if (searchText.isEmpty) {
               return true
@@ -66,9 +68,10 @@ struct ContentView: View {
             }){
               Image(systemName: "person.circle")
           })
-            .listSeparatorStyleNone()
         }
       }
+    }
+ 
   }
   
   
