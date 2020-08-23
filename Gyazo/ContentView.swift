@@ -18,24 +18,52 @@ struct ContentView: View {
   
   @Environment(\.imageCache) var cache: ImageCacheable
   
+  @State var searchText: String = ""
+  
   var body: some View {
+    
     
     NavigationView {
       List {
-        ForEach(posts, id: \.self) { post in
-          Group {
-            if post.urlString.isEmpty == false {
-              DashboardCell(post: post, placeholder: Text("Loading"))
+        Section(header: Text("Your images")) {
+          ForEach(posts.filter { post in
+            if (searchText.isEmpty) {
+              return true
+            } else {
+              return post.metadata?.app?.contains(self.searchText) == true}
+          }, id: \.self) { post in
+            Group {
+              if post.urlString.isEmpty == false {
+                DashboardCell(post: post, placeholder: Text("Loading"))
+              }
+            }
+          }.onReceive(request.request(endpoint: "images")) { posts in
+            if let posts = posts {
+              self.posts = posts
             }
           }
-        }.onReceive(request.request(endpoint: "images")) { posts in
-          if let posts = posts {
-            self.posts = posts
-          }
+            
+          .navigationBarTitle(Text("Gyazo"))
+          .navigationBarItems(
+            leading:
+            Button(action: {
+              // - Launch Search
+            }){
+              Image(systemName: "magnifyingglass")}
+            ,
+            trailing: Button(action: {
+              // - Launch Profile Modal
+            }){
+              Image(systemName: "person.circle")
+          })
+            .listSeparatorStyleNone()
+        }
+        
+        Section(header: Text("Search")) {
+          TextField("Son", text: $searchText)
         }
       }
-      .navigationBarTitle(Text("unGyazo"))
-      .listSeparatorStyleNone()
+      
     }
   }
   
