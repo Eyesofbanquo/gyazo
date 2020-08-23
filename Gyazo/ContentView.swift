@@ -24,8 +24,19 @@ struct ContentView: View {
     
     
     NavigationView {
-      List {
-        Section(header: Text("Your images")) {
+      VStack {
+        ScrollView {
+          //          GeometryReader { geo in
+          //            Image("gyazo-image")
+          //              .resizable()
+          //              .aspectRatio(contentMode: .fill)
+          //              .offset(y: geo.frame(in: .global).minY > 0 ? -geo.frame(in: .global).minY : 0)
+          //              .frame(width: UIScreen.main.bounds.width,
+          //                     height: geo.frame(in: .global).minY > 0 ? geo.frame(in: .global).minY + 300 : 300)
+          //          }
+          //          .frame(height: 300)
+          
+          SearchBar(text: $searchText)
           ForEach(posts.filter { post in
             if (searchText.isEmpty) {
               return true
@@ -35,6 +46,7 @@ struct ContentView: View {
             Group {
               if post.urlString.isEmpty == false {
                 DashboardCell(post: post, placeholder: Text("Loading"))
+                  .padding(.horizontal, 8.0)
               }
             }
           }.onReceive(request.request(endpoint: "images")) { posts in
@@ -56,15 +68,10 @@ struct ContentView: View {
             }){
               Image(systemName: "person.circle")
           })
-            .listSeparatorStyleNone()
-        }
-        
-        Section(header: Text("Search")) {
-          TextField("Son", text: $searchText)
         }
       }
-      
     }
+ 
   }
   
   
