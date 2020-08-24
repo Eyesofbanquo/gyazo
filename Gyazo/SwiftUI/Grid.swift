@@ -21,14 +21,26 @@ struct Grid<Content: View>: View {
   }
   
   var body: some View {
-     
-    VStack(alignment: .leading) {
-      ForEach(0..<self.rows) { r in
-        HStack {
-          ForEach(0..<self.column) { c in
-            if self.getRowStartIndex(forRow: r) + c < self.dataSource.count {
-              self.content(self.dataSource[self.getRowStartIndex(forRow: r) + c])
+    Group {
+      if column <= 0 {
+        Text("Unable to load data")
+          .font(.body)
+          .italic()
+      } else {
+        ScrollView {
+          VStack(alignment: .leading) {
+            ForEach(0..<self.rows) { r in
+              HStack {
+                ForEach(0..<self.column) { c in
+                  if self.getRowStartIndex(forRow: r) + c < self.dataSource.count {
+                    self.content(self.dataSource[self.getRowStartIndex(forRow: r) + c])
+                      .padding()
+                  }
+                  Spacer()
+                }
+              }
             }
+            Spacer()
           }
         }
       }
@@ -36,10 +48,10 @@ struct Grid<Content: View>: View {
   }
   
   var rows: Int {
+    guard column > 0 else { return 1 }
+    
     let remainder = dataSource.count % column // 2
     let subtractedCount = dataSource.count - remainder // 4
-    
-    // if remainder > 0 then +1 for rows
     
     let rowCount = Int(floor(Double(subtractedCount) / Double(column))) // 1
     
@@ -55,8 +67,10 @@ struct Grid<Content: View>: View {
 
 struct Grid_Previews: PreviewProvider {
   static var previews: some View {
-    Grid(column: 5, dataSource: Drop.stub, content: { drop in
-      Text("hi")
+    Grid(column: 2, dataSource: Drop.stub, content: { drop in
+      Image("gyazo-image")
+        .resizable()
+        .aspectRatio(contentMode: .fit)
     })
   }
 }
