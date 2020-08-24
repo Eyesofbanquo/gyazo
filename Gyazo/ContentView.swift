@@ -18,6 +18,8 @@ struct ContentView: View {
   
   @Environment(\.imageCache) var cache: ImageCacheable
   
+  @Environment(\.vision) var vision: Vision
+  
   @State var searchText: String = ""
   
   var body: some View {
@@ -41,7 +43,13 @@ struct ContentView: View {
             if (searchText.isEmpty) {
               return true
             } else {
-              return post.metadata?.app?.contains(self.searchText) == true}
+              let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
+              let bestResponse = appropriateMLResponses?.first
+              let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
+              
+              print(bestResponse)
+              return (post.metadata?.app?.contains(self.searchText)) == true || searchTextContainsResponse == true
+            }
           }, id: \.self) { post in
             Group {
               if post.urlString.isEmpty == false {
