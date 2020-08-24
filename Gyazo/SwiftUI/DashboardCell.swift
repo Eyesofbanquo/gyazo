@@ -6,7 +6,6 @@
 //  Copyright © 2020 Markim Shaw. All rights reserved.
 //
 
-import AsyncImage
 import Foundation
 import SwiftUI
 
@@ -14,6 +13,8 @@ struct DashboardCell<Placeholder: View>: View {
   
   @Environment(\.imageCache) var cache: ImageCacheable
   
+  @Environment(\.vision) var vision: Vision
+    
   var post: Drop
   
   var placeholder: Placeholder?
@@ -28,9 +29,13 @@ struct DashboardCell<Placeholder: View>: View {
   var body: some View {
     HStack {
       AsyncImage(url: URL(string: post.urlString)!,
+                 title: post.metadata?.title,
                  placeholder: placeholder ?? Text("Loading...") as! Placeholder,
                  cache: self.cache,
-                 configuration: { $0.resizable()
+                 vision: self.vision,
+                 configuration: { image in
+                  // This is where you'll hit the model
+                  image.resizable()
       })
         .frame(width: 100, height: 100)
         .aspectRatio(contentMode: .fit)
