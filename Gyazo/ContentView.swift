@@ -46,8 +46,6 @@ struct ContentView: View {
               let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
               let bestResponse = appropriateMLResponses?.first
               let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
-              
-              print(bestResponse)
               return (post.metadata?.app?.contains(self.searchText)) == true || searchTextContainsResponse == true
             }
           }, id: \.self) { post in
