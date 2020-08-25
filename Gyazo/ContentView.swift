@@ -91,8 +91,7 @@ struct ContentView: View {
               }
             }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
               self.hideKeyboard()
-            }))
-              .padding(.bottom)// Scroll View
+            })) // Scroll View
           }
           UploadOptions(clipboardImage: $uploadImage, photoLibraryImage: $uploadImage, cameraImage: $uploadImage)
           .offset(x: -16, y: -16)
