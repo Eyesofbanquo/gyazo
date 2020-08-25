@@ -22,11 +22,11 @@ struct SearchBar: View {
       TextField("Search...", text: $text)
         .onTapGesture {
           withAnimation(Animation.default) {
-            self.isEditing = true
+            self.endEditing(false)
           }
           
           withAnimation(Animation.default.delay(0.2)) {
-            self.cancelButtonIsVisible = true
+            self.showCancelButton(true)
           }
       }
       .padding(8)
@@ -41,8 +41,8 @@ struct SearchBar: View {
         
         if self.isEditing {
           Button(action: {
-            self.text = ""
-            print("yo")
+            self.resetText()
+            self.hideKeyboard()
           }) {
             Image(systemName: "multiply.circle.fill")
               .foregroundColor(.gray)
@@ -56,14 +56,15 @@ struct SearchBar: View {
       if isEditing {
         Button(action: {
           withAnimation(Animation.default) {
-            self.isEditing = false
+            self.endEditing(true)
           }
           
           withAnimation(Animation.default.delay(0.2)) {
-            self.cancelButtonIsVisible = false
+            self.showCancelButton(false)
           }
           
-          self.text = ""
+          self.resetText()
+          self.hideKeyboard()
         }) {
           Text("Cancel")
         }.buttonStyle(PlainButtonStyle())
@@ -72,8 +73,18 @@ struct SearchBar: View {
           .transition(.move(edge: .trailing))
       }
     }
-    
-    
+  }
+  
+  private func resetText() {
+    self.text = ""
+  }
+  
+  private func endEditing(_ condition: Bool) {
+    self.isEditing = !condition
+  }
+  
+  private func showCancelButton(_ condition: Bool) {
+    self.cancelButtonIsVisible = condition
   }
 }
 
