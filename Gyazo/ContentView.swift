@@ -18,6 +18,8 @@ struct ContentView: View {
     
   @Environment(\.vision) var vision: Vision
   
+  @EnvironmentObject var userSettings: UserSettings
+  
   @State var searchText: String = ""
   
   @State var showingImagePicker = false
@@ -120,6 +122,8 @@ struct ContentView: View {
   private func readFromPasteboard() {
     let pasteboard = UIPasteboard.general
     guard let pasteboardImage = pasteboard.image else { return }
+    
+    print(userSettings.accessToken)
     
     self.pasteboardImage = pasteboardImage
   }

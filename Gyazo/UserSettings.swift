@@ -13,4 +13,8 @@ class UserSettings: ObservableObject {
   @Published var isLoggedIn = {
     return Secure.keychain["access_token"] != nil
   }()
+  
+  var accessToken: String? {
+    return Secure.keychain["access_token"]
+  }
 }
