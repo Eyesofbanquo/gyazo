@@ -32,7 +32,6 @@ public struct AsyncImage<Placeholder: View>: View {
   public var body: some View {
     image
       .onAppear(perform: loader.load)
-      .onDisappear(perform: loader.cancel)
   }
   
   private var image: some View {

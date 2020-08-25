@@ -77,12 +77,10 @@ struct ContentView: View {
               .navigationBarTitle(Text("Gyazo"))
               .navigationBarItems(
                 trailing: Button(action: {
-                  // - Launch Profile Modal
-//                  self.readFromPasteboard()
-                  
                   self.showingProfile = true
                 }){
                   Image(systemName: "person.circle")
+                    .padding()
                     .font(.title)
                     .contentShape(Rectangle())
               })
@@ -90,9 +88,8 @@ struct ContentView: View {
                   Profile()
               }
             }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
-              self.hideKeyboard()
-            }))
-              .padding(.bottom)// Scroll View
+              print("drag")
+            })) // Scroll View
           }
           UploadOptions(clipboardImage: $uploadImage, photoLibraryImage: $uploadImage, cameraImage: $uploadImage)
           .offset(x: -16, y: -16)
