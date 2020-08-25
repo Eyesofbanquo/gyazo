@@ -59,7 +59,7 @@ struct Profile: View {
         
       }.padding(.bottom)
     }
-    .onReceive(network.request(endpoint: "users/me")) { container in
+    .onReceive(network.request(endpoint: .user)) { container in
       self.user = container?.user
       
     }

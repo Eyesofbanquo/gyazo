@@ -19,11 +19,11 @@ class NetworkRequest<T: Decodable>: ObservableObject {
   
   var cancellableSet: Set<AnyCancellable> = []
   
-  func request(endpoint: String) -> AnyPublisher<RequestType?, Never> {
+  func request(endpoint: Gyazo.Endpoint) -> AnyPublisher<RequestType?, Never> {
     var components = URLComponents()
     components.scheme = "https"
     components.host = "api.gyazo.com"
-    components.path = "/api/\(endpoint)"
+    components.path = "/api/\(endpoint.path)"
     
     guard let url = components.url, let accessToken = Secure.keychain["access_token"] else {
       return PassthroughSubject<RequestType?, Never>().eraseToAnyPublisher()

@@ -64,7 +64,7 @@ struct ContentView: View {
                       .padding(.horizontal, 8.0)
                   }
                 }
-              }.onReceive(request.request(endpoint: "images")) { posts in
+              }.onReceive(request.request(endpoint: .images)) { posts in
                 if let posts = posts {
                   self.posts = posts
                 }
