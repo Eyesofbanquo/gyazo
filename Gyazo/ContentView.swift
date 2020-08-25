@@ -28,6 +28,8 @@ struct ContentView: View {
   
   @State var pasteboardImage: UIImage?
   
+  @State var showingProfile = false
+  
   var body: some View {
     
     ZStack(alignment: .center) {
@@ -72,24 +74,33 @@ struct ContentView: View {
               .navigationBarItems(
                 trailing: Button(action: {
                   // - Launch Profile Modal
-                  self.readFromPasteboard()
+//                  self.readFromPasteboard()
+                  
+                  self.showingProfile = true
                 }){
-                  Image(systemName: "person.circle").font(.headline)
+                  Image(systemName: "person.circle")
+                    .font(.title)
+                    .contentShape(Rectangle())
               })
+                .sheet(isPresented: self.$showingProfile) {
+                  Profile()
+              }
             }
           }
           Image(systemName: "camera")
             .padding()
             .background(Circle().foregroundColor(Color(.systemTeal)))
+            .foregroundColor(.white)
             .offset(x: -16, y: -16)
             .shadow(color: Color(.systemTeal), radius: 8.0, x: 0, y: 0)
             .onTapGesture {
               self.showingImagePicker = true
-          }
-        } // stack
-          .sheet(isPresented: $showingImagePicker, content: {
+          }.sheet(isPresented: $showingImagePicker, content: {
             ImagePicker(image: self.$selectedImage)
           })
+          
+        } // stack
+          
         
       } // nav view
       
