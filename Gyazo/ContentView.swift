@@ -100,9 +100,7 @@ struct ContentView: View {
             .shadow(color: Color(.systemTeal), radius: 8.0, x: 0, y: 0)
             .onTapGesture {
               self.showingImagePicker = true
-          }.sheet(isPresented: $showingImagePicker, content: {
-            ImagePicker(image: self.$selectedImage)
-          })
+          }
           
         } // stack
           

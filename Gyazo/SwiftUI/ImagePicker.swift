@@ -12,6 +12,8 @@ import SwiftUI
 struct ImagePicker: UIViewControllerRepresentable {
   typealias UIViewControllerType = UIImagePickerController
   
+  var launchCamera: Bool
+  
   @Binding var image: UIImage?
   
   @Environment(\.presentationMode) var presentationMode
@@ -23,8 +25,7 @@ struct ImagePicker: UIViewControllerRepresentable {
   func makeUIViewController(context: Context) -> UIImagePickerController {
     let picker = UIImagePickerController()
     picker.delegate = context.coordinator
-    picker.sourceType = .photoLibrary
-    //picker.sourceType = .camera
+    picker.sourceType = launchCamera ? .camera : .photoLibrary
     return picker
   }
   
@@ -68,7 +69,7 @@ struct ImagePickerView: View {
         self.showingImagePicker = true
       }
     }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-      ImagePicker(image: self.$image)
+      ImagePicker(launchCamera: false, image: self.$image)
     }
   }
   

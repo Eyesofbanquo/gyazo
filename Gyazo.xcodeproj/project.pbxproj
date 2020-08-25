@@ -23,6 +23,7 @@
 		3355E49624F4EE94006B227F /* Gyazo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355E49524F4EE94006B227F /* Gyazo.swift */; };
 		33865BFD24F1BC14003B3937 /* DashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33865BFC24F1BC14003B3937 /* DashboardCell.swift */; };
 		33865BFF24F2119F003B3937 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33865BFE24F2119F003B3937 /* SearchBar.swift */; };
+		33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D623FB24F597170051C3D7 /* UploadOptions.swift */; };
 		D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */; };
 		D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
@@ -71,6 +72,7 @@
 		3355E49524F4EE94006B227F /* Gyazo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyazo.swift; sourceTree = "<group>"; };
 		33865BFC24F1BC14003B3937 /* DashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell.swift; sourceTree = "<group>"; };
 		33865BFE24F2119F003B3937 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		33D623FB24F597170051C3D7 /* UploadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOptions.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				33518E2524F2E6E3005320D8 /* Grid.swift */,
 				3355E48F24F3819A006B227F /* ImagePicker.swift */,
 				3355E49124F4DBBA006B227F /* Profile.swift */,
+				33D623FB24F597170051C3D7 /* UploadOptions.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				D50E9D3824521B58006F0E9A /* OAuth.swift in Sources */,
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
 				334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */,
+				33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */,
 				3355E49624F4EE94006B227F /* Gyazo.swift in Sources */,
 				D50E9D4324535901006F0E9A /* Secure.swift in Sources */,
 				3355E49024F3819A006B227F /* ImagePicker.swift in Sources */,
