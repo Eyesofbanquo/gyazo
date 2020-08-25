@@ -32,6 +32,8 @@ struct ContentView: View {
   
   @GestureState var onActiveScroll: CGSize = .zero
   
+  @State var uploadImage: UIImage?
+  
   var body: some View {
     
     ZStack(alignment: .center) {
@@ -92,17 +94,8 @@ struct ContentView: View {
             }))
               .padding(.bottom)// Scroll View
           }
-          Image(systemName: "camera")
-            .padding()
-            .background(Circle().foregroundColor(Color(.systemTeal)))
-            .foregroundColor(.white)
-            .offset(x: -16, y: -16)
-            .shadow(color: Color(.systemTeal), radius: 8.0, x: 0, y: 0)
-            .onTapGesture {
-              self.showingImagePicker = true
-          }.sheet(isPresented: $showingImagePicker, content: {
-            ImagePicker(image: self.$selectedImage)
-          })
+          UploadOptions(clipboardImage: $uploadImage, photoLibraryImage: $uploadImage, cameraImage: $uploadImage)
+          .offset(x: -16, y: -16)
           
         } // stack
           
