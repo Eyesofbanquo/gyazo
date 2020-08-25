@@ -15,6 +15,8 @@ struct UploadOptions: View {
   
   @State var presentPhotoLibrary: Bool = false
   
+  @State var presentCamera: Bool = false
+  
   @Binding var clipboardImage: UIImage?
   
   @Binding var photoLibraryImage: UIImage?
@@ -34,7 +36,7 @@ struct UploadOptions: View {
         uploadButton
       }
       .accentColor(.white)
-      .animation(.easeInOut)
+      .animation(Animation.easeInOut(duration: 0.15))
     }
     
   }
@@ -48,7 +50,7 @@ struct UploadOptions: View {
         .rotationEffect(.degrees(showButtons ? 0 : -90))
     }
     .background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
-    .offset(x: 0, y: showButtons ? -150 : 0)
+    .offset(x: 0, y: showButtons ? -128 : 0)
     .opacity(showButtons ? 1 : 0)
     
   }
@@ -62,7 +64,7 @@ struct UploadOptions: View {
         .rotationEffect(.degrees(showButtons ? 0 : -90))
     }
     .background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
-    .offset(x: showButtons ? -110 : 0, y: showButtons ? -110 : 0)
+    .offset(x: showButtons ? -96 : 0, y: showButtons ? -92 : 0)
     .opacity(showButtons ? 1 : 0)
     .sheet(isPresented: $presentPhotoLibrary) { 
       ImagePicker(launchCamera: false, image: self.$photoLibraryImage)
@@ -71,7 +73,7 @@ struct UploadOptions: View {
   
   private var cameraButton: some View {
     Button(action: {
-      self.presentPhotoLibrary = true
+      self.presentCamera = true
     }) {
       Image(systemName: "camera")
         .padding(24)
@@ -79,9 +81,9 @@ struct UploadOptions: View {
       
     }
     .background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
-    .offset(x: showButtons ? -150 : 0, y: 0)
+    .offset(x: showButtons ? -120 : 0, y: 0)
     .opacity(showButtons ? 1 : 0)
-    .sheet(isPresented: $presentPhotoLibrary) {
+    .sheet(isPresented: $presentCamera) {
       ImagePicker(launchCamera: true, image: self.$photoLibraryImage)
     }
     
