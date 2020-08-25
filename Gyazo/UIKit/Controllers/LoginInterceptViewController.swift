@@ -54,7 +54,7 @@ final class LoginInterceptViewController: UIViewController, ObservableObject {
       })
     } else {
       if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-        mySceneDelegate.window?.rootViewController = UIHostingController(rootView: ContentView())
+        mySceneDelegate.window?.rootViewController = UIHostingController(rootView: ContentView().environmentObject(UserSettings()))
       }
     }
   }

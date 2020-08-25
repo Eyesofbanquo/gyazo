@@ -38,9 +38,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let window = UIWindow(windowScene: windowScene)
       
       if Secure.keychain["access_token"] == nil {
-        window.rootViewController = UIHostingController(rootView: LoginIntercept())
+        window.rootViewController = UIHostingController(rootView: LoginIntercept().environmentObject(userSettings))
       } else {
-        window.rootViewController = UIHostingController(rootView: ContentView())
+        window.rootViewController = UIHostingController(rootView: ContentView().environmentObject(userSettings))
       }
       self.window = window
       window.makeKeyAndVisible()
