@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Gyazo {
+enum GyazoAPI {
   enum Endpoint {
     case images
     case user

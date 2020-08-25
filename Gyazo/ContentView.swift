@@ -30,6 +30,8 @@ struct ContentView: View {
   
   @State var showingProfile = false
   
+  @GestureState var onActiveScroll: CGSize = .zero
+  
   var body: some View {
     
     ZStack(alignment: .center) {
@@ -85,7 +87,10 @@ struct ContentView: View {
                 .sheet(isPresented: self.$showingProfile) {
                   Profile()
               }
-            }
+            }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
+              self.hideKeyboard()
+            }))
+              .padding(.bottom)// Scroll View
           }
           Image(systemName: "camera")
             .padding()

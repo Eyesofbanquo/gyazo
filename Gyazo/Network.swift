@@ -19,7 +19,7 @@ class NetworkRequest<T: Decodable>: ObservableObject {
   
   var cancellableSet: Set<AnyCancellable> = []
   
-  func request(endpoint: Gyazo.Endpoint) -> AnyPublisher<RequestType?, Never> {
+  func request(endpoint: GyazoAPI.Endpoint) -> AnyPublisher<RequestType?, Never> {
     var components = URLComponents()
     components.scheme = "https"
     components.host = "api.gyazo.com"
