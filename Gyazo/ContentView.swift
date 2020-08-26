@@ -34,6 +34,12 @@ struct ContentView: View {
   
   @State var uploadImage: UIImage?
   
+  @State var expandDashboardCell = false
+  
+  @Namespace var dashboardCell
+  
+  @State var selectedPost: Drop?
+  
   var body: some View {
     
     ZStack(alignment: .center) {
@@ -64,8 +70,14 @@ struct ContentView: View {
               }, id: \.self) { post in
                 Group {
                   if post.urlString.isEmpty == false {
-                    DashboardCell(post: post, placeholder: Text("Loading"))
+                    DashboardCell(post: post, placeholder: Text("Loading"), namespace: dashboardCell)
                       .padding(.horizontal, 8.0)
+                      .onTapGesture {
+                        withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+                          self.expandDashboardCell.toggle()
+                          self.selectedPost = post
+                        }
+                      }
                   }
                 }
               }.onReceive(request.request(endpoint: .images)) { posts in
@@ -115,8 +127,29 @@ struct ContentView: View {
           self.uploadImage = nil
         } // inner z-stack
       }
+      
+      // This should be logic for the detail view
+      if expandDashboardCell {
+        VStack {
+          GeometryReader { geo in
+            Image("gyazo-image")
+              .resizable()
+              .frame(width: geo.size.width, height: geo.size.height / 3.0)
+              .matchedGeometryEffect(id: self.selectedPost?.id ?? "", in: self.dashboardCell, anchor: .topLeading)
+              .onTapGesture {
+                withAnimation(.spring()) {
+                  self.expandDashboardCell = false
+                }
+              }
+          }
+          Spacer()
+        }.background(Color.white)
+        .edgesIgnoringSafeArea(.all)
+        
+      }
 
     }// outer z-stack
+    .statusBar(hidden: true)
     
   } // body
   
@@ -128,8 +161,6 @@ struct ContentView: View {
   private func readFromPasteboard() {
     let pasteboard = UIPasteboard.general
     guard let pasteboardImage = pasteboard.image else { return }
-    
-    print(userSettings.accessToken)
     
     self.pasteboardImage = pasteboardImage
   }
