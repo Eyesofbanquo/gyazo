@@ -23,13 +23,11 @@
 		3355E49624F4EE94006B227F /* Gyazo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355E49524F4EE94006B227F /* Gyazo.swift */; };
 		33865BFD24F1BC14003B3937 /* DashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33865BFC24F1BC14003B3937 /* DashboardCell.swift */; };
 		33865BFF24F2119F003B3937 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33865BFE24F2119F003B3937 /* SearchBar.swift */; };
+		33979B7D24F5E02A0013B81F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33979B7C24F5E02A0013B81F /* App.swift */; };
 		33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D623FB24F597170051C3D7 /* UploadOptions.swift */; };
-		D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */; };
-		D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
 		D50E9D1524501FF9006F0E9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */; };
-		D50E9D1B24501FF9006F0E9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1924501FF9006F0E9A /* LaunchScreen.storyboard */; };
 		D50E9D2624501FF9006F0E9A /* GyazoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D2524501FF9006F0E9A /* GyazoTests.swift */; };
 		D50E9D312450203D006F0E9A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D302450203D006F0E9A /* API.swift */; };
 		D50E9D33245024E9006F0E9A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D32245024E9006F0E9A /* Network.swift */; };
@@ -72,14 +70,12 @@
 		3355E49524F4EE94006B227F /* Gyazo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyazo.swift; sourceTree = "<group>"; };
 		33865BFC24F1BC14003B3937 /* DashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell.swift; sourceTree = "<group>"; };
 		33865BFE24F2119F003B3937 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		33979B7C24F5E02A0013B81F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		33D623FB24F597170051C3D7 /* UploadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOptions.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D50E9D1224501FF6006F0E9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D50E9D1424501FF9006F0E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D50E9D1A24501FF9006F0E9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D50E9D1C24501FF9006F0E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D50E9D2124501FF9006F0E9A /* GyazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GyazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D2524501FF9006F0E9A /* GyazoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyazoTests.swift; sourceTree = "<group>"; };
@@ -164,11 +160,9 @@
 				D50E9D4A2453AC01006F0E9A /* Stubs */,
 				D50E9D4824536777006F0E9A /* SwiftUI */,
 				D50E9D39245278C3006F0E9A /* UIKit */,
-				D50E9D0E24501FF6006F0E9A /* AppDelegate.swift */,
-				D50E9D1024501FF6006F0E9A /* SceneDelegate.swift */,
+				33979B7C24F5E02A0013B81F /* App.swift */,
 				D50E9D1224501FF6006F0E9A /* ContentView.swift */,
 				D50E9D1424501FF9006F0E9A /* Assets.xcassets */,
-				D50E9D1924501FF9006F0E9A /* LaunchScreen.storyboard */,
 				D50E9D1C24501FF9006F0E9A /* Info.plist */,
 				D50E9D1624501FF9006F0E9A /* Preview Content */,
 				D50E9D302450203D006F0E9A /* API.swift */,
@@ -349,7 +343,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D50E9D1B24501FF9006F0E9A /* LaunchScreen.storyboard in Resources */,
 				D50E9D4C2453AC10006F0E9A /* image.json in Resources */,
 				D50E9D4E2453AC1F006F0E9A /* images.json in Resources */,
 				D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */,
@@ -374,15 +367,14 @@
 				33865BFD24F1BC14003B3937 /* DashboardCell.swift in Sources */,
 				3355E49224F4DBBA006B227F /* Profile.swift in Sources */,
 				33518E2924F36820005320D8 /* SqueezeNet.mlmodel in Sources */,
+				33979B7D24F5E02A0013B81F /* App.swift in Sources */,
 				3355E49424F4DDE3006B227F /* User.swift in Sources */,
 				D50E9D33245024E9006F0E9A /* Network.swift in Sources */,
 				33865BFF24F2119F003B3937 /* SearchBar.swift in Sources */,
 				33518E3424F36CA8005320D8 /* TempImageCache.swift in Sources */,
 				330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */,
-				D50E9D0F24501FF6006F0E9A /* AppDelegate.swift in Sources */,
 				33518E3024F36C9F005320D8 /* ImageCacheable.swift in Sources */,
 				D50E9D512453AC9A006F0E9A /* Drop.swift in Sources */,
-				D50E9D1124501FF6006F0E9A /* SceneDelegate.swift in Sources */,
 				D50E9D3824521B58006F0E9A /* OAuth.swift in Sources */,
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
 				334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */,
@@ -419,17 +411,6 @@
 			targetProxy = D50E9D2224501FF9006F0E9A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		D50E9D1924501FF9006F0E9A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D50E9D1A24501FF9006F0E9A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D50E9D2824501FF9006F0E9A /* Debug */ = {
@@ -555,6 +536,7 @@
 				DEVELOPMENT_TEAM = 2W3P634BS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Gyazo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -575,6 +557,7 @@
 				DEVELOPMENT_TEAM = 2W3P634BS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Gyazo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
