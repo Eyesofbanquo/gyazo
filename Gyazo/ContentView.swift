@@ -99,20 +99,20 @@ struct ContentView: View {
         
       } // nav view
       
-      if self.pasteboardImage != nil {
+      if self.uploadImage != nil {
         ZStack(alignment: .center) {
-          //        Color.red
+          Color.red
           VStack {
             //          Image("gyazo-image")
             pasteboardImageView?
               .resizable()
               .padding(.horizontal)
               .aspectRatio(contentMode: .fit)
-              .onTapGesture {
-                self.pasteboardImage = nil
-            }
+              
             Text("Image classification")
           }
+        }.onTapGesture {
+          self.uploadImage = nil
         } // inner z-stack
       }
 
@@ -121,7 +121,7 @@ struct ContentView: View {
   } // body
   
   var pasteboardImageView: Image? {
-    guard let image = pasteboardImage else { return nil }
+    guard let image = uploadImage else { return nil }
     
     return Image.init(uiImage: image)
   }

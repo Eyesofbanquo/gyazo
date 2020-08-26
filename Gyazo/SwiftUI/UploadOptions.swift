@@ -44,6 +44,7 @@ struct UploadOptions: View {
   private var clipboardButton: some View {
     Button(action: {
       self.readFromPasteboard()
+      self.showButtons = false
     }) {
       Image(systemName: "doc.on.clipboard")
         .padding(24)
@@ -58,6 +59,7 @@ struct UploadOptions: View {
   private var photoButton: some View {
     Button(action: {
       self.presentPhotoLibrary = true
+      self.showButtons = false
     }) {
       Image(systemName: "photo")
         .padding(24)
@@ -74,6 +76,7 @@ struct UploadOptions: View {
   private var cameraButton: some View {
     Button(action: {
       self.presentCamera = true
+      self.showButtons = false
     }) {
       Image(systemName: "camera")
         .padding(24)
