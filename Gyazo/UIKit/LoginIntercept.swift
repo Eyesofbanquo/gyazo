@@ -12,10 +12,13 @@ import SwiftUI
 
 struct LoginIntercept: UIViewControllerRepresentable {
   
+  @Binding var loginSuccessful: Bool
+  
   typealias UIViewControllerType = LoginInterceptViewController
   
   func makeUIViewController(context: UIViewControllerRepresentableContext<LoginIntercept>) -> LoginInterceptViewController {
     let controller = LoginInterceptViewController()
+    controller.loginSuccessful = $loginSuccessful
     return controller
   }
   

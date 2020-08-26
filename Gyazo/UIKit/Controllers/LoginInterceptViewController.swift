@@ -21,6 +21,8 @@ final class LoginInterceptViewController: UIViewController, ObservableObject {
   var returnFromAuthCancellable: AnyCancellable?
   
   var cancellable: AnyCancellable?
+  
+  var loginSuccessful: Binding<Bool>?
     
   init() {
     super.init(nibName: nil, bundle: nil)
@@ -42,20 +44,28 @@ final class LoginInterceptViewController: UIViewController, ObservableObject {
     
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    setupCallbackFromOAuth()
+    
+    self.view.backgroundColor = .systemPink
+    
+    hostLoginViewComponent()
+  }
+  
   /// This function will look to authorize the user if they don't currently have an `accessToken` stored inside of the `Keychain`
   func authorizeIfNeeded() {
     if Secure.keychain["accessToken"] == nil {
       self.cancellable = oauth.authorize(in: self).receive(on: DispatchQueue.main).sink(receiveValue: { success in
-        if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate, success {
-          mySceneDelegate.window?.rootViewController = UIHostingController(rootView: ContentView())
+        if success {
+          self.loginSuccessful?.wrappedValue = true
         } else {
           // Present an alert?
         }
       })
     } else {
-      if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-        mySceneDelegate.window?.rootViewController = UIHostingController(rootView: ContentView().environmentObject(UserSettings()))
-      }
+      self.loginSuccessful?.wrappedValue = true
     }
   }
   
