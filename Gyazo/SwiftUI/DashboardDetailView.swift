@@ -45,6 +45,7 @@ struct DashboardDetailView: View {
             tapToExpandControl
           }
           
+          
           VStack(alignment: .leading) {
             Text(formattedDate) // MMM dd, yyyy HH:mm convert to this
             if let metadata = post.metadata {
@@ -75,8 +76,14 @@ struct DashboardDetailView: View {
             Image("gyazo-image")
               .resizable()
               .aspectRatio(contentMode: .fit)
-            Text("Some text")
+            Text("Copy to clipboard")
+              .padding()
               .foregroundColor(.white)
+              .background(Color.orange)
+              .clipShape(Capsule())
+              .onTapGesture {
+                self.copyToPasteboard()
+              }
           }
         }
         .edgesIgnoringSafeArea(.all)
@@ -152,6 +159,15 @@ struct DashboardDetailView: View {
       .padding()
       .layoutPriority(1)
     }
+  }
+  
+  private func copyToPasteboard() {
+    let pasteboard = UIPasteboard.general
+    
+    if let imageURL = post.cacheableImageURL, let cachedImage = self.cache[imageURL] {
+      pasteboard.image = cachedImage
+    }
+    
   }
 }
 
