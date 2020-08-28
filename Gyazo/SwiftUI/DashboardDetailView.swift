@@ -22,6 +22,7 @@ struct DashboardDetailView: View {
   var isVisible: Binding<Bool>
   
   @State var formattedDate: String = ""
+  @State var showingProfile: Bool = false
   @ObservedObject var dateFormatter: DateFormat = DateFormat()
   
   var body: some View {
@@ -44,7 +45,7 @@ struct DashboardDetailView: View {
             tapToExpandControl
           }
           
-          VStack {
+          VStack(alignment: .leading) {
             Text(formattedDate) // MMM dd, yyyy HH:mm convert to this
             if let metadata = post.metadata {
               if let app = metadata.app {
@@ -59,6 +60,7 @@ struct DashboardDetailView: View {
               
             }
           }
+          .padding(.horizontal)
           
         }
         
@@ -89,6 +91,9 @@ struct DashboardDetailView: View {
     })
     .edgesIgnoringSafeArea(.all)
     .background(Color.white)
+    .sheet(isPresented: self.$showingProfile) {
+      Profile()
+    }
   }
   
   private var heroImage: Image? {
@@ -140,6 +145,9 @@ struct DashboardDetailView: View {
         Image(systemName: "person.circle.fill")
           .font(.largeTitle)
           .foregroundColor(.white)
+          .onTapGesture {
+            self.showingProfile = true
+          }
       }
       .padding()
       .layoutPriority(1)
