@@ -14,6 +14,8 @@ struct DashboardCell<Placeholder: View>: View {
   @Environment(\.imageCache) var cache: ImageCacheable
   
   @Environment(\.vision) var vision: Vision
+  
+  var dashboardCell: Namespace.ID
     
   var post: Drop
   
@@ -21,9 +23,12 @@ struct DashboardCell<Placeholder: View>: View {
   
   @State private var expandView: Bool = false
   
-  init(post: Drop, placeholder: Placeholder? = nil) {
+  init(post: Drop,
+       placeholder: Placeholder? = nil,
+       namespace: Namespace.ID) {
     self.post = post
     self.placeholder = placeholder
+    self.dashboardCell = namespace
   }
   
   var body: some View {
@@ -52,9 +57,7 @@ struct DashboardCell<Placeholder: View>: View {
       Spacer()
     }
     .contentShape(Rectangle())
-    .onTapGesture {
-      print("Tapped")
-    }
+    .matchedGeometryEffect(id: post.id, in: dashboardCell)
     
     
   }
@@ -84,8 +87,10 @@ struct DashboardCell<Placeholder: View>: View {
 
 struct DashboardCell_Previews: PreviewProvider {
   
+  @Namespace static var namespace
+  
   static var previews: some View {
     DashboardCell(post: Drop.stub.first!,
-                  placeholder: Image("gyazo-image").resizable())
+                  placeholder: Image("gyazo-image").resizable(), namespace: namespace)
   }
 }
