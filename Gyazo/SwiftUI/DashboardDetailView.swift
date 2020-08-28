@@ -21,26 +21,47 @@ struct DashboardDetailView: View {
   // MARK: - State -
   var isVisible: Binding<Bool>
   
+  @State var formattedDate: String = ""
+  @ObservedObject var dateFormatter: DateFormat = DateFormat()
+  
   var body: some View {
     ZStack(alignment: .topLeading) {
       ScrollView {
-        ZStack(alignment: .bottomTrailing) {
-          GeometryReader { g in
-            heroImage?
-              .resizable()
-              .aspectRatio(contentMode: .fill)
-              .frame(width: g.frame(in: .global).minY > 0 ? g.size.width + g.frame(in: .global).minY : g.size.width,
-                     height: g.frame(in: .global).minY > 0 ? UIScreen.main.bounds.height / 2.2 + g.frame(in: .global).minY : UIScreen.main.bounds.height / 2.2)
-              .clipped()
-              .offset(x: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY / 2 : 0, y: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY : 0)
-              .matchedGeometryEffect(id: post.id, in: animationNamespace)
-          }.frame(height: UIScreen.main.bounds.height / 2.2)
+        VStack {
+          ZStack(alignment: .bottomTrailing) {
+            
+            GeometryReader { g in
+              heroImage?
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: g.frame(in: .global).minY > 0 ? g.size.width + g.frame(in: .global).minY : g.size.width,
+                       height: g.frame(in: .global).minY > 0 ? UIScreen.main.bounds.height / 2.2 + g.frame(in: .global).minY : UIScreen.main.bounds.height / 2.2)
+                .clipped()
+                .offset(x: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY / 2 : 0, y: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY : 0)
+                .matchedGeometryEffect(id: post.id, in: animationNamespace)
+            }.frame(height: UIScreen.main.bounds.height / 2.2)
+            
+            tapToExpandControl
+          }
           
-          tapToExpandControl
+          VStack {
+            Text(formattedDate) // MMM dd, yyyy HH:mm convert to this
+            if let metadata = post.metadata {
+              if let app = metadata.app {
+                Text(app)
+              }
+              
+              if let description = metadata.description {
+                TextEditor(text:
+                            .constant("Type a description"))
+                  .border(Color.black.opacity(0.67))
+              }
+              
+            }
+          }
+          
         }
         
-        
-        //          }
       }
       navbar
       
@@ -63,12 +84,12 @@ struct DashboardDetailView: View {
         }
       }
     }
+    .onReceive(self.dateFormatter.format(fromString: post.createdAt), perform: { date in
+      self.formattedDate = date
+    })
     .edgesIgnoringSafeArea(.all)
     .background(Color.white)
   }
-  
-  //            .matchedGeometryEffect(id: post.id, in: animationNamespace)
-  
   
   private var heroImage: Image? {
     #if DEBUG

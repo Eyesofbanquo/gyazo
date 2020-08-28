@@ -25,6 +25,7 @@
 		33865BFF24F2119F003B3937 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33865BFE24F2119F003B3937 /* SearchBar.swift */; };
 		338CC82B24F9999100B628AB /* DashboardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CC82A24F9999100B628AB /* DashboardDetailView.swift */; };
 		338CC82D24F9B95300B628AB /* StretchyImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CC82C24F9B95300B628AB /* StretchyImageModifier.swift */; };
+		338CC82F24F9BCF200B628AB /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CC82E24F9BCF200B628AB /* DateFormat.swift */; };
 		33979B7D24F5E02A0013B81F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33979B7C24F5E02A0013B81F /* App.swift */; };
 		33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D623FB24F597170051C3D7 /* UploadOptions.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
@@ -74,6 +75,7 @@
 		33865BFE24F2119F003B3937 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		338CC82A24F9999100B628AB /* DashboardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDetailView.swift; sourceTree = "<group>"; };
 		338CC82C24F9B95300B628AB /* StretchyImageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyImageModifier.swift; sourceTree = "<group>"; };
+		338CC82E24F9BCF200B628AB /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		33979B7C24F5E02A0013B81F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		33D623FB24F597170051C3D7 /* UploadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOptions.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,6 +204,7 @@
 				D50E9D3A245278C8006F0E9A /* Controllers */,
 				D50E9D3D245278F1006F0E9A /* LoginIntercept.swift */,
 				334F0D3524F56C9B003EB8EF /* UIApplication+.swift */,
+				338CC82E24F9BCF200B628AB /* DateFormat.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				3355E49424F4DDE3006B227F /* User.swift in Sources */,
 				D50E9D33245024E9006F0E9A /* Network.swift in Sources */,
 				33865BFF24F2119F003B3937 /* SearchBar.swift in Sources */,
+				338CC82F24F9BCF200B628AB /* DateFormat.swift in Sources */,
 				33518E3424F36CA8005320D8 /* TempImageCache.swift in Sources */,
 				330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */,
 				33518E3024F36C9F005320D8 /* ImageCacheable.swift in Sources */,
