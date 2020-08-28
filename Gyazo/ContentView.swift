@@ -12,10 +12,12 @@ import AsyncImage
 
 struct ContentView: View {
   
+  @Environment(\.imageCache) var cache
+  
   @ObservedObject var request: NetworkRequest<[Drop]> = NetworkRequest<[Drop]>()
   
   @State var posts: [Drop] = []
-    
+  
   @Environment(\.vision) var vision: Vision
   
   @EnvironmentObject var userSettings: UserSettings
@@ -36,7 +38,7 @@ struct ContentView: View {
   
   @State var expandDashboardCell = false
   
-  @Namespace var dashboardCell
+  @Namespace var dashboardCellAnimation
   
   @State var selectedPost: Drop?
   
@@ -47,45 +49,40 @@ struct ContentView: View {
         ZStack(alignment: .bottomTrailing) {
           VStack {
             ScrollView {
-              //          GeometryReader { geo in
-              //            Image("gyazo-image")
-              //              .resizable()
-              //              .aspectRatio(contentMode: .fill)
-              //              .offset(y: geo.frame(in: .global).minY > 0 ? -geo.frame(in: .global).minY : 0)
-              //              .frame(width: UIScreen.main.bounds.width,
-              //                     height: geo.frame(in: .global).minY > 0 ? geo.frame(in: .global).minY + 300 : 300)
-              //          }
-              //          .frame(height: 300)
-              
+
               SearchBar(text: $searchText)
-              ForEach(posts.filter { post in
-                if (searchText.isEmpty) {
-                  return true
-                } else {
-                  let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
-                  let bestResponse = appropriateMLResponses?.first
-                  let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
-                  return (post.metadata?.app?.contains(self.searchText)) == true || searchTextContainsResponse == true
-                }
-              }, id: \.self) { post in
-                Group {
-                  if post.urlString.isEmpty == false {
-                    DashboardCell(post: post, placeholder: Text("Loading"), namespace: dashboardCell)
-                      .padding(.horizontal, 8.0)
-                      .onTapGesture {
-                        withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-                          self.expandDashboardCell.toggle()
-                          self.selectedPost = post
+
+              VStack(spacing: 8.0) {
+                ForEach(posts.filter { post in
+                  if (searchText.isEmpty) {
+                    return true
+                  } else {
+                    let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
+                    let bestResponse = appropriateMLResponses?.first
+                    let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
+                    return (post.metadata?.app?.contains(self.searchText)) == true || searchTextContainsResponse == true
+                  }
+                }, id: \.self) { post in
+                  Group {
+                    if post.urlString.isEmpty == false {
+                      DashboardCell(post: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
+                        .padding(.horizontal, 8.0)
+                        .onTapGesture {
+                          withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+                            self.expandDashboardCell.toggle()
+                            self.selectedPost = post
+                          }
                         }
-                      }
+                    }
                   }
                 }
-              }.onReceive(request.request(endpoint: .images)) { posts in
+              }
+              .onReceive(request.request(endpoint: .images)) { posts in
                 if let posts = posts {
                   self.posts = posts
                 }
               }
-                
+              
               .navigationBarTitle(Text("Gyazo"))
               .navigationBarItems(
                 trailing: Button(action: {
@@ -95,19 +92,19 @@ struct ContentView: View {
                     .padding()
                     .font(.title)
                     .contentShape(Rectangle())
-              })
-                .sheet(isPresented: self.$showingProfile) {
-                  Profile()
+                })
+              .sheet(isPresented: self.$showingProfile) {
+                Profile()
               }
             }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
               print("drag")
             })) // Scroll View
           }
           UploadOptions(clipboardImage: $uploadImage, photoLibraryImage: $uploadImage, cameraImage: $uploadImage)
-          .offset(x: -16, y: -16)
+            .offset(x: -16, y: -16)
           
         } // stack
-          
+        
         
       } // nav view
       
@@ -120,7 +117,7 @@ struct ContentView: View {
               .resizable()
               .padding(.horizontal)
               .aspectRatio(contentMode: .fit)
-              
+            
             Text("Image classification")
           }
         }.onTapGesture {
@@ -129,25 +126,12 @@ struct ContentView: View {
       }
       
       // This should be logic for the detail view
-      if expandDashboardCell {
-        VStack {
-          GeometryReader { geo in
-            Image("gyazo-image")
-              .resizable()
-              .frame(width: geo.size.width, height: geo.size.height / 3.0)
-              .matchedGeometryEffect(id: self.selectedPost?.id ?? "", in: self.dashboardCell, anchor: .topLeading)
-              .onTapGesture {
-                withAnimation(.spring()) {
-                  self.expandDashboardCell = false
-                }
-              }
-          }
-          Spacer()
-        }.background(Color.white)
-        .edgesIgnoringSafeArea(.all)
-        
+      if expandDashboardCell, let selectedPost = self.selectedPost {
+          DashboardDetailView(post: selectedPost,
+                              animationNamespace: dashboardCellAnimation,
+                              isVisible: $expandDashboardCell)
       }
-
+      
     }// outer z-stack
     .statusBar(hidden: true)
     
@@ -165,6 +149,10 @@ struct ContentView: View {
     self.pasteboardImage = pasteboardImage
   }
   
+  var selectedImageURL: URL? {
+    guard let urlString = selectedPost?.urlString, let url = URL(string: urlString) else { return nil }
+    return url
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {

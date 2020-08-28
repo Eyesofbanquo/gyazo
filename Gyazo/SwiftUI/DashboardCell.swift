@@ -57,7 +57,7 @@ struct DashboardCell<Placeholder: View>: View {
       Spacer()
     }
     .contentShape(Rectangle())
-    .matchedGeometryEffect(id: post.id, in: dashboardCell, anchor: .topLeading)
+    .matchedGeometryEffect(id: post.id, in: dashboardCell)
     
     
   }

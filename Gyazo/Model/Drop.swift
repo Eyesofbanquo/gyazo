@@ -52,3 +52,9 @@ extension Drop {
     ]
   }
 }
+
+extension Drop {
+  var cacheableImageURL: URL? {
+    URL(string: self.urlString)
+  }
+}
