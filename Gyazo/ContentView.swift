@@ -14,7 +14,7 @@ struct ContentView: View {
   
   @Environment(\.imageCache) var cache
   
-  @ObservedObject var request: NetworkRequest<[Drop]> = NetworkRequest<[Drop]>()
+  @StateObject var request: NetworkRequest<[Drop]> = NetworkRequest<[Drop]>()
   
   @State var posts: [Drop] = []
   

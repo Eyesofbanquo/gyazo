@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 330B520E24F11ABA000D8BAA /* AsyncImage */; };
 		330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */; };
+		33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33384D8224FAD8D300F0266A /* SelectedImageView.swift */; };
 		334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334F0D3524F56C9B003EB8EF /* UIApplication+.swift */; };
 		33518E2624F2E6E3005320D8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2524F2E6E3005320D8 /* Grid.swift */; };
 		33518E2924F36820005320D8 /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2824F36820005320D8 /* SqueezeNet.mlmodel */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorStyleNoneModifier.swift; sourceTree = "<group>"; };
+		33384D8224FAD8D300F0266A /* SelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageView.swift; sourceTree = "<group>"; };
 		334F0D3524F56C9B003EB8EF /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		33518E2524F2E6E3005320D8 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		33518E2824F36820005320D8 /* SqueezeNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlmodel; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				338CC82A24F9999100B628AB /* DashboardDetailView.swift */,
 				33D623FB24F597170051C3D7 /* UploadOptions.swift */,
 				338CC82C24F9B95300B628AB /* StretchyImageModifier.swift */,
+				33384D8224FAD8D300F0266A /* SelectedImageView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				D50E9D3C245278E4006F0E9A /* LoginInterceptViewController.swift in Sources */,
 				33518E2624F2E6E3005320D8 /* Grid.swift in Sources */,
 				33518E3224F36CA4005320D8 /* ImageLoader.swift in Sources */,
+				33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */,
 				D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */,
 				D50E9D4524535DFA006F0E9A /* LoginView.swift in Sources */,
 				33518E2E24F36C95005320D8 /* AsyncImage.swift in Sources */,
