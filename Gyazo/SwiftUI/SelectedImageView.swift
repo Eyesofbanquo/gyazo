@@ -12,11 +12,13 @@ import SwiftUI
 struct SelectedImageView: View {
   var uiimage: UIImage?
   
+  var imageURL: String
+  
   var actionText: (performedAction: String, default: String)
   
   @State private var performedAction: Bool = false
   
-  @State private var presentShareController: Bool = false
+  @Binding var presentShareController: Bool
   
   var action: (() -> Void)?
   
@@ -55,15 +57,15 @@ struct SelectedImageView_Previews: PreviewProvider {
   static var previews: some View {
     
     Group {
-      SelectedImageView(uiimage: UIImage(named: "gyazo-image"),
+      SelectedImageView(uiimage: UIImage(named: "gyazo-image"), imageURL: "https://i.redd.it/eog1gcl2ruj51.jpg",
                         actionText: (performedAction: "Cancelled",
                                      default: "Tap on this to cancel"),
-                        presentSelectedImageView: presentBinding)
+                        presentShareController: presentBinding, presentSelectedImageView: presentBinding)
         .preferredColorScheme(.dark)
-      SelectedImageView(uiimage: UIImage(named: "gyazo-image"),
+      SelectedImageView(uiimage: UIImage(named: "gyazo-image"), imageURL: "https://i.redd.it/eog1gcl2ruj51.jpg",
                         actionText: (performedAction: "Cancelled",
                                      default: "Tap on this to cancel"),
-                        presentSelectedImageView: presentBinding)
+                        presentShareController: presentBinding, presentSelectedImageView: presentBinding)
         .preferredColorScheme(.light)
     }
     
@@ -101,13 +103,17 @@ extension SelectedImageView {
   
   private var ShareButton: some View {
     Button(action: {
-      self.presentShareController.toggle()
+      self.presentShareController = true
     }) {
       Image(systemName: "square.and.arrow.up")
         .font(.title)
     }.buttonStyle(PlainButtonStyle())
-    .sheet(isPresented: $presentShareController, content: {
-      EmptyView()
+    .sheet(isPresented: self.$presentShareController, content: {
+      if let image = uiimage, let imageURL = URL(string: self.imageURL) {
+        ShareView(activityItems: [imageURL, image])
+      } else {
+        ShareView(activityItems: [])
+      }
     })
   }
   
