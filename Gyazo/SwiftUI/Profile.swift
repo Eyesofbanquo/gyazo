@@ -17,47 +17,73 @@ struct Profile: View {
   
   @Environment(\.presentationMode) var presentationMode
   
+  @Environment(\.openURL) var openURL
+  
+  @Environment(\.oauthKey) var oauth
+  
   var body: some View {
-    VStack(spacing: 8.0) {
-      
-      HStack {
-        Image(systemName: "plus")
-          .foregroundColor(.white)
-          .rotationEffect(.radians(.pi/4))
-          .padding()
-          .background(Circle().foregroundColor(Color(.systemTeal)))
-          .padding([.leading, .top])
-          .onTapGesture {
-            self.presentationMode.wrappedValue.dismiss()
+    ZStack {
+        VStack(spacing: 8.0) {
+          
+          HStack {
+            Image(systemName: "plus")
+              .foregroundColor(Color(.systemBackground))
+              .rotationEffect(.radians(.pi/4))
+              .padding()
+              .background(Circle().foregroundColor(Color(.label)))
+              .padding([.leading, .top])
+              .onTapGesture {
+                self.presentationMode.wrappedValue.dismiss()
+              }
+            Spacer()
+          }
+          
+          Image("gyazo-image")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .clipShape(Circle())
+          
+          GeometryReader { h in
+            VStack(spacing: 16.0) {
+              VStack {
+                Text(user?.name ?? "")
+                  .font(.headline)
+                  .frame(maxWidth: .infinity)
+                Text(user?.email ?? "")
+                  .font(.subheadline)
+              }
+              Button(action: {
+                openURL(URL(string: "https://www.gyazo.com/captures")!)
+              }) {
+                Text("Check profile online")
+                  .bold()
+                  .padding()
+                  .background(Color(.label))
+                  .foregroundColor(Color(.systemBackground))
+                  .clipShape(Capsule())
+              }.buttonStyle(PlainButtonStyle())
+              
+              Spacer()
+              Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                  self.oauth.logout()
+                  NotificationCenter.default.post(name: .loggedOut, object: nil, userInfo: nil)
+                }
+              }) {
+                Text("logout")
+                  .bold()
+                  .padding()
+                  .background(Color(.systemRed))
+                  .foregroundColor(.white)
+                  .clipShape(Capsule())
+              }.buttonStyle(PlainButtonStyle())
+            }
+            
+          Spacer()
         }
-        Spacer()
       }
       
-      Image("gyazo-image")
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .clipShape(Circle())
-      Text(user?.name ?? "")
-        .font(.headline)
-      Text(user?.email ?? "")
-        .font(.subheadline)
-      
-      Spacer()
-      
-      VStack(spacing: 8.0) {
-        Text("some other bs")
-          .frame(maxWidth: .infinity)
-          .padding()
-          .background(Color(.systemTeal))
-          .foregroundColor(.white)
-        Text("logout")
-          .bold()
-          .frame(maxWidth: .infinity)
-          .padding()
-          .background(Color.red)
-          .foregroundColor(.white)
-        
-      }.padding(.bottom)
     }
     .onReceive(network.request(endpoint: .user)) { container in
       self.user = container?.user
@@ -68,6 +94,11 @@ struct Profile: View {
 
 struct Profile_Providers: PreviewProvider {
   static var previews: some View {
-    Profile(user: User(email: "markim@linuxacademy.com", name: "Markim Shaw", profileImage: nil, id: "1"))
+    Group {
+      Profile(user: User(email: "markim@linuxacademy.com", name: "Markim Shaw", profileImage: nil, id: "1"))
+        .preferredColorScheme(.dark)
+      Profile(user: User(email: "markim@linuxacademy.com", name: "Markim Shaw", profileImage: nil, id: "1"))
+        .preferredColorScheme(.light)
+    }
   }
 }
