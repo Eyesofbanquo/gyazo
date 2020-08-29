@@ -95,7 +95,7 @@ struct ContentView: View {
                     .contentShape(Rectangle())
                 })
               .sheet(isPresented: self.$showingProfile) {
-                Profile()
+                Profile(presented: $showingProfile)
               }
             }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
               print("drag")

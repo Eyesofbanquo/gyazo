@@ -38,8 +38,6 @@ final class LoginInterceptViewController: UIViewController, ObservableObject {
     
     setupCallbackFromOAuth()
     
-    self.view.backgroundColor = .systemPink
-    
     hostLoginViewComponent()
     
   }

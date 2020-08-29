@@ -108,7 +108,7 @@ struct DashboardDetailView: View {
     .background(Color(.systemBackground))
     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
     .sheet(isPresented: self.$showingProfile) {
-      Profile()
+      Profile(presented: $showingProfile)
     }
   }
   

@@ -21,6 +21,10 @@ struct Profile: View {
   
   @Environment(\.oauthKey) var oauth
   
+  @State var loggingOut: Bool = false
+  
+  @Binding var presented: Bool
+  
   var body: some View {
     ZStack {
         VStack(spacing: 8.0) {
@@ -65,11 +69,9 @@ struct Profile: View {
               
               Spacer()
               Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                  self.oauth.logout()
-                  NotificationCenter.default.post(name: .loggedOut, object: nil, userInfo: nil)
-                }
+                NotificationCenter.default.post(name: .loggedOut, object: nil, userInfo: nil)
+                self.loggingOut = true
+                self.oauth.logout()
               }) {
                 Text("logout")
                   .bold()
@@ -83,6 +85,28 @@ struct Profile: View {
           Spacer()
         }
       }
+      if true {
+        ZStack(alignment: .center) {
+          Color.white.opacity(0.1).background(BlurView(style: .systemMaterial))
+          VStack {
+            Text("Logged Out")
+              .font(.title)
+            Button(action: {
+              self.$presented.wrappedValue = false
+            }) {
+              Text("Tap to dismiss")
+                .padding()
+                .background(Color(.label))
+                .foregroundColor(Color(.systemBackground))
+                .clipShape(Capsule())
+            }
+            Text("Experimental build. You can't completely logout of Gyazo with this button. This button just guarantees that someone can't access your content but Safari still stores your session. Delete this app to completely logout.")
+              .padding()
+              .padding(.horizontal)
+              .font(.caption2)
+          }
+        }.edgesIgnoringSafeArea(.all)
+      }
       
     }
     .onReceive(network.request(endpoint: .user)) { container in
@@ -93,11 +117,19 @@ struct Profile: View {
 }
 
 struct Profile_Providers: PreviewProvider {
+  private static var presented: Bool = false
+  private static var presentedBinding = Binding<Bool> (
+    get: {
+      presented
+    },
+    set: {
+      presented = $0
+    })
   static var previews: some View {
     Group {
-      Profile(user: User(email: "markim@linuxacademy.com", name: "Markim Shaw", profileImage: nil, id: "1"))
+      Profile(user: User(email: "markim@linuxacademy.com", name: "Markim Shaw", profileImage: nil, id: "1"), presented: presentedBinding)
         .preferredColorScheme(.dark)
-      Profile(user: User(email: "markim@linuxacademy.com", name: "Markim Shaw", profileImage: nil, id: "1"))
+      Profile(user: User(email: "markim@linuxacademy.com", name: "Markim Shaw", profileImage: nil, id: "1"), presented: presentedBinding)
         .preferredColorScheme(.light)
     }
   }

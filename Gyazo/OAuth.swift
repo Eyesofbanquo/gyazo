@@ -70,8 +70,12 @@ class OAuth: ObservableObject {
     oauth2.forgetClient()
     oauth2.forgetTokens()
     Secure.keychain["access_token"] = nil
-    let storage = HTTPCookieStorage.shared
-    storage.cookies?.forEach() { storage.deleteCookie($0) }
+    var cookieProperties = [HTTPCookiePropertyKey:String]()
+    cookieProperties[.domain] = "gyazo"
+    // <... etc ...>
+    if let cookie = HTTPCookie(properties: cookieProperties) {
+      HTTPCookieStorage.shared.deleteCookie(cookie)
+    }
   }
 }
 

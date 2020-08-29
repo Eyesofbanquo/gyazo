@@ -40,7 +40,9 @@ struct TestApp: App {
         NotificationCenter.default.post(name: .returnFromAuth, object: nil, userInfo: ["url": url])
       }
       .onReceive(NotificationCenter.default.publisher(for: .loggedOut), perform: { _ in
-        self.loginSuccessful = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+          self.loginSuccessful = false
+        }
       })
     }
   }
