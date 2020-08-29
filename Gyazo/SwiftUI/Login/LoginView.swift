@@ -15,18 +15,51 @@ struct LoginView: View {
   @ObservedObject var loginController: LoginInterceptViewController
   
   var body: some View {
-    return VStack {
-      Text("Welcome to Dropp")
-      Button("Login Here") {
-        self.loginController.authorizeIfNeeded()
+    ZStack(alignment: .center) {
+      GeometryReader { g in
+        VStack(alignment: .center) {
+          Spacer()
+          Image("gyazo-logo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(height: g.size.height / 3)
+          
+          Text("Gyazo")
+            .bold()
+            .frame(maxWidth: .infinity)
+            .font(.title)
+          Spacer()
+          Spacer()
+          Button(action: {
+            self.loginController.authorizeIfNeeded()
+          }) {
+            Text("Login")
+              .font(.headline)
+              .foregroundColor(Color(.systemBackground))
+              .padding(.horizontal, 32.0)
+              .padding(.top, 16.0)
+              .padding(.bottom, 16.0)
+              .background(Color(.label))
+              .clipShape(Capsule())
+              
+          }
+          .buttonStyle(PlainButtonStyle())
+        }
       }
     }
+    .background(Color(.systemBackground))
   }
 }
 
 struct LoginView_Previews: PreviewProvider {
   
   static var previews: some View {
-    return LoginView(loginController: LoginInterceptViewController())
+    Group {
+      LoginView(loginController: LoginInterceptViewController())
+        .preferredColorScheme(.dark)
+        .previewDisplayName("Dark Mode")
+      LoginView(loginController: LoginInterceptViewController())
+        .preferredColorScheme(.light)
+    }
   }
 }
