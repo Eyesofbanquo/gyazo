@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import OAuth2
 import UIKit
+import SwiftUI
 
 struct AuthResponse: Decodable {
   var accessToken: String
@@ -64,4 +65,28 @@ class OAuth: ObservableObject {
       }
     }
   }
+  
+  func logout() {
+    oauth2.forgetClient()
+    oauth2.forgetTokens()
+    Secure.keychain["access_token"] = nil
+    var cookieProperties = [HTTPCookiePropertyKey:String]()
+    cookieProperties[.domain] = "gyazo"
+    // <... etc ...>
+    if let cookie = HTTPCookie(properties: cookieProperties) {
+      HTTPCookieStorage.shared.deleteCookie(cookie)
+    }
+  }
 }
+
+struct OAuthKey: EnvironmentKey {
+  static let defaultValue: OAuth = OAuth()
+}
+
+extension EnvironmentValues {
+  var oauthKey: OAuth {
+    get { self[OAuthKey.self] }
+    set { self[OAuthKey.self] = newValue }
+  }
+}
+

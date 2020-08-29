@@ -45,8 +45,9 @@ struct LoginView: View {
           }
           .buttonStyle(PlainButtonStyle())
         }
-      }
+      }.padding(.bottom)
     }
+    .edgesIgnoringSafeArea(.all)
     .background(Color(.systemBackground))
   }
 }
@@ -58,6 +59,7 @@ struct LoginView_Previews: PreviewProvider {
       LoginView(loginController: LoginInterceptViewController())
         .preferredColorScheme(.dark)
         .previewDisplayName("Dark Mode")
+        .previewDevice(.init(stringLiteral: "iPhone 11 Pro Max"))
       LoginView(loginController: LoginInterceptViewController())
         .preferredColorScheme(.light)
     }
