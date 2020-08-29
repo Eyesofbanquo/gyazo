@@ -24,6 +24,7 @@ struct DashboardDetailView: View {
   @State var formattedDate: String = ""
   @State var showingProfile: Bool = false
   @State var copiedText: Bool = false
+  @State var shareController: Bool = false
   @ObservedObject var dateFormatter: DateFormat = DateFormat()
   
   var body: some View {
@@ -72,34 +73,18 @@ struct DashboardDetailView: View {
       }
       navbar
       
-      if self.expanded {
-        ZStack(alignment: .center) {
-          Color.black
-            .opacity(0.05)
-            .background(BlurView(style: .extraLight))
-          VStack {
-            Image("gyazo-image")
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-            Text("\(self.copiedText ? "Copied!" : "Copy to cliboard")")
-              .padding()
-              .foregroundColor(.white)
-              .background(self.copiedText ? Color.green : Color.orange)
-              .clipShape(Capsule())
-              .onTapGesture {
-                withAnimation {
-                  self.copiedText = true
-                }
-                self.copyToPasteboard()
-              }
-          }
-        }
-        .edgesIgnoringSafeArea(.all)
-        .transition(.scale)
-        .onTapGesture {
-          self.expanded = false
-          self.copiedText = false
-        }
+      if self.expanded, let imageURL = post.cacheableImageURL {
+        SelectedImageView(uiimage: cache[imageURL],
+                          imageURL: post.urlString,
+                          actionText: (performedAction: "Copied!",
+                                       default: "Copy to clipboard"),
+                          presentShareController: $shareController,
+                          action: {
+          self.copyToPasteboard()
+        },
+                          
+                          presentSelectedImageView: $expanded
+                          )
       }
     }
     .onReceive(self.dateFormatter.format(fromString: post.createdAt), perform: { date in
@@ -107,9 +92,7 @@ struct DashboardDetailView: View {
     })
     .background(Color(.systemBackground))
     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
-    .sheet(isPresented: self.$showingProfile) {
-      Profile(presented: $showingProfile)
-    }
+    
   }
   
   private var heroImage: Image? {
@@ -160,6 +143,9 @@ struct DashboardDetailView: View {
           .foregroundColor(Color.black)
           .onTapGesture {
             self.showingProfile = true
+          }
+          .sheet(isPresented: self.$showingProfile) {
+            Profile(presented: $showingProfile)
           }
       }
       .padding()

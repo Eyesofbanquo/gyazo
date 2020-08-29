@@ -30,15 +30,18 @@ struct Profile: View {
         VStack(spacing: 8.0) {
           
           HStack {
-            Image(systemName: "plus")
-              .foregroundColor(Color(.systemBackground))
-              .rotationEffect(.radians(.pi/4))
-              .padding()
-              .background(Circle().foregroundColor(Color(.label)))
-              .padding([.leading, .top])
-              .onTapGesture {
-                self.presentationMode.wrappedValue.dismiss()
-              }
+            Button(action: {
+              self.presentationMode.wrappedValue.dismiss()
+
+            }) {
+              Image(systemName: "plus")
+                .foregroundColor(Color(.systemBackground))
+                .rotationEffect(.radians(.pi/4))
+                .padding()
+                .background(Circle().foregroundColor(Color(.label)))
+                .padding([.leading, .top])
+            }.buttonStyle(PlainButtonStyle())
+           
             Spacer()
           }
           
