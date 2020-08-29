@@ -35,7 +35,7 @@ struct UploadOptions: View {
         
         uploadButton
       }
-      .accentColor(.white)
+      .accentColor(Color(.systemBackground))
       .animation(Animation.easeInOut(duration: 0.15))
     }
     
@@ -50,7 +50,7 @@ struct UploadOptions: View {
         .padding(24)
         .rotationEffect(.degrees(showButtons ? 0 : -90))
     }
-    .background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+    .background(Circle().fill(Color(.label)).shadow(radius: 8, x: 4, y: 4))
     .offset(x: 0, y: showButtons ? -128 : 0)
     .opacity(showButtons ? 1 : 0)
     
@@ -65,7 +65,7 @@ struct UploadOptions: View {
         .padding(24)
         .rotationEffect(.degrees(showButtons ? 0 : -90))
     }
-    .background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+    .background(Circle().fill(Color(.label)).shadow(radius: 8, x: 4, y: 4))
     .offset(x: showButtons ? -96 : 0, y: showButtons ? -92 : 0)
     .opacity(showButtons ? 1 : 0)
     .sheet(isPresented: $presentPhotoLibrary) { 
@@ -83,7 +83,7 @@ struct UploadOptions: View {
         .rotationEffect(.degrees(showButtons ? 0 : -90))
       
     }
-    .background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+    .background(Circle().fill(Color(.label)).shadow(radius: 8, x: 4, y: 4))
     .offset(x: showButtons ? -120 : 0, y: 0)
     .opacity(showButtons ? 1 : 0)
     .sheet(isPresented: $presentCamera) {
@@ -99,7 +99,7 @@ struct UploadOptions: View {
       Image(systemName: "icloud.and.arrow.up")
         .padding(24)
     }
-    .background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+    .background(Circle().fill(Color(.label)).shadow(radius: 8, x: 4, y: 4))
   }
   
   private func readFromPasteboard() {
