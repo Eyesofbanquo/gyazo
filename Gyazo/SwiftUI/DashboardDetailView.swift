@@ -23,6 +23,7 @@ struct DashboardDetailView: View {
   
   @State var formattedDate: String = ""
   @State var showingProfile: Bool = false
+  @State var copiedText: Bool = false
   @ObservedObject var dateFormatter: DateFormat = DateFormat()
   
   var body: some View {
@@ -76,12 +77,15 @@ struct DashboardDetailView: View {
             Image("gyazo-image")
               .resizable()
               .aspectRatio(contentMode: .fit)
-            Text("Copy to clipboard")
+            Text("\(self.copiedText ? "Copied!" : "Copy to cliboard")")
               .padding()
               .foregroundColor(.white)
-              .background(Color.orange)
+              .background(self.copiedText ? Color.green : Color.orange)
               .clipShape(Capsule())
               .onTapGesture {
+                withAnimation {
+                  self.copiedText = true
+                }
                 self.copyToPasteboard()
               }
           }
@@ -90,14 +94,15 @@ struct DashboardDetailView: View {
         .transition(.scale)
         .onTapGesture {
           self.expanded = false
+          self.copiedText = false
         }
       }
     }
     .onReceive(self.dateFormatter.format(fromString: post.createdAt), perform: { date in
       self.formattedDate = date
     })
-    .edgesIgnoringSafeArea(.all)
     .background(Color.white)
+    .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
     .sheet(isPresented: self.$showingProfile) {
       Profile()
     }
@@ -164,7 +169,10 @@ struct DashboardDetailView: View {
   private func copyToPasteboard() {
     let pasteboard = UIPasteboard.general
     
-    if let imageURL = post.cacheableImageURL, let cachedImage = self.cache[imageURL] {
+    if let imageURL = post.cacheableImageURL,
+       let cachedImage = self.cache[imageURL],
+       let cachedData = cachedImage.pngData(),
+      let imageName = post.metadata?.title {
       pasteboard.image = cachedImage
     }
     
