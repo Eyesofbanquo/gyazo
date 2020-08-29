@@ -85,7 +85,7 @@ struct Profile: View {
           Spacer()
         }
       }
-      if true {
+      if loggingOut {
         ZStack(alignment: .center) {
           Color.white.opacity(0.1).background(BlurView(style: .systemMaterial))
           VStack {
