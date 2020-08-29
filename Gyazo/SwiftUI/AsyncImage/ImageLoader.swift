@@ -70,6 +70,31 @@ public class ImageLoader: ObservableObject {
       .assign(to: \.image, on: self)
   }
   
+  func loadPublisher() -> Future<Bool, Never> {
+    return Future<Bool, Never> { seal in
+      self.cancellable = URLSession.shared.dataTaskPublisher(for: self.url)
+        .subscribe(on: Self.imageProcessingQueue)
+        .map { UIImage(data: $0.data) }
+        .replaceError(with: nil)
+        .handleEvents(
+          receiveSubscription: { [weak self] _ in self?.onStart() },
+          receiveOutput: { [weak self] image in
+            if let downloadedImage = image {
+              self?.vision?.classifyImage(downloadedImage, forId: self?.title ?? "")
+            }
+            self?.cache(image)
+          },
+          receiveCompletion: { [weak self] _ in self?.onFinish() },
+          receiveCancel: { [weak self] in self?.onFinish() }
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { image in
+          self.image = image
+          seal(.success(true))
+        }
+    }
+  }
+  
   private func cache(_ image: UIImage?) {
     image.map { cache?[url] = $0 }
   }

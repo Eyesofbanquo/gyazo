@@ -26,6 +26,7 @@
 		338CC82B24F9999100B628AB /* DashboardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CC82A24F9999100B628AB /* DashboardDetailView.swift */; };
 		338CC82D24F9B95300B628AB /* StretchyImageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CC82C24F9B95300B628AB /* StretchyImageModifier.swift */; };
 		338CC82F24F9BCF200B628AB /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CC82E24F9BCF200B628AB /* DateFormat.swift */; };
+		338CC83124FA1F7E00B628AB /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338CC83024FA1F7E00B628AB /* BlurView.swift */; };
 		33979B7D24F5E02A0013B81F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33979B7C24F5E02A0013B81F /* App.swift */; };
 		33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D623FB24F597170051C3D7 /* UploadOptions.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
@@ -76,6 +77,7 @@
 		338CC82A24F9999100B628AB /* DashboardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDetailView.swift; sourceTree = "<group>"; };
 		338CC82C24F9B95300B628AB /* StretchyImageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyImageModifier.swift; sourceTree = "<group>"; };
 		338CC82E24F9BCF200B628AB /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		338CC83024FA1F7E00B628AB /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		33979B7C24F5E02A0013B81F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		33D623FB24F597170051C3D7 /* UploadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOptions.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +207,7 @@
 				D50E9D3D245278F1006F0E9A /* LoginIntercept.swift */,
 				334F0D3524F56C9B003EB8EF /* UIApplication+.swift */,
 				338CC82E24F9BCF200B628AB /* DateFormat.swift */,
+				338CC83024FA1F7E00B628AB /* BlurView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				D50E9D3824521B58006F0E9A /* OAuth.swift in Sources */,
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
 				334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */,
+				338CC83124FA1F7E00B628AB /* BlurView.swift in Sources */,
 				338CC82B24F9999100B628AB /* DashboardDetailView.swift in Sources */,
 				33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */,
 				3355E49624F4EE94006B227F /* Gyazo.swift in Sources */,

@@ -48,16 +48,19 @@ struct DashboardDetailView: View {
           
           
           VStack(alignment: .leading) {
-            Text(formattedDate) // MMM dd, yyyy HH:mm convert to this
+            Text(formattedDate)
+              .foregroundColor(Color(.label))
             if let metadata = post.metadata {
               if let app = metadata.app {
                 Text(app)
+                  .foregroundColor(Color(.label))
               }
               
               if let description = metadata.description {
                 TextEditor(text:
                             .constant("Type a description"))
                   .border(Color.black.opacity(0.67))
+                  .foregroundColor(Color(.label))
               }
               
             }
@@ -72,7 +75,8 @@ struct DashboardDetailView: View {
       if self.expanded {
         ZStack(alignment: .center) {
           Color.black
-            .opacity(0.77)
+            .opacity(0.05)
+            .background(BlurView(style: .extraLight))
           VStack {
             Image("gyazo-image")
               .resizable()
@@ -101,7 +105,7 @@ struct DashboardDetailView: View {
     .onReceive(self.dateFormatter.format(fromString: post.createdAt), perform: { date in
       self.formattedDate = date
     })
-    .background(Color.white)
+    .background(Color(.systemBackground))
     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
     .sheet(isPresented: self.$showingProfile) {
       Profile()
@@ -125,7 +129,7 @@ struct DashboardDetailView: View {
       Text("Tap to enlarge")
         .font(.headline)
         .padding()
-        .background(Color.black)
+        .background(Color(.systemFill))
         .foregroundColor(.white)
         .clipShape(Capsule())
         .contentShape(Capsule())
@@ -141,13 +145,10 @@ struct DashboardDetailView: View {
   
   private var navbar: some View {
     ZStack {
-      Color.black
-        .opacity(0.67)
-        .blur(radius: 10 )
       HStack {
         Image(systemName: "xmark.circle.fill")
-          .font(.largeTitle)
-          .foregroundColor(.white)
+          .font(.title)
+          .foregroundColor(Color.black)
           .onTapGesture {
             withAnimation {
               self.isVisible.wrappedValue = false
@@ -155,14 +156,13 @@ struct DashboardDetailView: View {
           }
         Spacer()
         Image(systemName: "person.circle.fill")
-          .font(.largeTitle)
-          .foregroundColor(.white)
+          .font(.title)
+          .foregroundColor(Color.black)
           .onTapGesture {
             self.showingProfile = true
           }
       }
       .padding()
-      .layoutPriority(1)
     }
   }
   
@@ -170,9 +170,7 @@ struct DashboardDetailView: View {
     let pasteboard = UIPasteboard.general
     
     if let imageURL = post.cacheableImageURL,
-       let cachedImage = self.cache[imageURL],
-       let cachedData = cachedImage.pngData(),
-      let imageName = post.metadata?.title {
+       let cachedImage = self.cache[imageURL] {
       pasteboard.image = cachedImage
     }
     

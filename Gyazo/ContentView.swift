@@ -89,6 +89,7 @@ struct ContentView: View {
                   self.showingProfile = true
                 }){
                   Image(systemName: "person.circle")
+                    .foregroundColor(Color(.label))
                     .padding()
                     .font(.title)
                     .contentShape(Rectangle())
