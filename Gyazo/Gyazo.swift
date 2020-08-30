@@ -12,11 +12,13 @@ enum GyazoAPI {
   enum Endpoint {
     case images
     case user
+    case upload
     
     var path: String {
       switch self {
         case .images: return "images"
         case .user: return "users/me"
+        case .upload: return "upload"
       }
     }
   }

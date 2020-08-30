@@ -1,0 +1,142 @@
+//
+//  ShareViewController.swift
+//  GilmoShareExtension
+//
+//  Created by Markim Shaw on 8/29/20.
+//  Copyright © 2020 Markim Shaw. All rights reserved.
+//
+
+import UIKit
+import Social
+import MobileCoreServices
+import Combine
+import SwiftUI
+
+struct GyazoUpload: Codable {
+  var access_token: String
+  var imagedata: Data
+  var metadata_is_public: Bool
+  var title: String
+}
+
+struct ImageResponse: Codable {
+  var image_id: String
+  var permalink_url: String
+  var thumb_url: String
+  var url: String
+  var type: String
+}
+
+@objc(ShareViewController)
+class ShareViewController: UIViewController {
+  
+//  self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+
+  @Published var image: UIImage?
+  
+  private var dismissView: Bool = false
+  
+  private var triggerUpload: Bool = false
+  
+  private var network: NetworkRequest<ImageResponse> = NetworkRequest<ImageResponse>()
+  private var cancellable: AnyCancellable?
+  
+  lazy var triggerUploadBinding = Binding (
+    get: {
+      self.triggerUpload
+    },
+    set: { newValue in
+      
+      if newValue {
+        self.triggerUpload = newValue
+        self.uploadImage()
+      }
+      
+    })
+  
+  lazy var dismissViewBinding = Binding (
+    get: {
+      return self.dismissView
+    },
+    set: { newValue in
+      if newValue {
+        self.dismissView = newValue
+        self.extensionContext!.completeRequest(returningItems: nil, completionHandler: nil)
+      }
+    }
+  )
+  
+  lazy var imageBinding = Binding (
+    get: {
+      return self.image
+    },
+    set: {
+      self.image = $0
+    }
+  )
+  
+  lazy var imageView: UIImageView = {
+    let im = UIImageView()
+    im.translatesAutoresizingMaskIntoConstraints = false
+    return im
+  }()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    let content = extensionContext!.inputItems[0] as! NSExtensionItem
+    let contentType = kUTTypeImage as String
+    
+    for attachment in content.attachments! as [NSItemProvider] {
+      if attachment.hasItemConformingToTypeIdentifier(contentType) {
+        attachment.loadItem(forTypeIdentifier: contentType, options: nil) { (data, error) in
+          guard error == nil else {
+            print("this failed")
+            return
+          }
+          let url = data as! URL
+          if let imageData = try? Data(contentsOf: url) {
+            self.image = UIImage(data: imageData)
+            self.imageView.image = self.image
+          }
+        }
+      }
+    }
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    let childView = UIHostingController(rootView: ShareExtensionView(selectedImage: imageBinding,
+                                                                     dismiss: dismissViewBinding,
+                                                                     triggerUpload: triggerUploadBinding))
+    addChild(childView)
+    childView.view.frame = view.frame
+    view.addSubview(childView.view)
+    childView.didMove(toParent: self)
+  }
+  
+  private func uploadImage() {
+    guard let accessToken = Secure.keychain["access_token"], let imageData = image?.pngData(), let imageBinary = image?.jpegData(compressionQuality: 1.0) else {
+      return // throw error or show some screen showing that this has failed
+    }
+    
+    let fileData = imageBinary.base64EncodedString()
+//    let uploadImage = GyazoUpload(access_token: accessToken, imagedata: fileData, metadata_is_public: true, title: "iOS Share Menu")
+    let params: [String: String] = [
+      "access_token": accessToken,
+      "imagedata": fileData
+    ]
+    let encoder = JSONEncoder()
+    do {
+//      let postData = try encoder.encode(uploadImage)
+      self.cancellable = network.post(usingImage: image, withParams: params).sink(receiveValue: { drop in
+        print(drop)
+      })
+    } catch(let error) {
+      self.extensionContext!.cancelRequest(withError:error)
+    }
+    
+  }
+
+}
