@@ -34,12 +34,14 @@ struct SelectedImageView: View {
           ShareButton
         }
       }
+      .padding()
     }
     .edgesIgnoringSafeArea(.all)
     .transition(.scale)
     .onTapGesture {
       self.dismissAndReset()
     }
+    
   }
 }
 
@@ -84,6 +86,8 @@ extension SelectedImageView {
     unwrappedImage?
       .resizable()
       .aspectRatio(contentMode: .fit)
+      .cornerRadius(8.0)
+      .padding()
   }
   
   private var ActionButton: some View {

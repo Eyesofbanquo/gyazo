@@ -38,6 +38,8 @@ struct ContentView: View {
   
   @State var expandDashboardCell = false
   
+  @State var presentShareController: Bool = false
+  
   @Namespace var dashboardCellAnimation
   
   @State var selectedPost: Drop?
@@ -110,20 +112,19 @@ struct ContentView: View {
       } // nav view
       
       if self.uploadImage != nil {
-        ZStack(alignment: .center) {
-          Color.red
-          VStack {
-            //          Image("gyazo-image")
-            pasteboardImageView?
-              .resizable()
-              .padding(.horizontal)
-              .aspectRatio(contentMode: .fit)
-            
-            Text("Image classification")
-          }
-        }.onTapGesture {
-          self.uploadImage = nil
-        } // inner z-stack
+        SelectedImageView(uiimage: uploadImage,
+                          imageURL: selectedPost?.urlString ?? "",
+                          actionText: (performedAction: "Uploaded",
+                                       default: "Upload to Gyazo"),
+                          presentShareController: $presentShareController, action: {
+          // upload here
+        }, presentSelectedImageView: Binding (
+          get: {
+            return self.uploadImage != nil
+          },
+          set: { _ in
+            self.uploadImage = nil
+          })) // inner z-stack
       }
       
       // This should be logic for the detail view
