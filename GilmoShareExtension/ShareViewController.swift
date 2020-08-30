@@ -13,14 +13,6 @@ import MobileCoreServices
 import Combine
 import SwiftUI
 
-struct ImageResponse: Codable {
-  var image_id: String
-  var permalink_url: String
-  var thumb_url: String
-  var url: String
-  var type: String
-}
-
 @objc(ShareViewController)
 class ShareViewController: UIViewController {
   

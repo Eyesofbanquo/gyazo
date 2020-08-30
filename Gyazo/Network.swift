@@ -6,6 +6,7 @@
 //  Copyright © 2020 Markim Shaw. All rights reserved.
 //
 
+import Alamofire
 import Foundation
 import Combine
 import UIKit
@@ -19,6 +20,9 @@ class NetworkRequest<T: Decodable>: ObservableObject {
   typealias RequestType = T
   
   var cancellableSet: Set<AnyCancellable> = []
+  
+  var uploadPassthrough = PassthroughSubject<Double, Never>()
+
   
   func request(endpoint: GyazoAPI.Endpoint, postData: Data? = nil) -> AnyPublisher<RequestType?, Never> {
     var components = URLComponents()
@@ -44,5 +48,23 @@ class NetworkRequest<T: Decodable>: ObservableObject {
       .eraseToAnyPublisher()
 
     return cancellable
+  }
+  
+  func upload(image: UIImage?) {
+    guard let accessToken = Secure.keychain["access_token"],
+          let imageBinary = image?.jpegData(compressionQuality: 1.0) else {
+      return // throw error or show some screen showing that this has failed
+    }
+    
+    AF.upload(multipartFormData: { multipartFormData in
+      multipartFormData.append(Data(accessToken.utf8), withName: "access_token")
+      multipartFormData.append(imageBinary, withName: "imagedata", fileName: "iOS Share Menu", mimeType: "image/jpeg")
+    }, to: "https://upload.gyazo.com/api/upload", method: .post)
+    .responseDecodable(of: ImageResponse.self) { response in
+      debugPrint(response)
+    }
+    .uploadProgress { progress in
+      self.uploadPassthrough.send(progress.fractionCompleted)
+    }
   }
 }

@@ -51,9 +51,9 @@ struct ContentView: View {
         ZStack(alignment: .bottomTrailing) {
           VStack {
             ScrollView {
-
+              
               SearchBar(text: $searchText)
-
+              
               VStack(spacing: 8.0) {
                 ForEach(posts.filter { post in
                   if (searchText.isEmpty) {
@@ -114,24 +114,22 @@ struct ContentView: View {
       if self.uploadImage != nil {
         SelectedImageView(uiimage: uploadImage,
                           imageURL: selectedPost?.urlString ?? "",
-                          actionText: (performedAction: "Uploaded",
-                                       default: "Upload to Gyazo"),
-                          presentShareController: $presentShareController, action: {
-          // upload here
-        }, presentSelectedImageView: Binding (
-          get: {
-            return self.uploadImage != nil
-          },
-          set: { _ in
-            self.uploadImage = nil
-          })) // inner z-stack
+                          action: .upload,
+                          presentShareController: $presentShareController,
+                          presentSelectedImageView: Binding (
+                            get: {
+                              return self.uploadImage != nil
+                            },
+                            set: { _ in
+                              self.uploadImage = nil
+                            })) // inner z-stack
       }
       
       // This should be logic for the detail view
       if expandDashboardCell, let selectedPost = self.selectedPost {
-          DashboardDetailView(post: selectedPost,
-                              animationNamespace: dashboardCellAnimation,
-                              isVisible: $expandDashboardCell)
+        DashboardDetailView(post: selectedPost,
+                            animationNamespace: dashboardCellAnimation,
+                            isVisible: $expandDashboardCell)
       }
       
     }// outer z-stack

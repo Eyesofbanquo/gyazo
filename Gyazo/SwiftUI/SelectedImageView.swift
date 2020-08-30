@@ -9,38 +9,61 @@
 import Foundation
 import SwiftUI
 
+enum SelectedImageViewAction {
+  case upload
+  case clipboard
+  case none
+}
+
 struct SelectedImageView: View {
   var uiimage: UIImage?
   
   var imageURL: String
   
-  var actionText: (performedAction: String, default: String)
-  
   @State private var performedAction: Bool = false
+  
+  var action: SelectedImageViewAction
   
   @Binding var presentShareController: Bool
   
-  var action: (() -> Void)?
-  
   @Binding var presentSelectedImageView: Bool
   
+  @Environment(\.imageCache) var cache
+  
+  @StateObject var network: NetworkRequest<ImageResponse> = NetworkRequest<ImageResponse>()
+  
+  @State private var progress: Float = 0.0
+  
   var body: some View {
-    ZStack(alignment: .center) {
-      Background
-      VStack {
-        DisplayableImage
-        HStack(alignment: .center, spacing: 16.0) {
-          ActionButton
-          ShareButton
+    ZStack(alignment: .top) {
+      ZStack(alignment: .center) {
+        Background
+        VStack(spacing: 16.0) {
+          VStack(spacing: 2.0) {
+            DisplayableImage
+              .padding(.top)
+            Progress
+          }
+          HStack(alignment: .center, spacing: 16.0) {
+            ActionButton
+            ShareButton
+          }
         }
+        .padding()
+        
       }
-      .padding()
+      navbar
+        .padding()
+        .padding(.top)
     }
     .edgesIgnoringSafeArea(.all)
     .transition(.scale)
     .onTapGesture {
       self.dismissAndReset()
     }
+    .onReceive(network.uploadPassthrough, perform: { results in
+      self.progress = Float(results)
+    })
     
   }
 }
@@ -60,13 +83,11 @@ struct SelectedImageView_Previews: PreviewProvider {
     
     Group {
       SelectedImageView(uiimage: UIImage(named: "gyazo-image"), imageURL: "https://i.redd.it/eog1gcl2ruj51.jpg",
-                        actionText: (performedAction: "Cancelled",
-                                     default: "Tap on this to cancel"),
+                        action: .upload,
                         presentShareController: presentBinding, presentSelectedImageView: presentBinding)
         .preferredColorScheme(.dark)
       SelectedImageView(uiimage: UIImage(named: "gyazo-image"), imageURL: "https://i.redd.it/eog1gcl2ruj51.jpg",
-                        actionText: (performedAction: "Cancelled",
-                                     default: "Tap on this to cancel"),
+                        action: .clipboard,
                         presentShareController: presentBinding, presentSelectedImageView: presentBinding)
         .preferredColorScheme(.light)
     }
@@ -92,12 +113,18 @@ extension SelectedImageView {
   
   private var ActionButton: some View {
     Button(action: {
-      withAnimation {
-        self.performedAction = true
+      if self.performedAction == false {
+        withAnimation {
+          self.performedAction = true
+          switch action {
+            case .clipboard: self.copyToPasteboard()
+            case .upload: self.network.upload(image: uiimage)
+            default: break
+          }
+        }
       }
-      self.action?()
     }) {
-      Text("\(self.performedAction ? actionText.performedAction : actionText.default)")
+      Text("\(actionText)")
         .padding()
         .foregroundColor(Color(.systemBackground))
         .background(self.performedAction ? Color(.label) : Color(.label))
@@ -127,8 +154,59 @@ extension SelectedImageView {
       .background(BlurView(style: .systemMaterial))
   }
   
+  private var Progress: some View {
+    Group {
+      if progress > 0.0 {
+        ProgressView(value: progress)
+          .accentColor(Color("gyazo-blue"))
+      } else {
+        EmptyView()
+      }
+    }
+  }
+  
+  private var actionText: String {
+    switch action {
+      case .clipboard: return self.performedAction ? "Copied!" : "Copy to clipboard"
+      case .upload:
+        switch progress {
+          case 0.0: return "Upload to Gyazo"
+          case 0.01..<1.0: return "Uploading..."
+          case 1.0: return "Uploaded!"
+          default: return "Upload to Gyazo"
+        }
+      case .none: return ""
+    }
+  }
+  
   private func dismissAndReset() {
     self.$presentSelectedImageView.wrappedValue = false
     self.performedAction = false
   }
+  
+  private func copyToPasteboard() {
+    let pasteboard = UIPasteboard.general
+    
+    if let imageURL = URL(string: self.imageURL),
+       let cachedImage = self.cache[imageURL] {
+      pasteboard.image = cachedImage
+    }
+  }
+  
+  private var navbar: some View {
+    ZStack {
+      HStack {
+        Image(systemName: "xmark.circle.fill")
+          .font(.title)
+          .foregroundColor(Color.black)
+          .onTapGesture {
+            withAnimation {
+              self.dismissAndReset()
+            }
+          }
+        Spacer()
+      }
+    }
+  }
+
 }
