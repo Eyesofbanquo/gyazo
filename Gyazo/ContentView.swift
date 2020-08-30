@@ -44,6 +44,8 @@ struct ContentView: View {
   
   @State var selectedPost: Drop?
   
+  @ObservedObject var cloud: Cloud = Cloud()
+  
   var body: some View {
     
     ZStack(alignment: .center) {
@@ -51,32 +53,10 @@ struct ContentView: View {
         ZStack(alignment: .bottomTrailing) {
           VStack {
             ScrollView {
-              
               SearchBar(text: $searchText)
-              
               VStack(spacing: 8.0) {
-                ForEach(posts.filter { post in
-                  if (searchText.isEmpty) {
-                    return true
-                  } else {
-                    let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
-                    let bestResponse = appropriateMLResponses?.first
-                    let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
-                    return (post.metadata?.app?.contains(self.searchText)) == true || searchTextContainsResponse == true
-                  }
-                }, id: \.self) { post in
-                  Group {
-                    if post.urlString.isEmpty == false {
-                      DashboardCell(post: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
-                        .padding(.horizontal, 8.0)
-                        .onTapGesture {
-                          withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-                            self.expandDashboardCell.toggle()
-                            self.selectedPost = post
-                          }
-                        }
-                    }
-                  }
+                ForEach(posts.filter { filterSearchResults($0) }, id: \.self) { post in
+                  Cell(post)
                 }
               }
               .onReceive(request.request(endpoint: .images)) { posts in
@@ -84,7 +64,6 @@ struct ContentView: View {
                   self.posts = posts
                 }
               }
-              
               .navigationBarTitle(Text("Gyazo"))
               .navigationBarItems(
                 trailing: Button(action: {
@@ -99,6 +78,19 @@ struct ContentView: View {
               .sheet(isPresented: self.$showingProfile) {
                 Profile(presented: $showingProfile)
               }
+              
+              Divider()
+              VStack(alignment: .trailing) {
+                HStack {
+                  Text("Cloud Images")
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .padding()
+                  Spacer()
+                }
+              } // This whole stack may need to be a different color
+              .background(Color("gyazo-blue"))
+              
             }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
               print("drag")
             })) // Scroll View
@@ -112,24 +104,12 @@ struct ContentView: View {
       } // nav view
       
       if self.uploadImage != nil {
-        SelectedImageView(uiimage: uploadImage,
-                          imageURL: selectedPost?.urlString ?? "",
-                          action: .upload,
-                          presentShareController: $presentShareController,
-                          presentSelectedImageView: Binding (
-                            get: {
-                              return self.uploadImage != nil
-                            },
-                            set: { _ in
-                              self.uploadImage = nil
-                            })) // inner z-stack
+        UploadImage
       }
       
       // This should be logic for the detail view
-      if expandDashboardCell, let selectedPost = self.selectedPost {
-        DashboardDetailView(post: selectedPost,
-                            animationNamespace: dashboardCellAnimation,
-                            isVisible: $expandDashboardCell)
+      if expandDashboardCell {
+        DetailView
       }
       
     }// outer z-stack
@@ -152,6 +132,62 @@ struct ContentView: View {
   var selectedImageURL: URL? {
     guard let urlString = selectedPost?.urlString, let url = URL(string: urlString) else { return nil }
     return url
+  }
+  
+  var UploadImage: some View {
+    SelectedImageView(uiimage: uploadImage,
+                      imageURL: selectedPost?.urlString ?? "",
+                      action: .upload,
+                      presentShareController: $presentShareController,
+                      presentSelectedImageView: Binding (
+                        get: {
+                          return self.uploadImage != nil
+                        },
+                        set: { _ in
+                          self.uploadImage = nil
+                        })) // inner z-stack
+  }
+  
+  var DetailView: some View {
+    Group {
+      if let selectedPost = self.selectedPost  {
+        DashboardDetailView(post: selectedPost,
+                            animationNamespace: dashboardCellAnimation,
+                            isVisible: $expandDashboardCell)
+      } else {
+        EmptyView()
+      }
+    }
+   
+  }
+  
+  func filterSearchResults(_ post: Drop) -> Bool {
+    if (searchText.isEmpty) {
+      return true
+    } else {
+      let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
+      let bestResponse = appropriateMLResponses?.first
+      let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
+      return (post.metadata?.app?.contains(self.searchText)) == true || searchTextContainsResponse == true
+    }
+  }
+  
+  func Cell(_ post: Drop) -> some View {
+    Group {
+      if post.urlString.isEmpty == false {
+        DashboardCell(post: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
+          .padding(.horizontal, 8.0)
+          .onAppear {
+            self.cloud.save(post)
+          }
+          .onTapGesture {
+            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+              self.expandDashboardCell.toggle()
+              self.selectedPost = post
+            }
+          }
+      }
+    }
   }
 }
 

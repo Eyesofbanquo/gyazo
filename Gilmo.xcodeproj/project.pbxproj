@@ -15,6 +15,9 @@
 		3340A7A624FC0597003FD9F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		3340A7A824FC1E7D003FD9F9 /* ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340A7A724FC1E7D003FD9F9 /* ImageResponse.swift */; };
 		3340A7A924FC1E84003FD9F9 /* ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340A7A724FC1E7D003FD9F9 /* ImageResponse.swift */; };
+		3340A7AB24FC3427003FD9F9 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3340A7AA24FC3427003FD9F9 /* CloudKit.framework */; };
+		3340A7AD24FC5B6E003FD9F9 /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340A7AC24FC5B6E003FD9F9 /* Cloud.swift */; };
+		3340A7AE24FC5B6E003FD9F9 /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340A7AC24FC5B6E003FD9F9 /* Cloud.swift */; };
 		334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334F0D3524F56C9B003EB8EF /* UIApplication+.swift */; };
 		33518E2624F2E6E3005320D8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2524F2E6E3005320D8 /* Grid.swift */; };
 		33518E2924F36820005320D8 /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2824F36820005320D8 /* SqueezeNet.mlmodel */; };
@@ -99,6 +102,8 @@
 		330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorStyleNoneModifier.swift; sourceTree = "<group>"; };
 		33384D8224FAD8D300F0266A /* SelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageView.swift; sourceTree = "<group>"; };
 		3340A7A724FC1E7D003FD9F9 /* ImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResponse.swift; sourceTree = "<group>"; };
+		3340A7AA24FC3427003FD9F9 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		3340A7AC24FC5B6E003FD9F9 /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
 		334F0D3524F56C9B003EB8EF /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		33518E2524F2E6E3005320D8 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		33518E2824F36820005320D8 /* SqueezeNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlmodel; sourceTree = "<group>"; };
@@ -162,6 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3340A7AB24FC3427003FD9F9 /* CloudKit.framework in Frameworks */,
 				D50E9D41245358E7006F0E9A /* KeychainAccess in Frameworks */,
 				3340A7A324FC001E003FD9F9 /* Alamofire in Frameworks */,
 				D50E9D362451D4F0006F0E9A /* OAuth2 in Frameworks */,
@@ -214,6 +220,7 @@
 		33DE873B24FB46AC00DFEB85 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3340A7AA24FC3427003FD9F9 /* CloudKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -259,6 +266,7 @@
 				D50E9D4224535901006F0E9A /* Secure.swift */,
 				D50E9D46245364B8006F0E9A /* UserSettings.swift */,
 				3355E49524F4EE94006B227F /* Gyazo.swift */,
+				3340A7AC24FC5B6E003FD9F9 /* Cloud.swift */,
 			);
 			path = Gyazo;
 			sourceTree = "<group>";
@@ -502,6 +510,7 @@
 				3340A7A924FC1E84003FD9F9 /* ImageResponse.swift in Sources */,
 				33DE874524FB600D00DFEB85 /* Drop.swift in Sources */,
 				33DE873E24FB491C00DFEB85 /* Secure.swift in Sources */,
+				3340A7AE24FC5B6E003FD9F9 /* Cloud.swift in Sources */,
 				33DE874324FB5E8700DFEB85 /* Network.swift in Sources */,
 				33DE872C24FB3A8600DFEB85 /* ShareViewController.swift in Sources */,
 			);
@@ -536,6 +545,7 @@
 				3355E49024F3819A006B227F /* ImagePicker.swift in Sources */,
 				D50E9D3C245278E4006F0E9A /* LoginInterceptViewController.swift in Sources */,
 				33518E2624F2E6E3005320D8 /* Grid.swift in Sources */,
+				3340A7AD24FC5B6E003FD9F9 /* Cloud.swift in Sources */,
 				33B496DA24FAE27900B0DED2 /* ShareView.swift in Sources */,
 				33518E3224F36CA4005320D8 /* ImageLoader.swift in Sources */,
 				33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */,
