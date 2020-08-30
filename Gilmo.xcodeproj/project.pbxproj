@@ -127,12 +127,12 @@
 		33DE873824FB412700DFEB85 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		33DE874124FB499400DFEB85 /* GilmoShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GilmoShareExtension.entitlements; sourceTree = "<group>"; };
 		33DE874224FB499C00DFEB85 /* Gyazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gyazo.entitlements; sourceTree = "<group>"; };
-		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gilmoyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D1224501FF6006F0E9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D50E9D1424501FF9006F0E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D50E9D1C24501FF9006F0E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D50E9D2124501FF9006F0E9A /* GyazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GyazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D50E9D2124501FF9006F0E9A /* GilmoyazoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GilmoyazoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D2524501FF9006F0E9A /* GyazoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyazoTests.swift; sourceTree = "<group>"; };
 		D50E9D2724501FF9006F0E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D50E9D302450203D006F0E9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -232,8 +232,8 @@
 		D50E9D0C24501FF6006F0E9A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D50E9D0B24501FF6006F0E9A /* Gyazo.app */,
-				D50E9D2124501FF9006F0E9A /* GyazoTests.xctest */,
+				D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */,
+				D50E9D2124501FF9006F0E9A /* GilmoyazoTests.xctest */,
 				33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */,
 			);
 			name = Products;
@@ -371,9 +371,9 @@
 			productReference = 33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		D50E9D0A24501FF6006F0E9A /* Gyazo */ = {
+		D50E9D0A24501FF6006F0E9A /* Gilmoyazo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D50E9D2A24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "Gyazo" */;
+			buildConfigurationList = D50E9D2A24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "Gilmoyazo" */;
 			buildPhases = (
 				D50E9D0724501FF6006F0E9A /* Sources */,
 				D50E9D0824501FF6006F0E9A /* Frameworks */,
@@ -385,7 +385,7 @@
 			dependencies = (
 				33DE873224FB3A8600DFEB85 /* PBXTargetDependency */,
 			);
-			name = Gyazo;
+			name = Gilmoyazo;
 			packageProductDependencies = (
 				D50E9D352451D4F0006F0E9A /* OAuth2 */,
 				D50E9D40245358E7006F0E9A /* KeychainAccess */,
@@ -393,12 +393,12 @@
 				3340A7A224FC001E003FD9F9 /* Alamofire */,
 			);
 			productName = Gyazo;
-			productReference = D50E9D0B24501FF6006F0E9A /* Gyazo.app */;
+			productReference = D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D50E9D2024501FF9006F0E9A /* GyazoTests */ = {
+		D50E9D2024501FF9006F0E9A /* GilmoyazoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D50E9D2D24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "GyazoTests" */;
+			buildConfigurationList = D50E9D2D24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "GilmoyazoTests" */;
 			buildPhases = (
 				D50E9D1D24501FF9006F0E9A /* Sources */,
 				D50E9D1E24501FF9006F0E9A /* Frameworks */,
@@ -409,9 +409,9 @@
 			dependencies = (
 				D50E9D2324501FF9006F0E9A /* PBXTargetDependency */,
 			);
-			name = GyazoTests;
+			name = GilmoyazoTests;
 			productName = GyazoTests;
-			productReference = D50E9D2124501FF9006F0E9A /* GyazoTests.xctest */;
+			productReference = D50E9D2124501FF9006F0E9A /* GilmoyazoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -436,7 +436,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D50E9D0624501FF6006F0E9A /* Build configuration list for PBXProject "Gyazo" */;
+			buildConfigurationList = D50E9D0624501FF6006F0E9A /* Build configuration list for PBXProject "Gilmo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -455,8 +455,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D50E9D0A24501FF6006F0E9A /* Gyazo */,
-				D50E9D2024501FF9006F0E9A /* GyazoTests */,
+				D50E9D0A24501FF6006F0E9A /* Gilmoyazo */,
+				D50E9D2024501FF9006F0E9A /* GilmoyazoTests */,
 				33DE872824FB3A8600DFEB85 /* GilmoShareExtension */,
 			);
 		};
@@ -566,7 +566,7 @@
 		};
 		D50E9D2324501FF9006F0E9A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D50E9D0A24501FF6006F0E9A /* Gyazo */;
+			target = D50E9D0A24501FF6006F0E9A /* Gilmoyazo */;
 			targetProxy = D50E9D2224501FF9006F0E9A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -804,7 +804,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gyazo.app/Gyazo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gilmoyazo.app/Gilmoyazo";
 			};
 			name = Debug;
 		};
@@ -825,7 +825,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gyazo.app/Gyazo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gilmoyazo.app/Gilmoyazo";
 			};
 			name = Release;
 		};
@@ -841,7 +841,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D50E9D0624501FF6006F0E9A /* Build configuration list for PBXProject "Gyazo" */ = {
+		D50E9D0624501FF6006F0E9A /* Build configuration list for PBXProject "Gilmo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D50E9D2824501FF9006F0E9A /* Debug */,
@@ -850,7 +850,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D50E9D2A24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "Gyazo" */ = {
+		D50E9D2A24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "Gilmoyazo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D50E9D2B24501FF9006F0E9A /* Debug */,
@@ -859,7 +859,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D50E9D2D24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "GyazoTests" */ = {
+		D50E9D2D24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "GilmoyazoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D50E9D2E24501FF9006F0E9A /* Debug */,
