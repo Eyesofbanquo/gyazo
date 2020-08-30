@@ -62,7 +62,9 @@ struct SelectedImageView: View {
       self.dismissAndReset()
     }
     .onReceive(network.uploadPassthrough, perform: { results in
-      self.progress = Float(results)
+      withAnimation {
+        self.progress = Float(results)
+      }
     })
     
   }

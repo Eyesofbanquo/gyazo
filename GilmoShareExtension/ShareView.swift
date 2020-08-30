@@ -109,7 +109,9 @@ struct ShareExtensionView: View {
     .padding()
     .background(Color(.white))
     .onReceive(progressPassthrough) { progress in
-      self.progress = Float(progress)
+      withAnimation {
+        self.progress = Float(progress)
+      }
     }
   }
   
