@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 struct Post: Hashable, Decodable {
   var title: String
@@ -19,7 +20,7 @@ class NetworkRequest<T: Decodable>: ObservableObject {
   
   var cancellableSet: Set<AnyCancellable> = []
   
-  func request(endpoint: GyazoAPI.Endpoint) -> AnyPublisher<RequestType?, Never> {
+  func request(endpoint: GyazoAPI.Endpoint, postData: Data? = nil) -> AnyPublisher<RequestType?, Never> {
     var components = URLComponents()
     components.scheme = "https"
     components.host = "api.gyazo.com"
@@ -32,6 +33,7 @@ class NetworkRequest<T: Decodable>: ObservableObject {
     var request = URLRequest(url: url)
     
     request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
     request.httpMethod = "GET"
 
     let cancellable = URLSession.shared.dataTaskPublisher(for: request)
@@ -42,11 +44,5 @@ class NetworkRequest<T: Decodable>: ObservableObject {
       .eraseToAnyPublisher()
 
     return cancellable
-  }
-
-  func add(_ cancellable: AnyCancellable?) {
-    guard let c = cancellable else { return }
-
-    cancellableSet.insert(c)
   }
 }

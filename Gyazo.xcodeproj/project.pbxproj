@@ -10,6 +10,9 @@
 		330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 330B520E24F11ABA000D8BAA /* AsyncImage */; };
 		330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */; };
 		33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33384D8224FAD8D300F0266A /* SelectedImageView.swift */; };
+		3340A7A324FC001E003FD9F9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3340A7A224FC001E003FD9F9 /* Alamofire */; };
+		3340A7A524FC0026003FD9F9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3340A7A424FC0026003FD9F9 /* Alamofire */; };
+		3340A7A624FC0597003FD9F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334F0D3524F56C9B003EB8EF /* UIApplication+.swift */; };
 		33518E2624F2E6E3005320D8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2524F2E6E3005320D8 /* Grid.swift */; };
 		33518E2924F36820005320D8 /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2824F36820005320D8 /* SqueezeNet.mlmodel */; };
@@ -31,6 +34,15 @@
 		33979B7D24F5E02A0013B81F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33979B7C24F5E02A0013B81F /* App.swift */; };
 		33B496DA24FAE27900B0DED2 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B496D924FAE27900B0DED2 /* ShareView.swift */; };
 		33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D623FB24F597170051C3D7 /* UploadOptions.swift */; };
+		33DE872C24FB3A8600DFEB85 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DE872B24FB3A8600DFEB85 /* ShareViewController.swift */; };
+		33DE872F24FB3A8600DFEB85 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33DE872D24FB3A8600DFEB85 /* MainInterface.storyboard */; };
+		33DE873324FB3A8600DFEB85 /* GilmoShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		33DE873924FB412700DFEB85 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DE873824FB412700DFEB85 /* ShareView.swift */; };
+		33DE873E24FB491C00DFEB85 /* Secure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D4224535901006F0E9A /* Secure.swift */; };
+		33DE874024FB492400DFEB85 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 33DE873F24FB492400DFEB85 /* KeychainAccess */; };
+		33DE874324FB5E8700DFEB85 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D32245024E9006F0E9A /* Network.swift */; };
+		33DE874424FB5E8F00DFEB85 /* Gyazo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355E49524F4EE94006B227F /* Gyazo.swift */; };
+		33DE874524FB600D00DFEB85 /* Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D502453AC9A006F0E9A /* Drop.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
 		D50E9D1524501FF9006F0E9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */; };
@@ -51,6 +63,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		33DE873124FB3A8600DFEB85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D50E9D0324501FF6006F0E9A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33DE872824FB3A8600DFEB85;
+			remoteInfo = GilmoShareExtension;
+		};
 		D50E9D2224501FF9006F0E9A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D50E9D0324501FF6006F0E9A /* Project object */;
@@ -59,6 +78,20 @@
 			remoteInfo = Gyazo;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		33DE873424FB3A8600DFEB85 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				33DE873324FB3A8600DFEB85 /* GilmoShareExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSeparatorStyleNoneModifier.swift; sourceTree = "<group>"; };
@@ -84,6 +117,13 @@
 		33979B7C24F5E02A0013B81F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		33B496D924FAE27900B0DED2 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		33D623FB24F597170051C3D7 /* UploadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOptions.swift; sourceTree = "<group>"; };
+		33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GilmoShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		33DE872B24FB3A8600DFEB85 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		33DE872E24FB3A8600DFEB85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		33DE873024FB3A8600DFEB85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33DE873824FB412700DFEB85 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		33DE874124FB499400DFEB85 /* GilmoShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GilmoShareExtension.entitlements; sourceTree = "<group>"; };
+		33DE874224FB499C00DFEB85 /* Gyazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gyazo.entitlements; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D1224501FF6006F0E9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D50E9D1424501FF9006F0E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,11 +146,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		33DE872624FB3A8600DFEB85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33DE874024FB492400DFEB85 /* KeychainAccess in Frameworks */,
+				3340A7A524FC0026003FD9F9 /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D50E9D0824501FF6006F0E9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D50E9D41245358E7006F0E9A /* KeychainAccess in Frameworks */,
+				3340A7A324FC001E003FD9F9 /* Alamofire in Frameworks */,
 				D50E9D362451D4F0006F0E9A /* OAuth2 in Frameworks */,
 				330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */,
 			);
@@ -146,12 +196,33 @@
 			path = AsyncImage;
 			sourceTree = "<group>";
 		};
+		33DE872A24FB3A8600DFEB85 /* GilmoShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				33DE874124FB499400DFEB85 /* GilmoShareExtension.entitlements */,
+				33DE872B24FB3A8600DFEB85 /* ShareViewController.swift */,
+				33DE872D24FB3A8600DFEB85 /* MainInterface.storyboard */,
+				33DE873024FB3A8600DFEB85 /* Info.plist */,
+				33DE873824FB412700DFEB85 /* ShareView.swift */,
+			);
+			path = GilmoShareExtension;
+			sourceTree = "<group>";
+		};
+		33DE873B24FB46AC00DFEB85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D50E9D0224501FF6006F0E9A = {
 			isa = PBXGroup;
 			children = (
 				D50E9D0D24501FF6006F0E9A /* Gyazo */,
 				D50E9D2424501FF9006F0E9A /* GyazoTests */,
+				33DE872A24FB3A8600DFEB85 /* GilmoShareExtension */,
 				D50E9D0C24501FF6006F0E9A /* Products */,
+				33DE873B24FB46AC00DFEB85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -160,6 +231,7 @@
 			children = (
 				D50E9D0B24501FF6006F0E9A /* Gyazo.app */,
 				D50E9D2124501FF9006F0E9A /* GyazoTests.xctest */,
+				33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,6 +239,7 @@
 		D50E9D0D24501FF6006F0E9A /* Gyazo */ = {
 			isa = PBXGroup;
 			children = (
+				33DE874224FB499C00DFEB85 /* Gyazo.entitlements */,
 				33518E2724F36814005320D8 /* Vision */,
 				D50E9D4F2453AC81006F0E9A /* Model */,
 				D50E9D4A2453AC01006F0E9A /* Stubs */,
@@ -273,6 +346,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		33DE872824FB3A8600DFEB85 /* GilmoShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 33DE873724FB3A8600DFEB85 /* Build configuration list for PBXNativeTarget "GilmoShareExtension" */;
+			buildPhases = (
+				33DE872524FB3A8600DFEB85 /* Sources */,
+				33DE872624FB3A8600DFEB85 /* Frameworks */,
+				33DE872724FB3A8600DFEB85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GilmoShareExtension;
+			packageProductDependencies = (
+				33DE873F24FB492400DFEB85 /* KeychainAccess */,
+				3340A7A424FC0026003FD9F9 /* Alamofire */,
+			);
+			productName = GilmoShareExtension;
+			productReference = 33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		D50E9D0A24501FF6006F0E9A /* Gyazo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D50E9D2A24501FF9006F0E9A /* Build configuration list for PBXNativeTarget "Gyazo" */;
@@ -280,16 +374,19 @@
 				D50E9D0724501FF6006F0E9A /* Sources */,
 				D50E9D0824501FF6006F0E9A /* Frameworks */,
 				D50E9D0924501FF6006F0E9A /* Resources */,
+				33DE873424FB3A8600DFEB85 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				33DE873224FB3A8600DFEB85 /* PBXTargetDependency */,
 			);
 			name = Gyazo;
 			packageProductDependencies = (
 				D50E9D352451D4F0006F0E9A /* OAuth2 */,
 				D50E9D40245358E7006F0E9A /* KeychainAccess */,
 				330B520E24F11ABA000D8BAA /* AsyncImage */,
+				3340A7A224FC001E003FD9F9 /* Alamofire */,
 			);
 			productName = Gyazo;
 			productReference = D50E9D0B24501FF6006F0E9A /* Gyazo.app */;
@@ -319,10 +416,13 @@
 		D50E9D0324501FF6006F0E9A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Markim Shaw";
 				TargetAttributes = {
+					33DE872824FB3A8600DFEB85 = {
+						CreatedOnToolsVersion = 12.0;
+					};
 					D50E9D0A24501FF6006F0E9A = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -345,6 +445,7 @@
 				D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */,
 				D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */,
+				3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = D50E9D0C24501FF6006F0E9A /* Products */;
 			projectDirPath = "";
@@ -352,11 +453,21 @@
 			targets = (
 				D50E9D0A24501FF6006F0E9A /* Gyazo */,
 				D50E9D2024501FF9006F0E9A /* GyazoTests */,
+				33DE872824FB3A8600DFEB85 /* GilmoShareExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		33DE872724FB3A8600DFEB85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3340A7A624FC0597003FD9F9 /* Assets.xcassets in Resources */,
+				33DE872F24FB3A8600DFEB85 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D50E9D0924501FF6006F0E9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +489,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		33DE872524FB3A8600DFEB85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33DE874424FB5E8F00DFEB85 /* Gyazo.swift in Sources */,
+				33DE873924FB412700DFEB85 /* ShareView.swift in Sources */,
+				33DE874524FB600D00DFEB85 /* Drop.swift in Sources */,
+				33DE873E24FB491C00DFEB85 /* Secure.swift in Sources */,
+				33DE874324FB5E8700DFEB85 /* Network.swift in Sources */,
+				33DE872C24FB3A8600DFEB85 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D50E9D0724501FF6006F0E9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,6 +553,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		33DE873224FB3A8600DFEB85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33DE872824FB3A8600DFEB85 /* GilmoShareExtension */;
+			targetProxy = 33DE873124FB3A8600DFEB85 /* PBXContainerItemProxy */;
+		};
 		D50E9D2324501FF9006F0E9A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D50E9D0A24501FF6006F0E9A /* Gyazo */;
@@ -436,7 +565,62 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		33DE872D24FB3A8600DFEB85 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				33DE872E24FB3A8600DFEB85 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		33DE873524FB3A8600DFEB85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = GilmoShareExtension/GilmoShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2W3P634BS8;
+				INFOPLIST_FILE = GilmoShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.donderapps.Gyazo.GilmoShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		33DE873624FB3A8600DFEB85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = GilmoShareExtension/GilmoShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2W3P634BS8;
+				INFOPLIST_FILE = GilmoShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.donderapps.Gyazo.GilmoShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D50E9D2824501FF9006F0E9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -554,7 +738,9 @@
 		D50E9D2B24501FF9006F0E9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gyazo/Gyazo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Gyazo/Preview Content\"";
 				DEVELOPMENT_TEAM = 2W3P634BS8;
@@ -575,7 +761,9 @@
 		D50E9D2C24501FF9006F0E9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gyazo/Gyazo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Gyazo/Preview Content\"";
 				DEVELOPMENT_TEAM = 2W3P634BS8;
@@ -638,6 +826,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		33DE873724FB3A8600DFEB85 /* Build configuration list for PBXNativeTarget "GilmoShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33DE873524FB3A8600DFEB85 /* Debug */,
+				33DE873624FB3A8600DFEB85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D50E9D0624501FF6006F0E9A /* Build configuration list for PBXProject "Gyazo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -676,6 +873,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.2;
+			};
+		};
 		D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/p2/Oauth2";
@@ -699,6 +904,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */;
 			productName = AsyncImage;
+		};
+		3340A7A224FC001E003FD9F9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		3340A7A424FC0026003FD9F9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		33DE873F24FB492400DFEB85 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 		D50E9D352451D4F0006F0E9A /* OAuth2 */ = {
 			isa = XCSwiftPackageProductDependency;

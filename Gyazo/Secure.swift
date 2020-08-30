@@ -14,7 +14,7 @@ class Secure {
   static var keychainService: String = "com.donderapps.gyazo"
   
   static var keychain: Keychain = {
-    let keychain = Keychain(service: keychainService)
+    let keychain = Keychain(service: keychainService, accessGroup: "2W3P634BS8.com.donderapps.Gyazo")
     return keychain
   }()
 }
