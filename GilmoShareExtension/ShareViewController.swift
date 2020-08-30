@@ -6,18 +6,12 @@
 //  Copyright © 2020 Markim Shaw. All rights reserved.
 //
 
+import Alamofire
 import UIKit
 import Social
 import MobileCoreServices
 import Combine
 import SwiftUI
-
-struct GyazoUpload: Codable {
-  var access_token: String
-  var imagedata: Data
-  var metadata_is_public: Bool
-  var title: String
-}
 
 struct ImageResponse: Codable {
   var image_id: String
@@ -40,6 +34,18 @@ class ShareViewController: UIViewController {
   
   private var network: NetworkRequest<ImageResponse> = NetworkRequest<ImageResponse>()
   private var cancellable: AnyCancellable?
+  
+  private var passthrough = PassthroughSubject<Double, Never>()
+  
+  @State var progress: Float = 0.0
+  
+  lazy var progressBinding = Binding (
+    get: {
+      self.progress
+    },
+    set: { newValue in
+      self.progress = newValue
+    })
   
   lazy var triggerUploadBinding = Binding (
     get: {
@@ -74,13 +80,6 @@ class ShareViewController: UIViewController {
       self.image = $0
     }
   )
-  
-  lazy var imageView: UIImageView = {
-    let im = UIImageView()
-    im.translatesAutoresizingMaskIntoConstraints = false
-    return im
-  }()
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -97,7 +96,6 @@ class ShareViewController: UIViewController {
           let url = data as! URL
           if let imageData = try? Data(contentsOf: url) {
             self.image = UIImage(data: imageData)
-            self.imageView.image = self.image
           }
         }
       }
@@ -109,7 +107,8 @@ class ShareViewController: UIViewController {
     
     let childView = UIHostingController(rootView: ShareExtensionView(selectedImage: imageBinding,
                                                                      dismiss: dismissViewBinding,
-                                                                     triggerUpload: triggerUploadBinding))
+                                                                     triggerUpload: triggerUploadBinding,
+                                                                     progressPassthrough: passthrough))
     addChild(childView)
     childView.view.frame = view.frame
     view.addSubview(childView.view)
@@ -117,26 +116,23 @@ class ShareViewController: UIViewController {
   }
   
   private func uploadImage() {
-    guard let accessToken = Secure.keychain["access_token"], let imageData = image?.pngData(), let imageBinary = image?.jpegData(compressionQuality: 1.0) else {
+    guard let accessToken = Secure.keychain["access_token"],
+          let imageBinary = image?.jpegData(compressionQuality: 1.0) else {
       return // throw error or show some screen showing that this has failed
     }
     
-    let fileData = imageBinary.base64EncodedString()
-//    let uploadImage = GyazoUpload(access_token: accessToken, imagedata: fileData, metadata_is_public: true, title: "iOS Share Menu")
-    let params: [String: String] = [
-      "access_token": accessToken,
-      "imagedata": fileData
-    ]
-    let encoder = JSONEncoder()
-    do {
-//      let postData = try encoder.encode(uploadImage)
-      self.cancellable = network.post(usingImage: image, withParams: params).sink(receiveValue: { drop in
-        print(drop)
-      })
-    } catch(let error) {
-      self.extensionContext!.cancelRequest(withError:error)
+    AF.upload(multipartFormData: { multipartFormData in
+      multipartFormData.append(Data(accessToken.utf8), withName: "access_token")
+      multipartFormData.append(imageBinary, withName: "imagedata", fileName: "iOS Share Menu", mimeType: "image/jpeg")
+    }, to: "https://upload.gyazo.com/api/upload", method: .post)
+    .responseDecodable(of: ImageResponse.self) { response in
+      debugPrint(response)
     }
-    
+    .uploadProgress { progress in
+      DispatchQueue.main.async {
+        self.passthrough.send(progress.fractionCompleted)
+      }
+    }
   }
 
 }

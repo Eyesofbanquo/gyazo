@@ -10,6 +10,9 @@
 		330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 330B520E24F11ABA000D8BAA /* AsyncImage */; };
 		330B521124F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */; };
 		33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33384D8224FAD8D300F0266A /* SelectedImageView.swift */; };
+		3340A7A324FC001E003FD9F9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3340A7A224FC001E003FD9F9 /* Alamofire */; };
+		3340A7A524FC0026003FD9F9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3340A7A424FC0026003FD9F9 /* Alamofire */; };
+		3340A7A624FC0597003FD9F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334F0D3524F56C9B003EB8EF /* UIApplication+.swift */; };
 		33518E2624F2E6E3005320D8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2524F2E6E3005320D8 /* Grid.swift */; };
 		33518E2924F36820005320D8 /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 33518E2824F36820005320D8 /* SqueezeNet.mlmodel */; };
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33DE874024FB492400DFEB85 /* KeychainAccess in Frameworks */,
+				3340A7A524FC0026003FD9F9 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D50E9D41245358E7006F0E9A /* KeychainAccess in Frameworks */,
+				3340A7A324FC001E003FD9F9 /* Alamofire in Frameworks */,
 				D50E9D362451D4F0006F0E9A /* OAuth2 in Frameworks */,
 				330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */,
 			);
@@ -356,6 +361,7 @@
 			name = GilmoShareExtension;
 			packageProductDependencies = (
 				33DE873F24FB492400DFEB85 /* KeychainAccess */,
+				3340A7A424FC0026003FD9F9 /* Alamofire */,
 			);
 			productName = GilmoShareExtension;
 			productReference = 33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */;
@@ -380,6 +386,7 @@
 				D50E9D352451D4F0006F0E9A /* OAuth2 */,
 				D50E9D40245358E7006F0E9A /* KeychainAccess */,
 				330B520E24F11ABA000D8BAA /* AsyncImage */,
+				3340A7A224FC001E003FD9F9 /* Alamofire */,
 			);
 			productName = Gyazo;
 			productReference = D50E9D0B24501FF6006F0E9A /* Gyazo.app */;
@@ -438,6 +445,7 @@
 				D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */,
 				D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */,
+				3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = D50E9D0C24501FF6006F0E9A /* Products */;
 			projectDirPath = "";
@@ -455,6 +463,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3340A7A624FC0597003FD9F9 /* Assets.xcassets in Resources */,
 				33DE872F24FB3A8600DFEB85 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -864,6 +873,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.2;
+			};
+		};
 		D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/p2/Oauth2";
@@ -887,6 +904,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */;
 			productName = AsyncImage;
+		};
+		3340A7A224FC001E003FD9F9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		3340A7A424FC0026003FD9F9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		33DE873F24FB492400DFEB85 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
