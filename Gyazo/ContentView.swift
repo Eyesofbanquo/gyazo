@@ -38,6 +38,8 @@ struct ContentView: View {
   
   @State var expandDashboardCell = false
   
+  @State var presentShareController: Bool = false
+  
   @Namespace var dashboardCellAnimation
   
   @State var selectedPost: Drop?
@@ -49,9 +51,9 @@ struct ContentView: View {
         ZStack(alignment: .bottomTrailing) {
           VStack {
             ScrollView {
-
+              
               SearchBar(text: $searchText)
-
+              
               VStack(spacing: 8.0) {
                 ForEach(posts.filter { post in
                   if (searchText.isEmpty) {
@@ -110,27 +112,24 @@ struct ContentView: View {
       } // nav view
       
       if self.uploadImage != nil {
-        ZStack(alignment: .center) {
-          Color.red
-          VStack {
-            //          Image("gyazo-image")
-            pasteboardImageView?
-              .resizable()
-              .padding(.horizontal)
-              .aspectRatio(contentMode: .fit)
-            
-            Text("Image classification")
-          }
-        }.onTapGesture {
-          self.uploadImage = nil
-        } // inner z-stack
+        SelectedImageView(uiimage: uploadImage,
+                          imageURL: selectedPost?.urlString ?? "",
+                          action: .upload,
+                          presentShareController: $presentShareController,
+                          presentSelectedImageView: Binding (
+                            get: {
+                              return self.uploadImage != nil
+                            },
+                            set: { _ in
+                              self.uploadImage = nil
+                            })) // inner z-stack
       }
       
       // This should be logic for the detail view
       if expandDashboardCell, let selectedPost = self.selectedPost {
-          DashboardDetailView(post: selectedPost,
-                              animationNamespace: dashboardCellAnimation,
-                              isVisible: $expandDashboardCell)
+        DashboardDetailView(post: selectedPost,
+                            animationNamespace: dashboardCellAnimation,
+                            isVisible: $expandDashboardCell)
       }
       
     }// outer z-stack

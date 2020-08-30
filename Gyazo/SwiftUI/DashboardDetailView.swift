@@ -76,13 +76,8 @@ struct DashboardDetailView: View {
       if self.expanded, let imageURL = post.cacheableImageURL {
         SelectedImageView(uiimage: cache[imageURL],
                           imageURL: post.urlString,
-                          actionText: (performedAction: "Copied!",
-                                       default: "Copy to clipboard"),
+                          action: .clipboard,
                           presentShareController: $shareController,
-                          action: {
-          self.copyToPasteboard()
-        },
-                          
                           presentSelectedImageView: $expanded
                           )
       }
@@ -159,7 +154,6 @@ struct DashboardDetailView: View {
        let cachedImage = self.cache[imageURL] {
       pasteboard.image = cachedImage
     }
-    
   }
 }
 
