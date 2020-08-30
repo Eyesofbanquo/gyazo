@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire",
+        "state": {
+          "branch": null,
+          "revision": "becd9a729a37bdbef5bc39dc3c702b99f9e3d046",
+          "version": "5.2.2"
+        }
+      },
+      {
+        "package": "AsyncImage",
+        "repositoryURL": "https://github.com/Eyesofbanquo/AsyncImage",
+        "state": {
+          "branch": null,
+          "revision": "056e8c6bf01247bf39fb214214641acf819fb61b",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "KeychainAccess",
+        "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess",
+        "state": {
+          "branch": null,
+          "revision": "3d0ea2c0806791abcc5d7f0d9f62f1cfd4a7264d",
+          "version": "4.2.0"
+        }
+      },
+      {
+        "package": "OAuth2",
+        "repositoryURL": "https://github.com/p2/Oauth2",
+        "state": {
+          "branch": null,
+          "revision": "b0c71466176f3d7a22e5da20532c01d78a661f1d",
+          "version": "5.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
