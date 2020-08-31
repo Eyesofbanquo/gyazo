@@ -31,6 +31,14 @@ struct DashboardCell<Placeholder: View>: View {
     self.dashboardCell = namespace
   }
   
+  init(cloud: CloudDrop,
+       placeholder: Placeholder? = nil,
+       namespace: Namespace.ID) {
+    self.post = Drop(fromCloud: cloud)!
+    self.placeholder = placeholder
+    self.dashboardCell = namespace
+  }
+  
   var body: some View {
     HStack {
       AsyncImage(url: URL(string: post.urlString)!,
