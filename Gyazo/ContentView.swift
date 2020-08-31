@@ -18,6 +18,8 @@ struct ContentView: View {
   
   @State var posts: [Drop] = []
   
+  @State var cloudPosts: [CloudDrop] = []
+  
   @Environment(\.vision) var vision: Vision
   
   @EnvironmentObject var userSettings: UserSettings
@@ -46,6 +48,8 @@ struct ContentView: View {
   
   @ObservedObject var cloud: Cloud = Cloud()
   
+  @State var loadedCloudPosts: Bool = false
+  
   var body: some View {
     
     ZStack(alignment: .center) {
@@ -58,6 +62,26 @@ struct ContentView: View {
                 ForEach(posts.filter { filterSearchResults($0) }, id: \.self) { post in
                   Cell(post)
                 }
+                VStack {
+                  HStack {
+                    Text("Cloud Images")
+                      .bold()
+                      .foregroundColor(.white)
+                      .font(.headline)
+                      .padding()
+                    Spacer()
+                  }
+                  
+                  if self.loadedCloudPosts {
+                    LazyVStack(spacing: 8.0) {
+                      ForEach(self.cloudPosts, id: \.self) { cloud in
+                        CloudCell(cloud)
+                      }
+                    }
+                  }
+                }
+                .background(Color("gyazo-blue"))
+                
               }
               .onReceive(request.request(endpoint: .images)) { posts in
                 if let posts = posts {
@@ -79,22 +103,11 @@ struct ContentView: View {
                 Profile(presented: $showingProfile)
               }
               
-              Divider()
-              VStack(alignment: .trailing) {
-                HStack {
-                  Text("Cloud Images")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .padding()
-                  Spacer()
-                }
-              } // This whole stack may need to be a different color
-              .background(Color("gyazo-blue"))
-              
             }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
               print("drag")
             })) // Scroll View
           }
+          
           UploadOptions(clipboardImage: $uploadImage, photoLibraryImage: $uploadImage, cameraImage: $uploadImage)
             .offset(x: -16, y: -16)
           
@@ -114,6 +127,16 @@ struct ContentView: View {
       
     }// outer z-stack
     .statusBar(hidden: true)
+    .onAppear {
+      self.cloud.retrieve(loadedCloudPostsBinding: $loadedCloudPosts)
+    }
+    .onReceive(self.cloud.recordFetchedPassthrough, perform: { post in
+      self.cloudPosts.append(post)
+//      let matchedEntry = self.posts.first(where: { post.imageURL == $0.urlString }) != nil
+//      if matchedEntry == false {
+//        self.cloudPosts.append(post)
+//      }
+    })
     
   } // body
   
@@ -158,7 +181,7 @@ struct ContentView: View {
         EmptyView()
       }
     }
-   
+    
   }
   
   func filterSearchResults(_ post: Drop) -> Bool {
@@ -168,7 +191,25 @@ struct ContentView: View {
       let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
       let bestResponse = appropriateMLResponses?.first
       let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
-      return (post.metadata?.app?.contains(self.searchText)) == true || searchTextContainsResponse == true
+      return (post.metadata?.app?.contains(self.searchText)) == true || (post.metadata?.title?.contains(self.searchText)) == true || searchTextContainsResponse == true
+    }
+  }
+  
+  func cloudSearchAndFilter(_ cloud: CloudDrop) -> Bool {
+    let alreadyExists = self.posts.first(where: { $0.id == cloud.id }) != nil
+    let emptySearch = searchText.isEmpty
+    
+    if alreadyExists {
+      return true
+    }
+    
+    if emptySearch {
+      return false
+    } else {
+      let appropriateMLResponses = self.vision.classifications[cloud.title ?? ""]
+      let bestResponse = appropriateMLResponses?.first
+      let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
+      return (cloud.app?.contains(self.searchText)) == true || (cloud.title?.contains(self.searchText)) == true || searchTextContainsResponse == true
     }
   }
   
@@ -188,6 +229,18 @@ struct ContentView: View {
           }
       }
     }
+  }
+  
+  func CloudCell(_ post: CloudDrop) -> some View {
+    DashboardCell(cloud: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
+      .padding(.horizontal, 8.0)
+      .onTapGesture {
+        withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+          self.expandDashboardCell.toggle()
+          self.selectedPost = Drop(fromCloud: post)
+        }
+      }
+    
   }
 }
 

@@ -33,6 +33,16 @@ struct Drop: Hashable, Decodable {
 
 extension Drop {
   
+  init?(fromCloud cloud: CloudDrop) {
+    guard let imageURL = cloud.imageURL else { return nil }
+    self.id = (cloud.id ?? "" + "cloud")
+    self.urlString = imageURL
+    self.type = ""
+    self.metadata = DropMetadata(app: cloud.app, title: cloud.title, urlString: cloud.imageURL, description: cloud.description)
+    self.createdAt = ""
+    self.thumbURLString = ""
+  }
+  
   enum CodingKeys: String, CodingKey {
     case type, metadata
     case id = "image_id"
