@@ -10,6 +10,15 @@ import SwiftUI
 import Combine
 import AsyncImage
 
+struct TableView: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+      .listRowInsets(EdgeInsets())
+      .background(Color(.systemBackground))
+  }
+}
+
 struct ContentView: View {
   
   @Environment(\.imageCache) var cache
@@ -56,62 +65,49 @@ struct ContentView: View {
       NavigationView {
         ZStack(alignment: .bottomTrailing) {
           VStack {
-            ScrollView {
-              SearchBar(text: $searchText)
-              VStack(spacing: 8.0) {
-                ForEach(posts.filter { filterSearchResults($0) }, id: \.self) { post in
-                  Cell(post)
-                }
-                VStack {
-                  HStack {
-                    Text("Cloud Images")
-                      .bold()
-                      .foregroundColor(.white)
-                      .font(.headline)
-                      .padding()
-                    Spacer()
-                  }
-                  
-                  if self.loadedCloudPosts {
-                    LazyVStack(spacing: 8.0) {
-                      ForEach(self.cloudPosts, id: \.self) { cloud in
-                        CloudCell(cloud)
-                      }
-                    }
+            SearchBar(text: $searchText)
+            List {
+              Section(header: Text("Gyazo Photos")) {
+                VStack(spacing: 8.0) {
+                  ForEach(posts.filter { filterSearchResults($0) }, id: \.self) { post in
+                    Cell(post)
                   }
                 }
-                .background(Color("gyazo-blue"))
+                .modifier(TableView())
                 
               }
-              .onReceive(request.request(endpoint: .images)) { posts in
-                if let posts = posts {
-                  self.posts = posts
+              Section(header: Text("iCloud Photos")) {
+                if self.loadedCloudPosts {
+                  VStack(spacing: 8.0) {
+                    ForEach(self.cloudPosts, id: \.self) { cloud in
+                      CloudCell(cloud)
+                    }
+                  }.modifier(TableView())
                 }
               }
-              .navigationBarTitle(Text("Gyazo"))
-              .navigationBarItems(
-                trailing: Button(action: {
-                  self.showingProfile = true
-                }){
-                  Image(systemName: "person.circle")
-                    .foregroundColor(Color(.label))
-                    .padding()
-                    .font(.title)
-                    .contentShape(Rectangle())
-                })
-              .sheet(isPresented: self.$showingProfile) {
-                Profile(presented: $showingProfile)
-              }
-              
-            }.gesture(DragGesture().updating($onActiveScroll, body: { (value, state, transaction) in
-              print("drag")
-            })) // Scroll View
-          }
+                
+            }.listStyle(PlainListStyle())
+            .edgesIgnoringSafeArea(.all)// Scroll View
+          } // v- stack
           
           UploadOptions(clipboardImage: $uploadImage, photoLibraryImage: $uploadImage, cameraImage: $uploadImage)
             .offset(x: -16, y: -16)
           
-        } // stack
+        }
+        .navigationBarTitle(Text("Gyazo"))
+        .navigationBarItems(
+          trailing: Button(action: {
+            self.showingProfile = true
+          }){
+            Image(systemName: "person.circle")
+              .foregroundColor(Color(.label))
+              .padding()
+              .font(.title)
+              .contentShape(Rectangle())
+          })
+        .sheet(isPresented: self.$showingProfile) {
+          Profile(presented: $showingProfile)
+        }//z- stack
         
         
       } // nav view
@@ -126,9 +122,15 @@ struct ContentView: View {
       }
       
     }// outer z-stack
+    
     .statusBar(hidden: true)
     .onAppear {
       self.cloud.retrieve(loadedCloudPostsBinding: $loadedCloudPosts)
+    }
+    .onReceive(request.request(endpoint: .images)) { posts in
+      if let posts = posts {
+        self.posts = posts
+      }
     }
     .onReceive(self.cloud.recordFetchedPassthrough, perform: { post in
       self.cloudPosts.append(post)
