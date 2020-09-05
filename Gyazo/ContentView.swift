@@ -27,7 +27,7 @@ struct ContentView: View {
   
   @State var posts: [Post] = []
   
-  @State var cloudPosts: [CloudDrop] = []
+  @State var cloudPosts: [CloudPost] = []
   
   @Environment(\.vision) var vision: Vision
   
@@ -197,7 +197,7 @@ struct ContentView: View {
     }
   }
   
-  func cloudSearchAndFilter(_ cloud: CloudDrop) -> Bool {
+  func cloudSearchAndFilter(_ cloud: CloudPost) -> Bool {
     let alreadyExists = self.posts.first(where: { $0.id == cloud.id }) != nil
     let emptySearch = searchText.isEmpty
     
@@ -233,7 +233,7 @@ struct ContentView: View {
     }
   }
   
-  func CloudCell(_ post: CloudDrop) -> some View {
+  func CloudCell(_ post: CloudPost) -> some View {
     DashboardCell(cloud: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
       .padding(.horizontal, 8.0)
       .onTapGesture {

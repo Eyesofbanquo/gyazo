@@ -31,7 +31,7 @@ struct DashboardCell<Placeholder: View>: View {
     self.dashboardCell = namespace
   }
   
-  init(cloud: CloudDrop,
+  init(cloud: CloudPost,
        placeholder: Placeholder? = nil,
        namespace: Namespace.ID) {
     self.post = Post(fromCloud: cloud)!

@@ -33,7 +33,7 @@ struct Post: Hashable, Decodable {
 
 extension Post {
   
-  init?(fromCloud cloud: CloudDrop) {
+  init?(fromCloud cloud: CloudPost) {
     guard let imageURL = cloud.imageURL else { return nil }
     self.id = (cloud.id ?? "" + "cloud")
     self.urlString = imageURL

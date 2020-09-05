@@ -11,7 +11,7 @@ import Foundation
 import CloudKit
 import SwiftUI
 
-struct CloudDrop: Hashable, Identifiable {
+struct CloudPost: Hashable, Identifiable {
   var title: String?
   var id: String
   var imageURL: String?
@@ -29,7 +29,7 @@ class Cloud: ObservableObject {
   
   static var resourceName: String = "Resource"
   
-  var recordFetchedPassthrough: PassthroughSubject<CloudDrop, Never> = PassthroughSubject<CloudDrop, Never>()
+  var recordFetchedPassthrough: PassthroughSubject<CloudPost, Never> = PassthroughSubject<CloudPost, Never>()
   
   func save(_ post: Post) {
     let record = CKRecord(recordType: .gyazoRecord, recordID: .init(recordName: post.id))
@@ -56,7 +56,7 @@ class Cloud: ObservableObject {
       let description = record.value(forKey: "description") as? String
       let app = record.value(forKey: "app") as? String
       
-      let post = CloudDrop(title: title, id: id ?? UUID().uuidString, imageURL: imageURL, description: description, app: app)
+      let post = CloudPost(title: title, id: id ?? UUID().uuidString, imageURL: imageURL, description: description, app: app)
       DispatchQueue.main.async {
         self.recordFetchedPassthrough.send(post)
       }
