@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct DashboardDetailView: View {
-  var post: Drop
+  var post: Post
   @State var expanded: Bool = false
   
   // MARK: - Env -
@@ -169,7 +169,7 @@ struct DashboardDetailView_Previews: PreviewProvider {
   @Namespace static var animation
   @State static  var expanded: Bool = false
   static var previews: some View {
-    DashboardDetailView(post: Drop.stub.first!,
+    DashboardDetailView(post: Post.stub.first!,
                         expanded: expanded,
                         expandAnimationNamespace: _animation,
                         animationNamespace: imageAnimation,

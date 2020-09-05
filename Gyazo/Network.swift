@@ -11,10 +11,6 @@ import Foundation
 import Combine
 import UIKit
 
-struct Post: Hashable, Decodable {
-  var title: String
-}
-
 class NetworkRequest<T: Decodable>: ObservableObject {
   
   typealias RequestType = T

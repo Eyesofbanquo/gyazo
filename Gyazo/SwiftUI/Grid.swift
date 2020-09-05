@@ -11,10 +11,10 @@ import SwiftUI
 
 struct Grid<Content: View>: View {
   var column: Int
-  var dataSource: [Drop] = []
-  var content: (Drop) -> Content
+  var dataSource: [Post] = []
+  var content: (Post) -> Content
   
-  init(column: Int, dataSource: [Drop], content: @escaping (Drop) -> Content) {
+  init(column: Int, dataSource: [Post], content: @escaping (Post) -> Content) {
     self.column = column
     self.dataSource = dataSource
     self.content = content
@@ -67,7 +67,7 @@ struct Grid<Content: View>: View {
 
 struct Grid_Previews: PreviewProvider {
   static var previews: some View {
-    Grid(column: 2, dataSource: Drop.stub, content: { drop in
+    Grid(column: 2, dataSource: Post.stub, content: { drop in
       Image("gyazo-image")
         .resizable()
         .aspectRatio(contentMode: .fit)

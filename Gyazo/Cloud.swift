@@ -31,7 +31,7 @@ class Cloud: ObservableObject {
   
   var recordFetchedPassthrough: PassthroughSubject<CloudDrop, Never> = PassthroughSubject<CloudDrop, Never>()
   
-  func save(_ post: Drop) {
+  func save(_ post: Post) {
     let record = CKRecord(recordType: .gyazoRecord, recordID: .init(recordName: post.id))
     record.setValue(post.metadata?.title, forKey: "title")
     record.setValue(post.metadata?.app, forKey: "app")

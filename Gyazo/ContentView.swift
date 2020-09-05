@@ -23,9 +23,9 @@ struct ContentView: View {
   
   @Environment(\.imageCache) var cache
   
-  @StateObject var request: NetworkRequest<[Drop]> = NetworkRequest<[Drop]>()
+  @StateObject var request: NetworkRequest<[Post]> = NetworkRequest<[Post]>()
   
-  @State var posts: [Drop] = []
+  @State var posts: [Post] = []
   
   @State var cloudPosts: [CloudDrop] = []
   
@@ -53,7 +53,7 @@ struct ContentView: View {
   
   @Namespace var dashboardCellAnimation
   
-  @State var selectedPost: Drop?
+  @State var selectedPost: Post?
   
   @ObservedObject var cloud: Cloud = Cloud()
   
@@ -186,7 +186,7 @@ struct ContentView: View {
     
   }
   
-  func filterSearchResults(_ post: Drop) -> Bool {
+  func filterSearchResults(_ post: Post) -> Bool {
     if (searchText.isEmpty) {
       return true
     } else {
@@ -215,7 +215,7 @@ struct ContentView: View {
     }
   }
   
-  func Cell(_ post: Drop) -> some View {
+  func Cell(_ post: Post) -> some View {
     Group {
       if post.urlString.isEmpty == false {
         DashboardCell(post: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
@@ -239,7 +239,7 @@ struct ContentView: View {
       .onTapGesture {
         withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
           self.expandDashboardCell.toggle()
-          self.selectedPost = Drop(fromCloud: post)
+          self.selectedPost = Post(fromCloud: post)
         }
       }
     
@@ -247,7 +247,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-  static let stub: [Drop] = Drop.stub
+  static let stub: [Post] = Post.stub
   static var previews: some View {
     ContentView(posts: stub)
   }
