@@ -15,7 +15,6 @@ struct DashboardDetailView: View {
   
   // MARK: - Env -
   @Environment(\.imageCache) var cache
-  @Namespace var expandAnimationNamespace
   var animationNamespace: Namespace.ID
   
   // MARK: - State -
@@ -177,7 +176,6 @@ struct DashboardDetailView_Previews: PreviewProvider {
   static var previews: some View {
     DashboardDetailView(post: Post.stub.first!,
                         expanded: expanded,
-                        expandAnimationNamespace: _animation,
                         animationNamespace: imageAnimation,
                         isVisible: isVisible)
   }

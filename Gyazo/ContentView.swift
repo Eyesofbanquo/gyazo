@@ -50,15 +50,7 @@ struct ContentView: View {
         }
         .navigationBarTitle(Text("Gyazo"))
         .navigationBarItems(
-          trailing: Button(action: {
-            self.state.showingProfile = true
-          }){
-            Image(systemName: "person.circle")
-              .foregroundColor(Color(.label))
-              .padding()
-              .font(.title)
-              .contentShape(Rectangle())
-          })
+          trailing: ProfileNavigationItem)
         .sheet(isPresented: self.$state.showingProfile) {
           Profile(presented: $state.showingProfile)
         }//z- stack
@@ -76,7 +68,6 @@ struct ContentView: View {
       }
       
     }// outer z-stack
-    
     .statusBar(hidden: true)
     .onAppear(perform: vm.retrievePosts)
     .onAppear(perform: vm.retrieveCloudPosts)
@@ -91,17 +82,12 @@ struct ContentView: View {
     
   } // body
   
-  var pasteboardImageView: Image? {
-    guard let image = state.uploadImage else { return nil }
-    
-    return Image.init(uiImage: image)
-  }
   
-  var selectedImageURL: URL? {
-    guard let urlString = state.selectedPost?.urlString, let url = URL(string: urlString) else { return nil }
-    return url
-  }
-  
+}
+
+// MARK: - Views -
+
+extension ContentView {
   var UploadImage: some View {
     SelectedImageView(uiimage: state.uploadImage,
                       imageURL: state.selectedPost?.urlString ?? "",
@@ -126,37 +112,18 @@ struct ContentView: View {
         EmptyView()
       }
     }
-    
   }
   
-  func Cell(_ post: Post) -> some View {
-    Group {
-      if post.urlString.isEmpty == false {
-        DashboardCell(post: post, placeholder: Text("Loading"), namespace: detailViewAnimation)
-          .padding(.horizontal, 8.0)
-          .onAppear {
-            self.cloud.save(post)
-          }
-          .onTapGesture {
-            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-              self.state.presentDashboardCell.toggle()
-              self.state.selectedPost = post
-            }
-          }
-      }
+  var ProfileNavigationItem: some View {
+    Button(action: {
+      self.state.showingProfile = true
+    }){
+      Image(systemName: "person.circle")
+        .foregroundColor(Color(.label))
+        .padding()
+        .font(.title)
+        .contentShape(Rectangle())
     }
-  }
-  
-  func CloudCell(_ post: CloudPost) -> some View {
-    DashboardCell(cloud: post, placeholder: Text("Loading"), namespace: detailViewAnimation)
-      .padding(.horizontal, 8.0)
-      .onTapGesture {
-        withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-          self.state.presentDashboardCell.toggle()
-          self.state.selectedPost = Post(fromCloud: post)
-        }
-      }
-    
   }
 }
 

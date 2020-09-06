@@ -76,26 +76,29 @@ struct PhotoList: View {
         .clipped()
         .padding()
         .shadow(radius: 10)
-        .onAppear {
-          if type == .gyazo {
-            self.cloud.save(post as! Post)
-          }
-        }
-        .onTapGesture {
-          withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-            self.presentDetailView.toggle()
-            if type == .gyazo {
-              self.selectedPost = post as? Post
-            } else {
-              self.selectedPost = Post(fromCloud: post as! CloudPost)
-            }
-          }
-        }
-        
+        .onAppear { onPostAppear(post, type) }
+        .onTapGesture { onPostTap(post, type) }
+        .border(Color.red)
+        .clipped()
     }
-    .matchedGeometryEffect(id: post.id, in: detailViewNamespace)
-    .border(Color.red)
-    .clipped()
+    
+  }
+  
+  private func onPostAppear(_ post: PhotoListRepresentable, _ type: PhotoListRepresentableType) {
+    if type == .gyazo {
+      self.cloud.save(post as! Post)
+    }
+  }
+  
+  private func onPostTap(_ post: PhotoListRepresentable, _ type: PhotoListRepresentableType) {
+    withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+      self.presentDetailView.toggle()
+      if type == .gyazo {
+        self.selectedPost = post as? Post
+      } else {
+        self.selectedPost = Post(fromCloud: post as! CloudPost)
+      }
+    }
   }
   
   private func imageOverlay(post: PhotoListRepresentable, type: PhotoListRepresentableType = .gyazo) -> some View {
@@ -138,24 +141,3 @@ struct PhotoList: View {
     }
   }
 }
-//
-//struct PhotoList_Previews: PreviewProvider {
-//  static var posts: [Post] = Post.stub
-//  static var postsBinding = Binding (
-//    get: {
-//      return posts
-//    },
-//    set: {
-//      posts = $0
-//    })
-//
-//  static var cloudPostsBinding = Binding<[CloudPost]> (
-//    get: {
-//      return []
-//    }, set: { _ in
-//    })
-//
-//  static var previews: some View {
-//    PhotoList(posts: postsBinding, cloudPosts: cloudPostsBinding)
-//  }
-//}
