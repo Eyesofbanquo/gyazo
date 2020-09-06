@@ -38,7 +38,6 @@ struct PhotoList: View {
   }
   
   private var photoListContentView: some View {
-    
     ScrollView {
       photoList
     }
@@ -55,10 +54,10 @@ struct PhotoList: View {
   
   private var photoList: some View {
     return LazyVStack {
-      ForEach(posts, id: \.self) { post in
+      ForEach(posts, id: \.id) { post in
         photoClippedCell(post: post)
       }
-      ForEach(cloudPosts, id: \.self) { cloudPost in
+      ForEach(cloudPosts, id: \.id) { cloudPost in
         photoClippedCell(post: cloudPost, type: .cloud)
       }
     }
@@ -77,6 +76,7 @@ struct PhotoList: View {
         .padding()
         .shadow(radius: 10)
         .onAppear { onPostAppear(post, type) }
+        .contentShape(Rectangle())
         .onTapGesture { onPostTap(post, type) }
         .border(Color.red)
         .clipped()
@@ -92,12 +92,13 @@ struct PhotoList: View {
   
   private func onPostTap(_ post: PhotoListRepresentable, _ type: PhotoListRepresentableType) {
     withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-      self.presentDetailView.toggle()
       if type == .gyazo {
         self.selectedPost = post as? Post
       } else {
         self.selectedPost = Post(fromCloud: post as! CloudPost)
       }
+      self.presentDetailView.toggle()
+      
     }
   }
   
