@@ -45,7 +45,6 @@ class Cloud: ObservableObject {
   func retrieve(loadedCloudPostsBinding: Binding<Bool>) {
     let predicate = NSPredicate(value: true)
     let query = CKQuery(recordType: .gyazoRecord, predicate: predicate)
-//    query.sortDescriptors = [NSSortDescriptor(key: "Modified", ascending: false)]
     
     let operation = CKQueryOperation(query: query)
     

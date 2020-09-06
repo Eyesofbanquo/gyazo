@@ -21,6 +21,9 @@ struct TableView: ViewModifier {
 
 struct ContentView: View {
   
+  @StateObject var vm: ContentViewModel = ContentViewModel()
+  @State var state: ContentViewState = ContentViewState()
+  
   @Environment(\.imageCache) var cache
   
   @StateObject var request: NetworkRequest<[Post]> = NetworkRequest<[Post]>()
@@ -32,32 +35,10 @@ struct ContentView: View {
   @Environment(\.vision) var vision: Vision
   
   @EnvironmentObject var userSettings: UserSettings
-  
-  @State var searchText: String = ""
-  
-  @State var showingImagePicker = false
-  
-  @State var selectedImage: UIImage?
-  
-  @State var pasteboardImage: UIImage?
-  
-  @State var showingProfile = false
-  
-  @GestureState var onActiveScroll: CGSize = .zero
-  
-  @State var uploadImage: UIImage?
-  
-  @State var expandDashboardCell = false
-  
-  @State var presentShareController: Bool = false
-  
+
   @Namespace var dashboardCellAnimation
   
-  @State var selectedPost: Post?
-  
   @ObservedObject var cloud: Cloud = Cloud()
-  
-  @State var loadedCloudPosts: Bool = false
   
   var body: some View {
     
@@ -65,11 +46,11 @@ struct ContentView: View {
       NavigationView {
         ZStack(alignment: .bottomTrailing) {
           VStack {
-            SearchBar(text: $searchText)
-            List {
+            SearchBar(text: $state.searchText)
+            ScrollView {
               Section(header: Text("Gyazo Photos")) {
-                VStack(spacing: 8.0) {
-                  ForEach(posts.filter { filterSearchResults($0) }, id: \.self) { post in
+                LazyVStack(spacing: 8.0) {
+                  ForEach(vm.posts.filter { vm.filterSearchResults($0, forText: state.searchText) }, id: \.self) { post in
                     Cell(post)
                   }
                 }
@@ -77,8 +58,8 @@ struct ContentView: View {
                 
               }
               Section(header: Text("iCloud Photos")) {
-                if self.loadedCloudPosts {
-                  VStack(spacing: 8.0) {
+                if state.loadedCloudPosts {
+                  LazyVStack(spacing: 8.0) {
                     ForEach(self.cloudPosts, id: \.self) { cloud in
                       CloudCell(cloud)
                     }
@@ -90,14 +71,14 @@ struct ContentView: View {
             .edgesIgnoringSafeArea(.all)// Scroll View
           } // v- stack
           
-          UploadOptions(clipboardImage: $uploadImage, photoLibraryImage: $uploadImage, cameraImage: $uploadImage)
+          UploadOptions(clipboardImage: $state.uploadImage, photoLibraryImage: $state.uploadImage, cameraImage: $state.uploadImage)
             .offset(x: -16, y: -16)
           
         }
         .navigationBarTitle(Text("Gyazo"))
         .navigationBarItems(
           trailing: Button(action: {
-            self.showingProfile = true
+            self.state.showingProfile = true
           }){
             Image(systemName: "person.circle")
               .foregroundColor(Color(.label))
@@ -105,19 +86,19 @@ struct ContentView: View {
               .font(.title)
               .contentShape(Rectangle())
           })
-        .sheet(isPresented: self.$showingProfile) {
-          Profile(presented: $showingProfile)
+        .sheet(isPresented: self.$state.showingProfile) {
+          Profile(presented: $state.showingProfile)
         }//z- stack
         
         
       } // nav view
       
-      if self.uploadImage != nil {
+      if state.uploadImage != nil {
         UploadImage
       }
       
       // This should be logic for the detail view
-      if expandDashboardCell {
+      if state.presentDashboardCell {
         DetailView
       }
       
@@ -125,94 +106,56 @@ struct ContentView: View {
     
     .statusBar(hidden: true)
     .onAppear {
-      self.cloud.retrieve(loadedCloudPostsBinding: $loadedCloudPosts)
+      print("yo")
+      self.cloud.retrieve(loadedCloudPostsBinding: self.$state.loadedCloudPosts)
     }
-    .onReceive(request.request(endpoint: .images)) { posts in
-      if let posts = posts {
-        self.posts = posts
-      }
-    }
+    .onAppear(perform: vm.retrievePosts)
     .onReceive(self.cloud.recordFetchedPassthrough, perform: { post in
-      self.cloudPosts.append(post)
-//      let matchedEntry = self.posts.first(where: { post.imageURL == $0.urlString }) != nil
-//      if matchedEntry == false {
-//        self.cloudPosts.append(post)
-//      }
+//      self.cloudPosts.append(post)
+      let matchedEntry = self.posts.first(where: { post.imageURL == $0.urlString }) != nil
+      if matchedEntry == false {
+        self.cloudPosts.append(post)
+      }
     })
     
   } // body
   
   var pasteboardImageView: Image? {
-    guard let image = uploadImage else { return nil }
+    guard let image = state.uploadImage else { return nil }
     
     return Image.init(uiImage: image)
   }
-  private func readFromPasteboard() {
-    let pasteboard = UIPasteboard.general
-    guard let pasteboardImage = pasteboard.image else { return }
-    
-    self.pasteboardImage = pasteboardImage
-  }
   
   var selectedImageURL: URL? {
-    guard let urlString = selectedPost?.urlString, let url = URL(string: urlString) else { return nil }
+    guard let urlString = state.selectedPost?.urlString, let url = URL(string: urlString) else { return nil }
     return url
   }
   
   var UploadImage: some View {
-    SelectedImageView(uiimage: uploadImage,
-                      imageURL: selectedPost?.urlString ?? "",
+    SelectedImageView(uiimage: state.uploadImage,
+                      imageURL: state.selectedPost?.urlString ?? "",
                       action: .upload,
-                      presentShareController: $presentShareController,
+                      presentShareController: $state.presentShareController,
                       presentSelectedImageView: Binding (
                         get: {
-                          return self.uploadImage != nil
+                          return self.state.uploadImage != nil
                         },
                         set: { _ in
-                          self.uploadImage = nil
+                          self.state.uploadImage = nil
                         })) // inner z-stack
   }
   
   var DetailView: some View {
     Group {
-      if let selectedPost = self.selectedPost  {
+      if let selectedPost = self.state.selectedPost  {
         DashboardDetailView(post: selectedPost,
                             animationNamespace: dashboardCellAnimation,
-                            isVisible: $expandDashboardCell)
+                            isVisible: $state.presentDashboardCell)
       } else {
         EmptyView()
       }
     }
     
-  }
-  
-  func filterSearchResults(_ post: Post) -> Bool {
-    if (searchText.isEmpty) {
-      return true
-    } else {
-      let appropriateMLResponses = self.vision.classifications[post.metadata?.title ?? ""]
-      let bestResponse = appropriateMLResponses?.first
-      let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
-      return (post.metadata?.app?.contains(self.searchText)) == true || (post.metadata?.title?.contains(self.searchText)) == true || searchTextContainsResponse == true
-    }
-  }
-  
-  func cloudSearchAndFilter(_ cloud: CloudPost) -> Bool {
-    let alreadyExists = self.posts.first(where: { $0.id == cloud.id }) != nil
-    let emptySearch = searchText.isEmpty
-    
-    if alreadyExists {
-      return true
-    }
-    
-    if emptySearch {
-      return false
-    } else {
-      let appropriateMLResponses = self.vision.classifications[cloud.title ?? ""]
-      let bestResponse = appropriateMLResponses?.first
-      let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(self.searchText.lowercased())
-      return (cloud.app?.contains(self.searchText)) == true || (cloud.title?.contains(self.searchText)) == true || searchTextContainsResponse == true
-    }
   }
   
   func Cell(_ post: Post) -> some View {
@@ -225,8 +168,8 @@ struct ContentView: View {
           }
           .onTapGesture {
             withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-              self.expandDashboardCell.toggle()
-              self.selectedPost = post
+              self.state.presentDashboardCell.toggle()
+              self.state.selectedPost = post
             }
           }
       }
@@ -238,8 +181,8 @@ struct ContentView: View {
       .padding(.horizontal, 8.0)
       .onTapGesture {
         withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
-          self.expandDashboardCell.toggle()
-          self.selectedPost = Post(fromCloud: post)
+          self.state.presentDashboardCell.toggle()
+          self.state.selectedPost = Post(fromCloud: post)
         }
       }
     

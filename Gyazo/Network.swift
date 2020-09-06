@@ -18,7 +18,6 @@ class NetworkRequest<T: Decodable>: ObservableObject {
   var cancellableSet: Set<AnyCancellable> = []
   
   var uploadPassthrough = PassthroughSubject<Double, Never>()
-
   
   func request(endpoint: GyazoAPI.Endpoint, postData: Data? = nil) -> AnyPublisher<RequestType?, Never> {
     var components = URLComponents()

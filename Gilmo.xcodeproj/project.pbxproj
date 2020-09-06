@@ -39,6 +39,8 @@
 		33979B7D24F5E02A0013B81F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33979B7C24F5E02A0013B81F /* App.swift */; };
 		33B496DA24FAE27900B0DED2 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B496D924FAE27900B0DED2 /* ShareView.swift */; };
 		33CA0928250444AE00EAB5C7 /* PhotoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA0927250444AE00EAB5C7 /* PhotoList.swift */; };
+		33CA092B25044E6F00EAB5C7 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA092A25044E6F00EAB5C7 /* ContentViewModel.swift */; };
+		33CA092D2504502600EAB5C7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA092C2504502600EAB5C7 /* AppState.swift */; };
 		33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D623FB24F597170051C3D7 /* UploadOptions.swift */; };
 		33DE872C24FB3A8600DFEB85 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DE872B24FB3A8600DFEB85 /* ShareViewController.swift */; };
 		33DE872F24FB3A8600DFEB85 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33DE872D24FB3A8600DFEB85 /* MainInterface.storyboard */; };
@@ -126,6 +128,8 @@
 		33979B7C24F5E02A0013B81F /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		33B496D924FAE27900B0DED2 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		33CA0927250444AE00EAB5C7 /* PhotoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoList.swift; sourceTree = "<group>"; };
+		33CA092A25044E6F00EAB5C7 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		33CA092C2504502600EAB5C7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		33D623FB24F597170051C3D7 /* UploadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOptions.swift; sourceTree = "<group>"; };
 		33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GilmoShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		33DE872B24FB3A8600DFEB85 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +211,14 @@
 			path = AsyncImage;
 			sourceTree = "<group>";
 		};
+		33CA092925044E5500EAB5C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				33CA092A25044E6F00EAB5C7 /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		33DE872A24FB3A8600DFEB85 /* GilmoShareExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +263,7 @@
 		D50E9D0D24501FF6006F0E9A /* Gyazo */ = {
 			isa = PBXGroup;
 			children = (
+				33CA092925044E5500EAB5C7 /* ViewModel */,
 				33DE874224FB499C00DFEB85 /* Gyazo.entitlements */,
 				33518E2724F36814005320D8 /* Vision */,
 				D50E9D4F2453AC81006F0E9A /* Model */,
@@ -269,6 +282,7 @@
 				D50E9D46245364B8006F0E9A /* UserSettings.swift */,
 				3355E49524F4EE94006B227F /* Gyazo.swift */,
 				3340A7AC24FC5B6E003FD9F9 /* Cloud.swift */,
+				33CA092C2504502600EAB5C7 /* AppState.swift */,
 			);
 			path = Gyazo;
 			sourceTree = "<group>";
@@ -544,6 +558,7 @@
 				338CC82B24F9999100B628AB /* DashboardDetailView.swift in Sources */,
 				3340A7A824FC1E7D003FD9F9 /* ImageResponse.swift in Sources */,
 				33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */,
+				33CA092D2504502600EAB5C7 /* AppState.swift in Sources */,
 				3355E49624F4EE94006B227F /* Gyazo.swift in Sources */,
 				D50E9D4324535901006F0E9A /* Secure.swift in Sources */,
 				3355E49024F3819A006B227F /* ImagePicker.swift in Sources */,
@@ -555,6 +570,7 @@
 				33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */,
 				D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */,
 				D50E9D4524535DFA006F0E9A /* LoginView.swift in Sources */,
+				33CA092B25044E6F00EAB5C7 /* ContentViewModel.swift in Sources */,
 				33518E2E24F36C95005320D8 /* AsyncImage.swift in Sources */,
 				33518E2B24F36854005320D8 /* Vision.swift in Sources */,
 				D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */,
