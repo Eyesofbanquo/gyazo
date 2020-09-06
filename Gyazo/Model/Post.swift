@@ -8,6 +8,26 @@
 
 import Foundation
 
+enum PhotoListRepresentableType {
+  case gyazo
+  case cloud
+}
+
+protocol PhotoListRepresentable {
+  var title: String { get }
+  var date: String { get }
+  var id: String { get }
+  var app: String { get }
+  var cacheableImageURL: URL? { get }
+}
+
+var formatter: DateFormatter = {
+  let formatter = DateFormatter()
+  formatter.dateFormat = "MMM dd, yyyy HH:mm"
+  
+  return formatter
+}()
+
 struct DropMetadata: Hashable, Decodable {
   var app: String?
   var title: String?
@@ -22,21 +42,43 @@ struct DropMetadata: Hashable, Decodable {
 }
 
 /// This type represents the `gyazo` resource type. Can be either an image or a gif.
-struct Post: Hashable, Decodable {
+struct Post: Hashable, Decodable, PhotoListRepresentable {
+  
   var id: String
   var thumbURLString: String
   var urlString: String
   var type: String
   var metadata: DropMetadata?
   var createdAt: String
+  
+  var date: String {
+    
+    let localISOFormatter = ISO8601DateFormatter()
+    localISOFormatter.timeZone = TimeZone.current
+    guard let dateObject = localISOFormatter.date(from: createdAt) else {
+      return ""
+    }
+    
+    let newDateString = formatter.string(from: dateObject)
+    
+    return newDateString
+  }
+  
+  var app: String {
+    return metadata?.app ?? ""
+  }
+  
+  var title: String {
+    return metadata?.title ?? ""
+  }
+  
 }
 
 extension Post {
   
   init?(fromCloud cloud: CloudPost) {
-    guard let imageURL = cloud.imageURL else { return nil }
-    self.id = (cloud.id ?? "" + "cloud")
-    self.urlString = imageURL
+    self.id = (cloud.id + "cloud")
+    self.urlString = cloud.imageURL
     self.type = ""
     self.metadata = DropMetadata(app: cloud.app, title: cloud.title, urlString: cloud.imageURL, description: cloud.description)
     self.createdAt = ""

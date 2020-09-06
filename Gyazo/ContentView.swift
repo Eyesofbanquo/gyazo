@@ -21,7 +21,7 @@ struct TableView: ViewModifier {
 
 struct ContentView: View {
   
-  @StateObject var vm: ContentViewModel = ContentViewModel()
+  @ObservedObject var vm: ContentViewModel = ContentViewModel()
   @State var state: ContentViewState = ContentViewState()
   @State var posts: [Post] = []
   @State var cloudPosts: [CloudPost] = []
@@ -37,25 +37,11 @@ struct ContentView: View {
         ZStack(alignment: .bottomTrailing) {
           VStack {
             SearchBar(text: $state.searchText)
-            ScrollView {
-              Section(header: Text("Gyazo Photos")) {
-                LazyVStack(spacing: 8.0) {
-                  ForEach(posts.filter { vm.filterSearchResults($0, forText: state.searchText) }, id: \.self) { post in
-                    Cell(post)
-                  }
-                }
-                .modifier(TableView())
-                
-              }
-              Section(header: Text("iCloud Photos")) {
-                LazyVStack(spacing: 8.0) {
-                  ForEach(cloudPosts, id: \.self) { cloud in
-                    CloudCell(cloud)
-                  }
-                }.modifier(TableView())
-              }
-            }.listStyle(PlainListStyle())
-            .edgesIgnoringSafeArea(.all)// Scroll View
+            PhotoList(posts: $posts,
+                      cloudPosts: $cloudPosts,
+                      presentDetailView: $state.presentDashboardCell,
+                      selectedPost: $state.selectedPost,
+                      detailViewNamespace: detailViewAnimation)
           } // v- stack
           
           UploadOptions(clipboardImage: $state.uploadImage, photoLibraryImage: $state.uploadImage, cameraImage: $state.uploadImage)
@@ -95,6 +81,8 @@ struct ContentView: View {
     .onAppear(perform: vm.retrievePosts)
     .onAppear(perform: vm.retrieveCloudPosts)
     .onReceive(vm.$posts, perform: { posts in
+      print(posts.count)
+      // Remember - it returns 20 posts no matter what. 
       self.posts = posts
     })
     .onReceive(vm.$cloudPosts, perform: { cloudPosts in
@@ -175,6 +163,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
   static let stub: [Post] = Post.stub
   static var previews: some View {
-    ContentView()
+    ContentView(posts: Post.stub)
   }
 }

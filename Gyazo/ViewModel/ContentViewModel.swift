@@ -45,8 +45,9 @@ class ContentViewModel: ObservableObject {
   
   func retrievePosts() {
     request.request(endpoint: .images)
-      .receive(on: RunLoop.main)
+      .receive(on: DispatchQueue.main)
       .compactMap { $0 }
+      .map { $0.filter { $0.id.isEmpty == false } }
       .assign(to: \.posts, on: self)
       .store(in: &cancellables)
   }
@@ -55,7 +56,6 @@ class ContentViewModel: ObservableObject {
     cloud.retrieve()
       .receive(on: RunLoop.main)
       .sink { retrievedCloudPosts in
-        print(retrievedCloudPosts)
         for cloudPost in retrievedCloudPosts {
           if self.posts.first(where: { $0.urlString == cloudPost.imageURL } ) == nil && self.cloudPosts.first(where: { $0.id == cloudPost.id }) == nil {
             self.cloudPosts.append(cloudPost)
@@ -87,10 +87,10 @@ class ContentViewModel: ObservableObject {
     if emptySearch {
       return false
     } else {
-      let appropriateMLResponses = self.vision.classifications[cloud.title ?? ""]
+      let appropriateMLResponses = self.vision.classifications[cloud.title]
       let bestResponse = appropriateMLResponses?.first
       let searchTextContainsResponse = (bestResponse?.1.lowercased() ?? "").contains(searchText.lowercased())
-      return (cloud.app?.contains(searchText)) == true || (cloud.title?.contains(searchText)) == true || searchTextContainsResponse == true
+      return (cloud.app.contains(searchText)) == true || (cloud.title.contains(searchText)) == true || searchTextContainsResponse == true
     }
   }
 }
