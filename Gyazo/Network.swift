@@ -11,10 +11,6 @@ import Foundation
 import Combine
 import UIKit
 
-struct Post: Hashable, Decodable {
-  var title: String
-}
-
 class NetworkRequest<T: Decodable>: ObservableObject {
   
   typealias RequestType = T
@@ -22,7 +18,6 @@ class NetworkRequest<T: Decodable>: ObservableObject {
   var cancellableSet: Set<AnyCancellable> = []
   
   var uploadPassthrough = PassthroughSubject<Double, Never>()
-
   
   func request(endpoint: GyazoAPI.Endpoint, postData: Data? = nil) -> AnyPublisher<RequestType?, Never> {
     var components = URLComponents()

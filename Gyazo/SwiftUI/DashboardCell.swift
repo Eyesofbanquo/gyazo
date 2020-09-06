@@ -17,13 +17,13 @@ struct DashboardCell<Placeholder: View>: View {
   
   var dashboardCell: Namespace.ID
     
-  var post: Drop
+  var post: Post
   
   var placeholder: Placeholder?
   
   @State private var expandView: Bool = false
   
-  init(post: Drop,
+  init(post: Post,
        placeholder: Placeholder? = nil,
        namespace: Namespace.ID) {
     self.post = post
@@ -31,10 +31,10 @@ struct DashboardCell<Placeholder: View>: View {
     self.dashboardCell = namespace
   }
   
-  init(cloud: CloudDrop,
+  init(cloud: CloudPost,
        placeholder: Placeholder? = nil,
        namespace: Namespace.ID) {
-    self.post = Drop(fromCloud: cloud)!
+    self.post = Post(fromCloud: cloud)!
     self.placeholder = placeholder
     self.dashboardCell = namespace
   }
@@ -98,7 +98,7 @@ struct DashboardCell_Previews: PreviewProvider {
   @Namespace static var namespace
   
   static var previews: some View {
-    DashboardCell(post: Drop.stub.first!,
+    DashboardCell(post: Post.stub.first!,
                   placeholder: Image("gyazo-image").resizable(), namespace: namespace)
   }
 }
