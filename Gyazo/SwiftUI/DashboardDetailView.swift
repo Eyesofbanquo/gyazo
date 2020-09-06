@@ -37,12 +37,14 @@ struct DashboardDetailView: View {
               heroImage?
                 .resizable()
                 .aspectRatio(contentMode: .fill)
+                .layoutPriority(1)
                 .frame(width: g.frame(in: .global).minY > 0 ? g.size.width + g.frame(in: .global).minY : g.size.width,
                        height: g.frame(in: .global).minY > 0 ? UIScreen.main.bounds.height / 2.2 + g.frame(in: .global).minY : UIScreen.main.bounds.height / 2.2)
                 .clipped()
                 .offset(x: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY / 2 : 0, y: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY : 0)
                 .matchedGeometryEffect(id: post.id, in: animationNamespace)
-            }.frame(height: UIScreen.main.bounds.height / 2.2)
+            }
+            .frame(height: UIScreen.main.bounds.height / 2.2)
             
             tapToExpandControl
           }
@@ -91,14 +93,14 @@ struct DashboardDetailView: View {
   }
   
   private var heroImage: Image? {
-    #if DEBUG
-    return Image("gyazo-image")
-    #else
+//    #if DEBUG
+//    return Image("gyazo-image")
+//    #else
     if let imageURL = post.cacheableImageURL, let cachedImage = self.cache[imageURL] {
       return Image(uiImage: cachedImage)
     }
     return nil
-    #endif
+//    #endif
   }
   
   private var tapToExpandControl: some View {
@@ -126,7 +128,9 @@ struct DashboardDetailView: View {
       HStack {
         Image(systemName: "xmark.circle.fill")
           .font(.title)
-          .foregroundColor(Color.black)
+          .foregroundColor(Color.white)
+          .background(Color.black)
+          .clipShape(Circle())
           .onTapGesture {
             withAnimation {
               self.isVisible.wrappedValue = false
@@ -135,7 +139,9 @@ struct DashboardDetailView: View {
         Spacer()
         Image(systemName: "person.circle.fill")
           .font(.title)
-          .foregroundColor(Color.black)
+          .foregroundColor(Color.white)
+          .background(Color.black)
+          .clipShape(Circle())
           .onTapGesture {
             self.showingProfile = true
           }

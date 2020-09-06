@@ -31,6 +31,8 @@ class Cloud: ObservableObject {
   
   var recordFetchedPassthrough: PassthroughSubject<CloudPost, Never> = PassthroughSubject<CloudPost, Never>()
   
+  var cloudPosts: [CloudPost] = []
+  
   func save(_ post: Post) {
     let record = CKRecord(recordType: .gyazoRecord, recordID: .init(recordName: post.id))
     record.setValue(post.metadata?.title, forKey: "title")
@@ -76,5 +78,48 @@ class Cloud: ObservableObject {
     
     Self.db.add(operation)
     
+  }
+  
+  func retrieve() -> AnyPublisher<[CloudPost], Never> {
+    return Deferred {
+      Future<[CloudPost], Never> { seal in
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: .gyazoRecord, predicate: predicate)
+        
+        let operation = CKQueryOperation(query: query)
+        
+        var posts: [CloudPost] = []
+        
+        operation.recordFetchedBlock = { record in
+          let title = record.value(forKey: "title") as? String
+          let id = record.value(forKey: "gyazoID") as? String
+          let imageURL = record.value(forKey: "imageURL") as? String
+          let description = record.value(forKey: "description") as? String
+          let app = record.value(forKey: "app") as? String
+          
+          let post = CloudPost(title: title, id: id ?? UUID().uuidString, imageURL: imageURL, description: description, app: app)
+          DispatchQueue.main.async {
+            print(post)
+            posts.append(post)
+            self.recordFetchedPassthrough.send(post)
+          }
+        }
+        
+        operation.queryCompletionBlock = { cursor, error in
+          if error == nil {
+            
+          }
+        }
+        
+        operation.completionBlock = {
+          print("done", "iCloud")
+          seal(.success(posts))
+        }
+        
+        Self.db.add(operation)
+      }
+      
+    }.eraseToAnyPublisher()
+   
   }
 }

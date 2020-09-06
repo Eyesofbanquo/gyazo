@@ -18,6 +18,11 @@ struct ContentViewState {
   var presentDashboardCell = false
   var selectedPost: Post?
   var loadedCloudPosts: Bool = false
+  
+  var detailViewAnimation: Namespace = Namespace.init()
+  var detailViewAnimationID: Namespace.ID {
+    return detailViewAnimation.wrappedValue
+  }
 }
 
 class ContentViewModel: ObservableObject {
@@ -27,12 +32,14 @@ class ContentViewModel: ObservableObject {
   var vision: Vision = VisionKey.defaultValue
   
   var request: NetworkRequest<[Post]> = NetworkRequest<[Post]>()
+  
+  var cloud: Cloud = Cloud()
     
   // MARK: - Data -
   
-  var posts: [Post] = []
+  @Published private(set) var posts: [Post] = []
   
-  var cloudData: [CloudPost] = []
+  @Published private(set) var cloudPosts: [CloudPost] = []
   
   var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
   
@@ -41,6 +48,20 @@ class ContentViewModel: ObservableObject {
       .receive(on: RunLoop.main)
       .compactMap { $0 }
       .assign(to: \.posts, on: self)
+      .store(in: &cancellables)
+  }
+  
+  func retrieveCloudPosts() {
+    cloud.retrieve()
+      .receive(on: RunLoop.main)
+      .sink { retrievedCloudPosts in
+        print(retrievedCloudPosts)
+        for cloudPost in retrievedCloudPosts {
+          if self.posts.first(where: { $0.urlString == cloudPost.imageURL } ) == nil && self.cloudPosts.first(where: { $0.id == cloudPost.id }) == nil {
+            self.cloudPosts.append(cloudPost)
+          }
+        }
+      }
       .store(in: &cancellables)
   }
   

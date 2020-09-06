@@ -23,20 +23,10 @@ struct ContentView: View {
   
   @StateObject var vm: ContentViewModel = ContentViewModel()
   @State var state: ContentViewState = ContentViewState()
-  
-  @Environment(\.imageCache) var cache
-  
-  @StateObject var request: NetworkRequest<[Post]> = NetworkRequest<[Post]>()
-  
   @State var posts: [Post] = []
-  
   @State var cloudPosts: [CloudPost] = []
   
-  @Environment(\.vision) var vision: Vision
-  
-  @EnvironmentObject var userSettings: UserSettings
-
-  @Namespace var dashboardCellAnimation
+  @Namespace var detailViewAnimation
   
   @ObservedObject var cloud: Cloud = Cloud()
   
@@ -50,7 +40,7 @@ struct ContentView: View {
             ScrollView {
               Section(header: Text("Gyazo Photos")) {
                 LazyVStack(spacing: 8.0) {
-                  ForEach(vm.posts.filter { vm.filterSearchResults($0, forText: state.searchText) }, id: \.self) { post in
+                  ForEach(posts.filter { vm.filterSearchResults($0, forText: state.searchText) }, id: \.self) { post in
                     Cell(post)
                   }
                 }
@@ -58,15 +48,12 @@ struct ContentView: View {
                 
               }
               Section(header: Text("iCloud Photos")) {
-                if state.loadedCloudPosts {
-                  LazyVStack(spacing: 8.0) {
-                    ForEach(self.cloudPosts, id: \.self) { cloud in
-                      CloudCell(cloud)
-                    }
-                  }.modifier(TableView())
-                }
+                LazyVStack(spacing: 8.0) {
+                  ForEach(cloudPosts, id: \.self) { cloud in
+                    CloudCell(cloud)
+                  }
+                }.modifier(TableView())
               }
-                
             }.listStyle(PlainListStyle())
             .edgesIgnoringSafeArea(.all)// Scroll View
           } // v- stack
@@ -105,17 +92,13 @@ struct ContentView: View {
     }// outer z-stack
     
     .statusBar(hidden: true)
-    .onAppear {
-      print("yo")
-      self.cloud.retrieve(loadedCloudPostsBinding: self.$state.loadedCloudPosts)
-    }
     .onAppear(perform: vm.retrievePosts)
-    .onReceive(self.cloud.recordFetchedPassthrough, perform: { post in
-//      self.cloudPosts.append(post)
-      let matchedEntry = self.posts.first(where: { post.imageURL == $0.urlString }) != nil
-      if matchedEntry == false {
-        self.cloudPosts.append(post)
-      }
+    .onAppear(perform: vm.retrieveCloudPosts)
+    .onReceive(vm.$posts, perform: { posts in
+      self.posts = posts
+    })
+    .onReceive(vm.$cloudPosts, perform: { cloudPosts in
+      self.cloudPosts = cloudPosts
     })
     
   } // body
@@ -149,7 +132,7 @@ struct ContentView: View {
     Group {
       if let selectedPost = self.state.selectedPost  {
         DashboardDetailView(post: selectedPost,
-                            animationNamespace: dashboardCellAnimation,
+                            animationNamespace: detailViewAnimation,
                             isVisible: $state.presentDashboardCell)
       } else {
         EmptyView()
@@ -161,7 +144,7 @@ struct ContentView: View {
   func Cell(_ post: Post) -> some View {
     Group {
       if post.urlString.isEmpty == false {
-        DashboardCell(post: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
+        DashboardCell(post: post, placeholder: Text("Loading"), namespace: detailViewAnimation)
           .padding(.horizontal, 8.0)
           .onAppear {
             self.cloud.save(post)
@@ -177,7 +160,7 @@ struct ContentView: View {
   }
   
   func CloudCell(_ post: CloudPost) -> some View {
-    DashboardCell(cloud: post, placeholder: Text("Loading"), namespace: dashboardCellAnimation)
+    DashboardCell(cloud: post, placeholder: Text("Loading"), namespace: detailViewAnimation)
       .padding(.horizontal, 8.0)
       .onTapGesture {
         withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
@@ -192,6 +175,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
   static let stub: [Post] = Post.stub
   static var previews: some View {
-    ContentView(posts: stub)
+    ContentView()
   }
 }
