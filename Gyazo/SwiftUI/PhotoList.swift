@@ -21,11 +21,12 @@ struct PhotoList: View {
   @Binding var presentDetailView: Bool
   @Binding var selectedPost: Post?
   
-  var cache: ImageCacheable = ImageCacheKey.defaultValue
   var vision: Vision = VisionKey.defaultValue
   @ObservedObject var cloud: Cloud = Cloud()
   
   @ObservedObject var formatter: DateFormat = DateFormat()
+  
+  @Environment(\.imageCache) var cache: ImageCacheable
   
   var detailViewNamespace: Namespace.ID
   
@@ -65,7 +66,13 @@ struct PhotoList: View {
   
   private func photoClippedCell(post: PhotoListRepresentable, type: PhotoListRepresentableType = .gyazo) -> some View {
     Group {
-      AsyncImage(url: post.cacheableImageURL!, title: post.title, placeholder: Text("Loading"), cache: cache, vision: vision, configuration: { $0.resizable() })
+      AsyncImage(url: post.cacheableImageURL!,
+                 title: post.title, placeholder: Image("gilmo-placeholder")
+                  .resizable()
+                  .aspectRatio(contentMode: .fill),
+                 cache: cache,
+                 vision: vision,
+                 configuration: { $0.resizable() })
         .aspectRatio(contentMode: .fill)
         .frame(height: 300, alignment: .center)
         .frame(minWidth: 0)

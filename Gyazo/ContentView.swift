@@ -69,8 +69,7 @@ struct ContentView: View {
       
     }// outer z-stack
     .statusBar(hidden: true)
-    .onAppear(perform: vm.retrievePosts)
-    .onAppear(perform: vm.retrieveCloudPosts)
+    .onAppear(perform: vm.retrieveAllPosts)
     .onReceive(vm.$posts, perform: { posts in
       print(posts.count)
       // Remember - it returns 20 posts no matter what. 

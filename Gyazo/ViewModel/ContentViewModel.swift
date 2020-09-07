@@ -65,6 +65,26 @@ class ContentViewModel: ObservableObject {
       .store(in: &cancellables)
   }
   
+  func retrieveAllPosts() {
+    request.request(endpoint: .images)
+      .receive(on: DispatchQueue.main)
+      .compactMap { $0 }
+      .map { $0.filter { $0.id.isEmpty == false } }
+      .map { posts in self.posts = posts }
+      .flatMap { _ -> AnyPublisher<[CloudPost], Never> in
+        return self.cloud.retrieve()
+      }
+      .receive(on: DispatchQueue.main)
+      .sink { retrievedCloudPosts in
+        for cloudPost in retrievedCloudPosts {
+          if self.posts.first(where: { $0.urlString == cloudPost.imageURL } ) == nil && self.cloudPosts.first(where: { $0.id == cloudPost.id }) == nil {
+            self.cloudPosts.append(cloudPost)
+          }
+        }
+      }
+      .store(in: &cancellables)
+  }
+  
   func filterSearchResults(_ post: Post, forText searchText: String) -> Bool {
     if (searchText.isEmpty) {
       return true
