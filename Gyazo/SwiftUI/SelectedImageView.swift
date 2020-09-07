@@ -181,7 +181,9 @@ extension SelectedImageView {
   }
   
   private func dismissAndReset() {
-    self.$presentSelectedImageView.wrappedValue = false
+    withAnimation {
+      self.$presentSelectedImageView.wrappedValue = false
+    }
     self.performedAction = false
   }
   

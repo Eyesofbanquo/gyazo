@@ -81,6 +81,7 @@ struct DashboardDetailView: View {
                           presentShareController: $shareController,
                           presentSelectedImageView: $expanded
                           )
+        .transition(AnyTransition.scale(scale: 3).combined(with: .opacity))
       }
     }
     .onReceive(self.dateFormatter.format(fromString: post.createdAt), perform: { date in
@@ -114,7 +115,9 @@ struct DashboardDetailView: View {
         .contentShape(Capsule())
         .padding(.bottom, 8.0)
         .onTapGesture {
-          self.expanded = true
+          withAnimation {
+            self.expanded = true
+          }
         }
       Spacer()
     }
