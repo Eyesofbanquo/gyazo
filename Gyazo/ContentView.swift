@@ -78,6 +78,9 @@ struct ContentView: View {
     .onReceive(vm.$cloudPosts, perform: { cloudPosts in
       self.cloudPosts = cloudPosts
     })
+    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { output in
+      self.vm.retrieveAllPosts()
+    })
     
   } // body
   
