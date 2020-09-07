@@ -122,9 +122,7 @@ extension ContentView {
     }){
       Image(systemName: "person.circle")
         .foregroundColor(Color(.label))
-        .padding()
-        .font(.title)
-        .contentShape(Rectangle())
+        .navbarIconify()
     }
   }
 }

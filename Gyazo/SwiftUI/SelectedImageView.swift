@@ -52,12 +52,11 @@ struct SelectedImageView: View {
         .padding()
         
       }
+      .edgesIgnoringSafeArea(.all)
       navbar
-        .padding()
-        .padding(.top)
+        .padding(.top, 8.0)
+        .padding(.leading, 16.0)
     }
-    .edgesIgnoringSafeArea(.all)
-    .transition(.scale)
     .onTapGesture {
       self.dismissAndReset()
     }
@@ -202,9 +201,7 @@ extension SelectedImageView {
           .font(.title)
           .foregroundColor(Color.black)
           .onTapGesture {
-            withAnimation {
-              self.dismissAndReset()
-            }
+            self.dismissAndReset()
           }
         Spacer()
       }
