@@ -114,16 +114,13 @@ struct DashboardDetailView: View {
         .contentShape(Capsule())
         .padding(.bottom, 8.0)
         .onTapGesture {
-          withAnimation(Animation.easeInOut(duration: 0.15)) {
-            self.expanded = true
-          }
+          self.expanded = true
         }
       Spacer()
     }
   }
   
   private var navbar: some View {
-    ZStack {
       HStack {
         Image(systemName: "xmark.circle.fill")
           .font(.title)
@@ -135,6 +132,8 @@ struct DashboardDetailView: View {
               self.isVisible.wrappedValue = false
             }
           }
+          .padding(.top, 8.0)
+          .padding(.leading, 16.0)
         Spacer()
         Image(systemName: "person.circle.fill")
           .font(.title)
@@ -147,9 +146,9 @@ struct DashboardDetailView: View {
           .sheet(isPresented: self.$showingProfile) {
             Profile(presented: $showingProfile)
           }
+          .padding(.top, 8.0)
+          .padding(.trailing, 16.0)
       }
-      .padding()
-    }
   }
   
   private func copyToPasteboard() {
