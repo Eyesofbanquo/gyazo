@@ -81,7 +81,8 @@ struct DashboardDetailView: View {
                           presentShareController: $shareController,
                           presentSelectedImageView: $expanded
                           )
-        .transition(AnyTransition.scale(scale: 3).combined(with: .opacity))
+        .transition(.popInFade(scaleBy: 0.5))
+        .zIndex(1)
       }
     }
     .onReceive(self.dateFormatter.format(fromString: post.createdAt), perform: { date in
@@ -93,14 +94,10 @@ struct DashboardDetailView: View {
   }
   
   private var heroImage: Image? {
-//    #if DEBUG
-//    return Image("gyazo-image")
-//    #else
     if let imageURL = post.cacheableImageURL, let cachedImage = self.cache[imageURL] {
       return Image(uiImage: cachedImage)
     }
     return nil
-//    #endif
   }
   
   private var tapToExpandControl: some View {
@@ -115,7 +112,7 @@ struct DashboardDetailView: View {
         .contentShape(Capsule())
         .padding(.bottom, 8.0)
         .onTapGesture {
-          withAnimation {
+          withAnimation(Animation.easeOut(duration: 5)) {
             self.expanded = true
           }
         }
