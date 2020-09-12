@@ -52,6 +52,7 @@
 		33DE874324FB5E8700DFEB85 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D32245024E9006F0E9A /* Network.swift */; };
 		33DE874424FB5E8F00DFEB85 /* Gyazo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355E49524F4EE94006B227F /* Gyazo.swift */; };
 		33DE874524FB600D00DFEB85 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D502453AC9A006F0E9A /* Post.swift */; };
+		33F2B40D2506D6C400CD1CC5 /* PopInFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B40C2506D6C400CD1CC5 /* PopInFade.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
 		D50E9D1524501FF9006F0E9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */; };
@@ -140,6 +141,7 @@
 		33DE873824FB412700DFEB85 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		33DE874124FB499400DFEB85 /* GilmoShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GilmoShareExtension.entitlements; sourceTree = "<group>"; };
 		33DE874224FB499C00DFEB85 /* Gyazo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gyazo.entitlements; sourceTree = "<group>"; };
+		33F2B40C2506D6C400CD1CC5 /* PopInFade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopInFade.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gilmoyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D1224501FF6006F0E9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D50E9D1424501FF9006F0E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -241,6 +243,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		33F2B40B2506D6AA00CD1CC5 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				33F2B40C2506D6C400CD1CC5 /* PopInFade.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		D50E9D0224501FF6006F0E9A = {
 			isa = PBXGroup;
 			children = (
@@ -265,13 +275,14 @@
 		D50E9D0D24501FF6006F0E9A /* Gyazo */ = {
 			isa = PBXGroup;
 			children = (
-				33CA092925044E5500EAB5C7 /* ViewModel */,
+				33F2B40B2506D6AA00CD1CC5 /* Animations */,
 				33DE874224FB499C00DFEB85 /* Gyazo.entitlements */,
 				33518E2724F36814005320D8 /* Vision */,
 				D50E9D4F2453AC81006F0E9A /* Model */,
 				D50E9D4A2453AC01006F0E9A /* Stubs */,
 				D50E9D4824536777006F0E9A /* SwiftUI */,
 				D50E9D39245278C3006F0E9A /* UIKit */,
+				33CA092925044E5500EAB5C7 /* ViewModel */,
 				33979B7C24F5E02A0013B81F /* App.swift */,
 				D50E9D1224501FF6006F0E9A /* ContentView.swift */,
 				D50E9D1424501FF9006F0E9A /* Assets.xcassets */,
@@ -572,6 +583,7 @@
 				33B496DA24FAE27900B0DED2 /* ShareView.swift in Sources */,
 				33518E3224F36CA4005320D8 /* ImageLoader.swift in Sources */,
 				33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */,
+				33F2B40D2506D6C400CD1CC5 /* PopInFade.swift in Sources */,
 				D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */,
 				D50E9D4524535DFA006F0E9A /* LoginView.swift in Sources */,
 				33CA092B25044E6F00EAB5C7 /* ContentViewModel.swift in Sources */,

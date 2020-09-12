@@ -65,7 +65,6 @@ struct SelectedImageView: View {
         self.progress = Float(results)
       }
     })
-    
   }
 }
 
@@ -183,8 +182,9 @@ extension SelectedImageView {
   private func dismissAndReset() {
     withAnimation {
       self.$presentSelectedImageView.wrappedValue = false
+      self.performedAction = false
     }
-    self.performedAction = false
+    
   }
   
   private func copyToPasteboard() {
