@@ -14,7 +14,7 @@ public protocol ImageCacheable {
 }
 
 public struct ImageCacheKey: EnvironmentKey {
-  public static let defaultValue: ImageCacheable = TemporaryImageCache()
+  public static let defaultValue: ImageCacheable = AlamoCache()
 }
 
 extension EnvironmentValues {
