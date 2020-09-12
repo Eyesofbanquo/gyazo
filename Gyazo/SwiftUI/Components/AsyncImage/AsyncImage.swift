@@ -11,7 +11,6 @@ import SwiftUI
 import Combine
 import UIKit
 
-
 public struct AsyncImage<Placeholder: View>: View {
   @ObservedObject private var loader: ImageLoader //needs to be inverted
   private let placeholder: Placeholder?

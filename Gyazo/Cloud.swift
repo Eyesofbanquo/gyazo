@@ -11,26 +11,6 @@ import Foundation
 import CloudKit
 import SwiftUI
 
-struct CloudPost: Hashable, Identifiable {
-  var title: String
-  var id: String
-  var imageURL: String
-  var description: String
-  var app: String
-  var date: String
-}
-
-extension CloudPost: PhotoListRepresentable {
-
-  var cacheableImageURL: URL? {
-    return URL(string: imageURL)
-  }
-}
-
-extension CKRecord.RecordType {
-  static var gyazoRecord: String = "Resource"
-}
-
 class Cloud: ObservableObject {
   
   static var db = CKContainer.default().publicCloudDatabase
