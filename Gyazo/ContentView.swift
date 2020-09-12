@@ -10,15 +10,6 @@ import SwiftUI
 import Combine
 import AsyncImage
 
-struct TableView: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-      .listRowInsets(EdgeInsets())
-      .background(Color(.systemBackground))
-  }
-}
-
 struct ContentView: View {
   
   @ObservedObject var vm: ContentViewModel = ContentViewModel()
@@ -54,8 +45,6 @@ struct ContentView: View {
         .sheet(isPresented: self.$state.showingProfile) {
           Profile(presented: $state.showingProfile)
         }//z- stack
-        
-        
       } // nav view
       
       if state.uploadImage != nil {
