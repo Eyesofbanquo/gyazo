@@ -116,6 +116,7 @@ class ShareViewController: UIViewController {
     AF.upload(multipartFormData: { multipartFormData in
       multipartFormData.append(Data(accessToken.utf8), withName: "access_token")
       multipartFormData.append(imageBinary, withName: "imagedata", fileName: "iOS Share Menu", mimeType: "image/jpeg")
+      multipartFormData.append(Data("iOS Share Menu".utf8), withName: "title")
     }, to: "https://upload.gyazo.com/api/upload", method: .post)
     .responseDecodable(of: ImageResponse.self) { response in
       debugPrint(response)

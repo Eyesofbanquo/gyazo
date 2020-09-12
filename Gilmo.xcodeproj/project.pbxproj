@@ -58,6 +58,8 @@
 		33F2B480250D57DE00CD1CC5 /* Gyazo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355E49524F4EE94006B227F /* Gyazo.swift */; };
 		33F2B482250D58C700CD1CC5 /* DashboardDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B481250D58C700CD1CC5 /* DashboardDetailVM.swift */; };
 		33F2B484250D5CFE00CD1CC5 /* StretchyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B483250D5CFE00CD1CC5 /* StretchyHeader.swift */; };
+		33F2B487250D66FE00CD1CC5 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 33F2B486250D66FE00CD1CC5 /* AlamofireImage */; };
+		33F2B489250D678200CD1CC5 /* AlamoCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B488250D678200CD1CC5 /* AlamoCache.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
 		D50E9D1524501FF9006F0E9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */; };
@@ -150,6 +152,7 @@
 		33F2B477250D564900CD1CC5 /* CKRecord+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKRecord+.swift"; sourceTree = "<group>"; };
 		33F2B481250D58C700CD1CC5 /* DashboardDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDetailVM.swift; sourceTree = "<group>"; };
 		33F2B483250D5CFE00CD1CC5 /* StretchyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeader.swift; sourceTree = "<group>"; };
+		33F2B488250D678200CD1CC5 /* AlamoCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamoCache.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gilmoyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D1224501FF6006F0E9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D50E9D1424501FF9006F0E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 				3340A7A324FC001E003FD9F9 /* Alamofire in Frameworks */,
 				D50E9D362451D4F0006F0E9A /* OAuth2 in Frameworks */,
 				330B520F24F11ABA000D8BAA /* AsyncImage in Frameworks */,
+				33F2B487250D66FE00CD1CC5 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +222,7 @@
 				33518E2D24F36C95005320D8 /* AsyncImage.swift */,
 				33518E3124F36CA4005320D8 /* ImageLoader.swift */,
 				33518E3324F36CA8005320D8 /* TempImageCache.swift */,
+				33F2B488250D678200CD1CC5 /* AlamoCache.swift */,
 			);
 			path = AsyncImage;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				D50E9D40245358E7006F0E9A /* KeychainAccess */,
 				330B520E24F11ABA000D8BAA /* AsyncImage */,
 				3340A7A224FC001E003FD9F9 /* Alamofire */,
+				33F2B486250D66FE00CD1CC5 /* AlamofireImage */,
 			);
 			productName = Gyazo;
 			productReference = D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */;
@@ -556,6 +562,7 @@
 				D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				330B520D24F11ABA000D8BAA /* XCRemoteSwiftPackageReference "AsyncImage" */,
 				3340A7A124FC001E003FD9F9 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				33F2B485250D66FE00CD1CC5 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = D50E9D0C24501FF6006F0E9A /* Products */;
 			projectDirPath = "";
@@ -637,6 +644,7 @@
 				D50E9D3824521B58006F0E9A /* OAuth.swift in Sources */,
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
 				334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */,
+				33F2B489250D678200CD1CC5 /* AlamoCache.swift in Sources */,
 				338CC83124FA1F7E00B628AB /* BlurView.swift in Sources */,
 				33F2B482250D58C700CD1CC5 /* DashboardDetailVM.swift in Sources */,
 				338CC82B24F9999100B628AB /* DashboardDetailView.swift in Sources */,
@@ -1005,6 +1013,14 @@
 				minimumVersion = 5.2.2;
 			};
 		};
+		33F2B485250D66FE00CD1CC5 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 		D50E9D342451D4F0006F0E9A /* XCRemoteSwiftPackageReference "Oauth2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/p2/Oauth2";
@@ -1043,6 +1059,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D50E9D3F245358E7006F0E9A /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		33F2B486250D66FE00CD1CC5 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33F2B485250D66FE00CD1CC5 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 		D50E9D352451D4F0006F0E9A /* OAuth2 */ = {
 			isa = XCSwiftPackageProductDependency;
