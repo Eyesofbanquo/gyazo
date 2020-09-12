@@ -109,16 +109,44 @@ struct PhotoList: View {
     }
   }
   
+  private func PostHeadline(post: PhotoListRepresentable) -> some View {
+    Group {
+      if post.app.isEmpty && post.title.isEmpty {
+        Text("Unknown Source")
+          .bold()
+          .lineLimit(1)
+          .foregroundColor(.white)
+          .font(.headline)
+      } else if post.app.isEmpty && post.title.isEmpty == false{
+        Text(post.title)
+          .bold()
+          .lineLimit(1)
+          .foregroundColor(.white)
+          .font(.headline)
+      } else if post.app.isEmpty == false && post.title.isEmpty {
+        Text(post.app)
+          .foregroundColor(.white)
+          .font(.headline)
+          .bold()
+      } else {
+        Text(post.title)
+          .bold()
+          .lineLimit(1)
+          .foregroundColor(.white)
+          .font(.headline)
+      }
+    }
+  }
+  
   private func imageOverlay(post: PhotoListRepresentable, type: PhotoListRepresentableType = .gyazo) -> some View {
     VStack(alignment: .trailing) {
       Spacer()
       Group {
         HStack {
           VStack(alignment: .leading) {
-            Text(post.app)
-              .foregroundColor(.white)
-              .font(.headline)
-              .bold()
+            
+            PostHeadline(post: post)
+            
             Text(post.date)
               .foregroundColor(.white)
               .font(.caption)

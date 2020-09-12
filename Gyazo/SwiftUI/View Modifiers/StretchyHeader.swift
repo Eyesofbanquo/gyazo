@@ -14,7 +14,6 @@ extension Image {
     self
       .resizable()
       .aspectRatio(contentMode: .fill)
-      .layoutPriority(1)
       .frame(width: StretchyHeaderCalculator.calculateWidth(in: proxy, forHeight: height),
              height: StretchyHeaderCalculator.calculateHeight(in: proxy, forHeight: height))
       .clipped()
