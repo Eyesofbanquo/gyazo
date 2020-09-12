@@ -42,16 +42,17 @@ struct DashboardDetailView: View {
             GeometryReader { g in
               HeroImage?
                 .asStretchyHeader(in: g)
+                .layoutPriority(1)
                 .matchedGeometryEffect(id: post.id,
                                        in: heroAnimationID)
             }
             .frame(height: UIScreen.main.bounds.height / 2.2)
             TapToExpandControl
           }
-          
-          DetailBody
-          .padding(.horizontal)
         }
+        DetailBody
+          .frame(maxWidth: .infinity)
+          .padding(.horizontal)
       }
       
       Navbar
@@ -141,27 +142,36 @@ extension DashboardDetailView {
   }
   
   private var DetailBody: some View {
-    VStack(alignment: .leading) {
-      Text(state.formattedDate)
-        .foregroundColor(Color(.label))
-      if let metadata = post.metadata {
-        if let app = metadata.app {
-          Text(app)
-            .foregroundColor(Color(.label))
+    HStack {
+      VStack(alignment: .leading) {
+        
+        if let metadata = post.metadata {
+          if let title = metadata.title {
+            Text(title)
+              .font(.title2)
+              .foregroundColor(Color(.label))
+              .bold()
+          }
+          
+          if let description = metadata.description, description.isEmpty == false {
+            Text(description)
+              .font(.body)
+              .foregroundColor(Color(.label))
+          } else {
+            Text("No description")
+              .font(.body)
+              .italic()
+              .foregroundColor(Color(.label))
+          }
         }
         
-        if let description = metadata.description {
-          Text(description)
-            .font(.caption)
-            .foregroundColor(Color(.label))
-        } else {
-          Text("No description")
-            .font(.caption)
-            .italic()
-            .foregroundColor(Color(.label))
-        }
+        Text(state.formattedDate)
+          .font(.caption)
+          .foregroundColor(Color(.label))
       }
+      Spacer()
     }
+    
   }
   
   private var Navbar: some View {
