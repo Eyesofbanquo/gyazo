@@ -56,6 +56,8 @@
 		33F2B478250D564900CD1CC5 /* CKRecord+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B477250D564900CD1CC5 /* CKRecord+.swift */; };
 		33F2B479250D565100CD1CC5 /* CKRecord+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B477250D564900CD1CC5 /* CKRecord+.swift */; };
 		33F2B480250D57DE00CD1CC5 /* Gyazo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3355E49524F4EE94006B227F /* Gyazo.swift */; };
+		33F2B482250D58C700CD1CC5 /* DashboardDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B481250D58C700CD1CC5 /* DashboardDetailVM.swift */; };
+		33F2B484250D5CFE00CD1CC5 /* StretchyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B483250D5CFE00CD1CC5 /* StretchyHeader.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
 		D50E9D1524501FF9006F0E9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */; };
@@ -146,6 +148,8 @@
 		33F2B471250D55B600CD1CC5 /* TableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModifier.swift; sourceTree = "<group>"; };
 		33F2B473250D561800CD1CC5 /* CloudPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudPost.swift; sourceTree = "<group>"; };
 		33F2B477250D564900CD1CC5 /* CKRecord+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CKRecord+.swift"; sourceTree = "<group>"; };
+		33F2B481250D58C700CD1CC5 /* DashboardDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDetailVM.swift; sourceTree = "<group>"; };
+		33F2B483250D5CFE00CD1CC5 /* StretchyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeader.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gilmoyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D1224501FF6006F0E9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D50E9D1424501FF9006F0E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 		33CA092925044E5500EAB5C7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				33F2B481250D58C700CD1CC5 /* DashboardDetailVM.swift */,
 				33CA092A25044E6F00EAB5C7 /* ContentViewModel.swift */,
 			);
 			path = ViewModel;
@@ -260,6 +265,7 @@
 				339F28E425060DA8002A3AA2 /* NavbarIconModifier.swift */,
 				33F2B471250D55B600CD1CC5 /* TableViewModifier.swift */,
 				330B521024F1261D000D8BAA /* ListSeparatorStyleNoneModifier.swift */,
+				33F2B483250D5CFE00CD1CC5 /* StretchyHeader.swift */,
 			);
 			path = "View Modifiers";
 			sourceTree = "<group>";
@@ -632,6 +638,7 @@
 				D50E9D312450203D006F0E9A /* API.swift in Sources */,
 				334F0D3624F56C9B003EB8EF /* UIApplication+.swift in Sources */,
 				338CC83124FA1F7E00B628AB /* BlurView.swift in Sources */,
+				33F2B482250D58C700CD1CC5 /* DashboardDetailVM.swift in Sources */,
 				338CC82B24F9999100B628AB /* DashboardDetailView.swift in Sources */,
 				33F2B474250D561800CD1CC5 /* CloudPost.swift in Sources */,
 				3340A7A824FC1E7D003FD9F9 /* ImageResponse.swift in Sources */,
@@ -646,6 +653,7 @@
 				33B496DA24FAE27900B0DED2 /* ShareView.swift in Sources */,
 				33518E3224F36CA4005320D8 /* ImageLoader.swift in Sources */,
 				33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */,
+				33F2B484250D5CFE00CD1CC5 /* StretchyHeader.swift in Sources */,
 				33F2B40D2506D6C400CD1CC5 /* PopInFade.swift in Sources */,
 				33F2B478250D564900CD1CC5 /* CKRecord+.swift in Sources */,
 				D50E9D3E245278F1006F0E9A /* LoginIntercept.swift in Sources */,

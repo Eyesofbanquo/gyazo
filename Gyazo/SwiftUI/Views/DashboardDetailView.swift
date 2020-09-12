@@ -11,144 +11,60 @@ import SwiftUI
 
 struct DashboardDetailView: View {
   var post: Post
-  @State var expanded: Bool = false
   
   // MARK: - Env -
   @Environment(\.imageCache) var cache
-  var animationNamespace: Namespace.ID
   
   // MARK: - State -
   var isVisible: Binding<Bool>
   
-  @State var formattedDate: String = ""
-  @State var showingProfile: Bool = false
-  @State var copiedText: Bool = false
-  @State var shareController: Bool = false
+  var heroAnimationID: Namespace.ID
+  
+  @ObservedObject var vm: DashboardDetailVM
+  @State var state: DashboardDetailViewState = DashboardDetailViewState()
+  
   @ObservedObject var dateFormatter: DateFormat = DateFormat()
+  
+  init(post: Post, heroAnimationNamespace: Namespace.ID, isVisible: Binding<Bool>) {
+    self.post = post
+    self.vm = DashboardDetailVM(post: post)
+    self.heroAnimationID = heroAnimationNamespace
+    self.isVisible = isVisible
+    
+    self.vm.formatDate()
+  }
   
   var body: some View {
     ZStack(alignment: .topLeading) {
       ScrollView {
         VStack {
           ZStack(alignment: .bottomTrailing) {
-            
             GeometryReader { g in
-              heroImage?
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .layoutPriority(1)
-                .frame(width: g.frame(in: .global).minY > 0 ? g.size.width + g.frame(in: .global).minY : g.size.width,
-                       height: g.frame(in: .global).minY > 0 ? UIScreen.main.bounds.height / 2.2 + g.frame(in: .global).minY : UIScreen.main.bounds.height / 2.2)
-                .clipped()
-                .offset(x: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY / 2 : 0, y: g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY : 0)
-                .matchedGeometryEffect(id: post.id, in: animationNamespace)
+              HeroImage?
+                .asStretchyHeader(in: g)
+                .matchedGeometryEffect(id: post.id,
+                                       in: heroAnimationID)
             }
             .frame(height: UIScreen.main.bounds.height / 2.2)
-            
-            tapToExpandControl
+            TapToExpandControl
           }
           
-          
-          VStack(alignment: .leading) {
-            Text(formattedDate)
-              .foregroundColor(Color(.label))
-            if let metadata = post.metadata {
-              if let app = metadata.app {
-                Text(app)
-                  .foregroundColor(Color(.label))
-              }
-              
-              if let description = metadata.description {
-                TextEditor(text:
-                            .constant("Type a description"))
-                  .border(Color.black.opacity(0.67))
-                  .foregroundColor(Color(.label))
-              }
-              
-            }
-          }
+          DetailBody
           .padding(.horizontal)
-          
         }
-        
       }
-      navbar
       
-      if self.expanded, let imageURL = post.cacheableImageURL {
-        SelectedImageView(uiimage: cache[imageURL],
-                          imageURL: post.urlString,
-                          action: .clipboard,
-                          presentShareController: $shareController,
-                          presentSelectedImageView: $expanded
-                          )
-        .transition(.popInFade(scaleBy: 0.5))
+      Navbar
+      
+      SelectedImage
         .zIndex(1)
-      }
     }
-    .onReceive(self.dateFormatter.format(fromString: post.createdAt), perform: { date in
-      self.formattedDate = date
+    .onReceive(self.vm.$postDate, perform: { date in
+      self.state.formattedDate = date
     })
     .background(Color(.systemBackground))
     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
     
-  }
-  
-  private var heroImage: Image? {
-    if let imageURL = post.cacheableImageURL, let cachedImage = self.cache[imageURL] {
-      return Image(uiImage: cachedImage)
-    }
-    return nil
-  }
-  
-  private var tapToExpandControl: some View {
-    HStack {
-      Spacer()
-      Text("Tap to enlarge")
-        .font(.headline)
-        .padding()
-        .background(Color(.systemFill))
-        .foregroundColor(.white)
-        .clipShape(Capsule())
-        .contentShape(Capsule())
-        .padding(.bottom, 8.0)
-        .onTapGesture {
-          withAnimation(Animation.easeOut(duration: 5)) {
-            self.expanded = true
-          }
-        }
-      Spacer()
-    }
-  }
-  
-  private var navbar: some View {
-      HStack {
-        Image(systemName: "xmark.circle.fill")
-          .font(.title)
-          .foregroundColor(Color.white)
-          .background(Color.black)
-          .clipShape(Circle())
-          .onTapGesture {
-            withAnimation {
-              self.isVisible.wrappedValue = false
-            }
-          }
-          .padding(.top, 8.0)
-          .padding(.leading, 16.0)
-        Spacer()
-        Image(systemName: "person.circle.fill")
-          .font(.title)
-          .foregroundColor(Color.white)
-          .background(Color.black)
-          .clipShape(Circle())
-          .onTapGesture {
-            self.showingProfile = true
-          }
-          .sheet(isPresented: self.$showingProfile) {
-            Profile(presented: $showingProfile)
-          }
-          .padding(.top, 8.0)
-          .padding(.trailing, 16.0)
-      }
   }
   
   private func copyToPasteboard() {
@@ -174,8 +90,109 @@ struct DashboardDetailView_Previews: PreviewProvider {
   @State static  var expanded: Bool = false
   static var previews: some View {
     DashboardDetailView(post: Post.stub.first!,
-                        expanded: expanded,
-                        animationNamespace: imageAnimation,
+                        heroAnimationNamespace: imageAnimation,
                         isVisible: isVisible)
   }
+}
+
+// MARK: - Views -
+
+extension DashboardDetailView {
+  
+  private var HeroImage: Image? {
+    if let imageURL = post.cacheableImageURL, let cachedImage = self.cache[imageURL] {
+      return Image(uiImage: cachedImage)
+    }
+    return nil
+  }
+  
+  private var SelectedImage: some View {
+    Group {
+      if state.expanded, let imageURL = post.cacheableImageURL {
+        SelectedImageView(uiimage: cache[imageURL],
+                          imageURL: post.urlString,
+                          action: .clipboard,
+                          presentShareController: $state.shareController,
+                          presentSelectedImageView: $state.expanded
+        )
+        .transition(.popInFade(scaleBy: 0.5))
+      }
+    }
+  }
+  
+  private var TapToExpandControl: some View {
+    HStack {
+      Spacer()
+      Text("Tap to enlarge")
+        .font(.headline)
+        .padding()
+        .background(Color(.systemFill))
+        .foregroundColor(.white)
+        .clipShape(Capsule())
+        .contentShape(Capsule())
+        .padding(.bottom, 8.0)
+        .onTapGesture {
+          withAnimation(Animation.easeOut(duration: 0.15)) {
+            self.state.expanded = true
+          }
+        }
+      Spacer()
+    }
+  }
+  
+  private var DetailBody: some View {
+    VStack(alignment: .leading) {
+      Text(state.formattedDate)
+        .foregroundColor(Color(.label))
+      if let metadata = post.metadata {
+        if let app = metadata.app {
+          Text(app)
+            .foregroundColor(Color(.label))
+        }
+        
+        if let description = metadata.description {
+          Text(description)
+            .font(.caption)
+            .foregroundColor(Color(.label))
+        } else {
+          Text("No description")
+            .font(.caption)
+            .italic()
+            .foregroundColor(Color(.label))
+        }
+      }
+    }
+  }
+  
+  private var Navbar: some View {
+    HStack {
+      Image(systemName: "xmark.circle.fill")
+        .font(.title)
+        .foregroundColor(Color.white)
+        .background(Color.black)
+        .clipShape(Circle())
+        .onTapGesture {
+          withAnimation {
+            self.isVisible.wrappedValue = false
+          }
+        }
+        .padding(.top, 8.0)
+        .padding(.leading, 16.0)
+      Spacer()
+      Image(systemName: "person.circle.fill")
+        .font(.title)
+        .foregroundColor(Color.white)
+        .background(Color.black)
+        .clipShape(Circle())
+        .onTapGesture {
+          self.state.showingProfile = true
+        }
+        .sheet(isPresented: $state.showingProfile) {
+          Profile(presented: $state.showingProfile)
+        }
+        .padding(.top, 8.0)
+        .padding(.trailing, 16.0)
+    }
+  }
+  
 }

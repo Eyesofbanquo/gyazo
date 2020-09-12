@@ -13,7 +13,7 @@ class DateFormat: ObservableObject {
   
   lazy var formatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "MMM dd, yyyy HH:mm"
+    formatter.dateFormat = "MMM dd, yyyy"
     
     return formatter
   }()

@@ -97,7 +97,7 @@ extension ContentView {
     Group {
       if let selectedPost = self.state.selectedPost  {
         DashboardDetailView(post: selectedPost,
-                            animationNamespace: detailViewAnimation,
+                            heroAnimationNamespace: detailViewAnimation,
                             isVisible: $state.presentDashboardCell)
       } else {
         EmptyView()
