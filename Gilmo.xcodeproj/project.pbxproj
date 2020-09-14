@@ -39,7 +39,6 @@
 		33B496DA24FAE27900B0DED2 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B496D924FAE27900B0DED2 /* ShareView.swift */; };
 		33CA0928250444AE00EAB5C7 /* PhotoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA0927250444AE00EAB5C7 /* PhotoList.swift */; };
 		33CA092B25044E6F00EAB5C7 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA092A25044E6F00EAB5C7 /* ContentViewModel.swift */; };
-		33CA092D2504502600EAB5C7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA092C2504502600EAB5C7 /* AppState.swift */; };
 		33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D623FB24F597170051C3D7 /* UploadOptions.swift */; };
 		33DE872C24FB3A8600DFEB85 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DE872B24FB3A8600DFEB85 /* ShareViewController.swift */; };
 		33DE872F24FB3A8600DFEB85 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33DE872D24FB3A8600DFEB85 /* MainInterface.storyboard */; };
@@ -60,6 +59,7 @@
 		33F2B484250D5CFE00CD1CC5 /* StretchyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B483250D5CFE00CD1CC5 /* StretchyHeader.swift */; };
 		33F2B487250D66FE00CD1CC5 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 33F2B486250D66FE00CD1CC5 /* AlamofireImage */; };
 		33F2B489250D678200CD1CC5 /* AlamoCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B488250D678200CD1CC5 /* AlamoCache.swift */; };
+		33F2B48C250F2F3500CD1CC5 /* AppMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F2B48B250F2F3500CD1CC5 /* AppMachine.swift */; };
 		D50E9D1324501FF6006F0E9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E9D1224501FF6006F0E9A /* ContentView.swift */; };
 		D50E9D1524501FF9006F0E9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1424501FF9006F0E9A /* Assets.xcassets */; };
 		D50E9D1824501FF9006F0E9A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D50E9D1724501FF9006F0E9A /* Preview Assets.xcassets */; };
@@ -137,7 +137,6 @@
 		33B496D924FAE27900B0DED2 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		33CA0927250444AE00EAB5C7 /* PhotoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoList.swift; sourceTree = "<group>"; };
 		33CA092A25044E6F00EAB5C7 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
-		33CA092C2504502600EAB5C7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		33D623FB24F597170051C3D7 /* UploadOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadOptions.swift; sourceTree = "<group>"; };
 		33DE872924FB3A8600DFEB85 /* GilmoShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GilmoShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		33DE872B24FB3A8600DFEB85 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +152,7 @@
 		33F2B481250D58C700CD1CC5 /* DashboardDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDetailVM.swift; sourceTree = "<group>"; };
 		33F2B483250D5CFE00CD1CC5 /* StretchyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyHeader.swift; sourceTree = "<group>"; };
 		33F2B488250D678200CD1CC5 /* AlamoCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamoCache.swift; sourceTree = "<group>"; };
+		33F2B48B250F2F3500CD1CC5 /* AppMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMachine.swift; sourceTree = "<group>"; };
 		D50E9D0B24501FF6006F0E9A /* Gilmoyazo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gilmoyazo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E9D1224501FF6006F0E9A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D50E9D1424501FF9006F0E9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -338,6 +338,14 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		33F2B48A250F2F2C00CD1CC5 /* Machines */ = {
+			isa = PBXGroup;
+			children = (
+				33F2B48B250F2F3500CD1CC5 /* AppMachine.swift */,
+			);
+			path = Machines;
+			sourceTree = "<group>";
+		};
 		D50E9D0224501FF6006F0E9A = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +370,7 @@
 		D50E9D0D24501FF6006F0E9A /* Gyazo */ = {
 			isa = PBXGroup;
 			children = (
+				33F2B48A250F2F2C00CD1CC5 /* Machines */,
 				33DE874224FB499C00DFEB85 /* Gyazo.entitlements */,
 				33F2B47C250D571B00CD1CC5 /* API */,
 				33F2B476250D564000CD1CC5 /* Extensions */,
@@ -382,7 +391,6 @@
 				D50E9D4224535901006F0E9A /* Secure.swift */,
 				D50E9D46245364B8006F0E9A /* UserSettings.swift */,
 				3340A7AC24FC5B6E003FD9F9 /* Cloud.swift */,
-				33CA092C2504502600EAB5C7 /* AppState.swift */,
 			);
 			path = Gyazo;
 			sourceTree = "<group>";
@@ -651,7 +659,6 @@
 				33F2B474250D561800CD1CC5 /* CloudPost.swift in Sources */,
 				3340A7A824FC1E7D003FD9F9 /* ImageResponse.swift in Sources */,
 				33D623FC24F597170051C3D7 /* UploadOptions.swift in Sources */,
-				33CA092D2504502600EAB5C7 /* AppState.swift in Sources */,
 				3355E49624F4EE94006B227F /* Gyazo.swift in Sources */,
 				D50E9D4324535901006F0E9A /* Secure.swift in Sources */,
 				3355E49024F3819A006B227F /* ImagePicker.swift in Sources */,
@@ -661,6 +668,7 @@
 				33B496DA24FAE27900B0DED2 /* ShareView.swift in Sources */,
 				33518E3224F36CA4005320D8 /* ImageLoader.swift in Sources */,
 				33384D8324FAD8D300F0266A /* SelectedImageView.swift in Sources */,
+				33F2B48C250F2F3500CD1CC5 /* AppMachine.swift in Sources */,
 				33F2B484250D5CFE00CD1CC5 /* StretchyHeader.swift in Sources */,
 				33F2B40D2506D6C400CD1CC5 /* PopInFade.swift in Sources */,
 				33F2B478250D564900CD1CC5 /* CKRecord+.swift in Sources */,
