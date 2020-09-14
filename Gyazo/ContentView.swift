@@ -42,10 +42,11 @@ struct ContentView: View {
         .navigationBarTitle(Text("Gyazo"))
         .navigationBarItems(
           trailing: ProfileNavigationItem)
-        .sheet(isPresented: self.$state.showingProfile) {
-          Profile(presented: $state.showingProfile)
-        }//z- stack
-      } // nav view
+        //z- stack
+      }
+      .sheet(isPresented: self.$state.showingProfile) {
+        Profile(presented: $state.showingProfile)
+      }// nav view
       
       if state.uploadImage != nil {
         UploadImage
@@ -70,6 +71,7 @@ struct ContentView: View {
     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification), perform: { output in
       self.vm.retrieveAllPosts()
     })
+    
     
   } // body
   

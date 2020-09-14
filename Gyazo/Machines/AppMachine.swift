@@ -14,12 +14,16 @@ enum AppState {
   case onboarding
   case dashboard
   case info
+  case login
+  case error
 }
 
 enum AppEvent {
   case toOnboarding
   case toDashboard
+  case login
   case restart
+  case error
 }
 
 class AppMachine: ObservableObject {
@@ -46,23 +50,41 @@ class AppMachine: ObservableObject {
       .store(in: &cancellables)
   }
   
+  func send(_ input: AppEvent) {
+    eventInputPassthrough.send(input)
+  }
+  
   private func machine(_ state: AppState, _ event: AppEvent) -> AppState{
-    
     switch state {
       case .startup:
         switch event {
           case .toOnboarding: return .onboarding
           case .toDashboard: return .dashboard
+          case .login: return .login
           default: return .startup
         }
-      case .dashboard: return .dashboard
+      case .dashboard:
+        switch event {
+          case .restart: return .startup
+          default: return .dashboard
+        }
       case .onboarding: return .onboarding
       case .info:
         switch event {
           case .toDashboard: return .dashboard
           case .toOnboarding: return .onboarding
           case .restart: return .startup
+          case .login: return .login
+          default: return .info
         }
+      case .login:
+        switch event {
+          case .toDashboard: return .dashboard
+          case .restart: return .startup
+          case .error: return .error
+          default: return .login
+        }
+      case .error: return .startup
     }
   }
 }

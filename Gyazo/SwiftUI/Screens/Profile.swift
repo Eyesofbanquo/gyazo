@@ -21,6 +21,8 @@ struct Profile: View {
   
   @Environment(\.oauthKey) var oauth
   
+  @EnvironmentObject var appMachine: AppMachine
+  
   @State var loggingOut: Bool = false
   
   @Binding var presented: Bool
@@ -72,9 +74,9 @@ struct Profile: View {
               
               Spacer()
               Button(action: {
-                NotificationCenter.default.post(name: .loggedOut, object: nil, userInfo: nil)
                 self.loggingOut = true
                 self.oauth.logout()
+                self.appMachine.send(.restart)
               }) {
                 Text("logout")
                   .bold()

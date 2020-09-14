@@ -22,7 +22,7 @@ struct UploadOptions: View {
   @Binding var photoLibraryImage: UIImage?
   
   @Binding var cameraImage: UIImage?
-  
+    
   var body: some View {
     ZStack {
       Group {

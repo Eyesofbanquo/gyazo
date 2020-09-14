@@ -60,11 +60,15 @@ struct DashboardDetailView: View {
       SelectedImage
         .zIndex(1)
     }
+    .sheet(isPresented: $state.showingProfile) {
+      Profile(presented: $state.showingProfile)
+    }
     .onReceive(self.vm.$postDate, perform: { date in
       self.state.formattedDate = date
     })
     .background(Color(.systemBackground))
     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
+    
     
   }
   
@@ -196,9 +200,6 @@ extension DashboardDetailView {
         .clipShape(Circle())
         .onTapGesture {
           self.state.showingProfile = true
-        }
-        .sheet(isPresented: $state.showingProfile) {
-          Profile(presented: $state.showingProfile)
         }
         .padding(.top, 8.0)
         .padding(.trailing, 16.0)
