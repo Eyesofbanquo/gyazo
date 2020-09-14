@@ -20,20 +20,44 @@ var userSettings: UserSettings = UserSettings()
 
 var secure: Secure = Secure()
 
-
 @main
 struct TestApp: App {
-  @State var loginSuccessful: Bool = false
-  
   @Environment(\.presentationMode) var presentationMode
+  
+  @StateObject var machine: AppMachine = AppMachine()
   
   var body: some Scene {
     WindowGroup {
-      VStack {
-        if Secure.keychain["access_token"] == nil && loginSuccessful == false {
-          LoginIntercept(loginSuccessful: $loginSuccessful).environmentObject(userSettings)
-        } else {
-          ContentView().environmentObject(userSettings)
+      
+      Group {
+        switch machine.state {
+          case .startup:
+            VStack {
+              Text("Welcome to the app!")
+              Button(action: {
+                self.machine.send(.login)
+              }) {
+                Text("Press me to continue!")
+              }
+            }
+            .transition(.move(edge: .trailing))
+            .animation(.default)
+          case .onboarding:
+            Text("This is the onboarding screen")
+          case .dashboard:
+            ContentView()
+              .environmentObject(userSettings)
+              .environmentObject(machine)
+          case .login:
+            LoginIntercept()
+              .environmentObject(userSettings)
+              .environmentObject(machine)
+              .transition(.move(edge: .trailing))
+              .animation(.default)
+          case .error:
+            Text("Error page")
+          default:
+            Text("Undefined state")
         }
       }
       .onOpenURL { url in
@@ -41,7 +65,7 @@ struct TestApp: App {
       }
       .onReceive(NotificationCenter.default.publisher(for: .loggedOut), perform: { _ in
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-          self.loginSuccessful = false
+//          self.machine.send(.restart)
         }
       })
     }

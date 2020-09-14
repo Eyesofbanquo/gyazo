@@ -12,18 +12,17 @@ import SwiftUI
 
 struct LoginIntercept: UIViewControllerRepresentable {
   
-  @Binding var loginSuccessful: Bool
+  @EnvironmentObject var machine: AppMachine
   
   typealias UIViewControllerType = LoginInterceptViewController
   
   func makeUIViewController(context: UIViewControllerRepresentableContext<LoginIntercept>) -> LoginInterceptViewController {
     let controller = LoginInterceptViewController()
-    controller.loginSuccessful = $loginSuccessful
+    controller.appMachine = machine
     return controller
   }
   
   func updateUIViewController(_ uiViewController: LoginInterceptViewController, context: UIViewControllerRepresentableContext<LoginIntercept>) {
-    
   }
   
 }

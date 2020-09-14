@@ -21,8 +21,8 @@ final class LoginInterceptViewController: UIViewController, ObservableObject {
   var returnFromAuthCancellable: AnyCancellable?
   
   var cancellable: AnyCancellable?
-  
-  var loginSuccessful: Binding<Bool>?
+    
+  var appMachine: AppMachine?
     
   init() {
     super.init(nibName: nil, bundle: nil)
@@ -57,13 +57,13 @@ final class LoginInterceptViewController: UIViewController, ObservableObject {
     if Secure.keychain["accessToken"] == nil {
       self.cancellable = oauth.authorize(in: self).receive(on: DispatchQueue.main).sink(receiveValue: { success in
         if success {
-          self.loginSuccessful?.wrappedValue = true
+          self.appMachine?.send(.toDashboard)
         } else {
           // Present an alert?
         }
       })
     } else {
-      self.loginSuccessful?.wrappedValue = true
+      self.appMachine?.send(.toDashboard)
     }
   }
   
