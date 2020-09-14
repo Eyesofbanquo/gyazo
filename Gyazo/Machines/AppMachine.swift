@@ -64,7 +64,5 @@ class AppMachine: ObservableObject {
           case .restart: return .startup
         }
     }
-    
-    return .startup
   }
 }

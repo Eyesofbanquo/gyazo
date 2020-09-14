@@ -20,21 +20,39 @@ var userSettings: UserSettings = UserSettings()
 
 var secure: Secure = Secure()
 
-
 @main
 struct TestApp: App {
   @State var loginSuccessful: Bool = false
   
   @Environment(\.presentationMode) var presentationMode
   
+  @StateObject var machine: AppMachine = AppMachine()
+  
   var body: some Scene {
     WindowGroup {
-      VStack {
-        if Secure.keychain["access_token"] == nil && loginSuccessful == false {
-          LoginIntercept(loginSuccessful: $loginSuccessful).environmentObject(userSettings)
-        } else {
-          ContentView().environmentObject(userSettings)
+      
+      Group {
+        switch machine.state {
+          case .startup:
+            Text("Welcome to the app!")
+          case .onboarding:
+            Text("This is the onboarding screen")
+          case .dashboard:
+            ContentView()
+              .environmentObject(userSettings)
+              .environmentObject(machine)
+          default:
+            Text("Undefined state")
         }
+//        if Secure.keychain["access_token"] == nil && loginSuccessful == false {
+//          LoginIntercept(loginSuccessful: $loginSuccessful)
+//            .environmentObject(userSettings)
+//            .environmentObject(machine)
+//        } else {
+//          ContentView()
+//            .environmentObject(userSettings)
+//            .environmentObject(machine)
+//        }
       }
       .onOpenURL { url in
         NotificationCenter.default.post(name: .returnFromAuth, object: nil, userInfo: ["url": url])
